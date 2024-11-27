@@ -54,6 +54,7 @@ class SeriesController extends GetxController{
   getSeriesDetail(id) async{
     try {
       isDetailLoading(true);
+      episodeList.clear();
       var response = await ApiRepo.apiGet("$showDetailUrl/$id");
       if(response != null) {
         final allData = SeriesDetailModel.fromJson(response);
@@ -70,9 +71,10 @@ class SeriesController extends GetxController{
   getEpisodeList(seriesId, seasonNo) async{
     try {
       isEpisodeLoading(true);
+      episodeList.clear();
       var response = await ApiRepo.apiGet("$showDetailUrl/$seriesId?api_key=$apiKey&append_to_response=season/$seasonNo");
       if(response != null) {
-        episodeList = response;
+        episodeList = response["season/$seasonNo"]["episodes"];
       }
     } catch (e) {
       log(e.toString());

@@ -57,7 +57,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
         backgroundColor: Colors.black,
         body: Obx(() => movieCon.isLoading.isTrue
           ? const SizedBox(
-            height: 700,
+            height: 750,
             child: Center(
               child: CircularProgressIndicator(color: Colors.red,),
             ),
