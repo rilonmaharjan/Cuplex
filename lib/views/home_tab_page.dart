@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: customAppBar(),
       body: SafeArea(
         child: DefaultTabController(
           length: 2,
@@ -82,6 +83,56 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
             ],
           ),
         ),
+      ),
+    );
+  }
+  
+  customAppBar() {
+    return PreferredSize(
+      preferredSize: const Size(double.infinity, 65),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 26,),
+          Container(
+            padding: const EdgeInsets.only(top : 18, bottom : 0, left : 18),
+            child: Row(
+              children: [
+                const SizedBox(width: 30),
+                SizedBox(
+                  height: 36,
+                  width: 310.0,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(25.0),
+                    child: TextFormField( 
+                      onTap: () {
+                        // Get.to(() => const Settings(), transition: Transition.downToUp, duration: const Duration(milliseconds: 350));
+                      },
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        filled: true,
+                        contentPadding: const EdgeInsets.only(top: 6.0, left: 15.0, right: 10),
+                        fillColor: const Color.fromARGB(255, 221, 221, 221),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        hintText: 'Search',
+                        hintStyle:  const TextStyle(fontSize: 14, color: Color.fromARGB(255, 110, 108, 110)),
+                        prefixIconConstraints: const BoxConstraints(
+                          maxWidth: 62.0,
+                          minWidth: 52.0
+                        ),
+                        prefixIcon: const Icon(Icons.search, color: Color.fromARGB(255, 110, 108, 110))
+                      ),
+                    ),
+                  ),
+                ),                
+                const SizedBox(width: 30),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -8,69 +8,33 @@ import 'package:cuplex/model/movies_model.dart';
 import 'package:get/get.dart';
 
 class MoviesController extends GetxController{
-  late RxBool isLoading = false.obs;
-  late RxBool isPageLoading = false.obs;
-  late RxBool isDetailLoading = false.obs;
+  late RxBool isLoading = true.obs;
+  late RxBool isPageLoading = true.obs;
+  late RxBool isDetailLoading = true.obs;
   int pageNum = 0;
   dynamic moviesList = [];
   dynamic moviesDetail;
 
-  // Start Loading
-  startLoading(){
-    isLoading(true);
-    update();
-  }
-
-  // Stop Loading
-  stopLoading(){
-    isLoading(false);
-    update();
-  }
-
-  // Start Pagination Loading
-  startPageLoading(){
-    isPageLoading(true);
-    update();
-  }
-
-  // Stop Pagination Loading
-  stopPageLoading(){
-    isPageLoading(false);
-    update();
-  }
-
-  // Start Detail Loading
-  startDetailLoading(){
-    isDetailLoading(true);
-    update();
-  }
-
-  // Stop Detail Loading
-  stopDetailLoading(){
-    isDetailLoading(false);
-    update();
-  }
-
   // Get Movies List
   getMoviesList() async {
     try {
-      startLoading();
+      isLoading(true);
       var response = await ApiRepo.apiGet(movieListUrl);
       if(response != null) {
         moviesList = response['results'];
-        stopLoading();
+        isLoading(false);
       }
     } catch (e) {
-      stopLoading();
+      isLoading(false);
     } finally{
-      stopLoading();
+      isLoading(false);
     }
   }
 
   //movie list pagination
   getPagination() async{
     try {
-      startPageLoading();
+      isPageLoading(true);
       var response = await ApiRepo.apiGet("$movieListUrl?page=$pageNum&sort_by=popularity.desc&include_adult=true");
       if(response != null) {
         moviesList.addAll(response['results']);
@@ -78,7 +42,7 @@ class MoviesController extends GetxController{
     } catch (e) {
       log(e.toString());
     } finally{
-      stopPageLoading();
+      isPageLoading(false);
     }
   }
 
@@ -86,7 +50,7 @@ class MoviesController extends GetxController{
   //movies detail
   getMoviesDetail(id) async{
     try {
-      startDetailLoading();
+      isDetailLoading(true);
       var response = await ApiRepo.apiGet("$movieDetailUrl/$id");
       if(response != null) {
         final allData = MovieDetailModel.fromJson(response);
@@ -95,7 +59,7 @@ class MoviesController extends GetxController{
     } catch (e) {
       log(e.toString());
     } finally{
-      stopDetailLoading();
+      isDetailLoading(false);
     }
   }
 

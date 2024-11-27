@@ -8,10 +8,10 @@ import 'package:cuplex/model/series_model.dart';
 import 'package:get/get.dart';
 
 class SeriesController extends GetxController{
-  late RxBool isLoading = false.obs;
-  late RxBool isPageLoading = false.obs;
-  late RxBool isDetailLoading = false.obs;
-  late RxBool isEpisodeLoading = false.obs;
+  late RxBool isLoading = true.obs;
+  late RxBool isPageLoading = true.obs;
+  late RxBool isDetailLoading = true.obs;
+  late RxBool isEpisodeLoading = true.obs;
   int pageNum = 0;
   dynamic seriesList = [];
   dynamic episodeList = [];
