@@ -21,66 +21,69 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: customAppBar(),
-      body: SafeArea(
-        child: DefaultTabController(
-          length: 2,
-          initialIndex: 0,
-          child: Column(
-            children: [
-              Container(
-                height: 50.0,
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Colors.grey,
-                      width: 0.5
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: customAppBar(),
+        body: SafeArea(
+          child: DefaultTabController(
+            length: 2,
+            initialIndex: 0,
+            child: Column(
+              children: [
+                Container(
+                  height: 50.0,
+                  decoration: const BoxDecoration(
+                    color: Colors.black,
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.grey,
+                        width: 0.5
+                      )
                     )
-                  )
-                ),
-                child: TabBar(
-                  controller: _tabController,
-                  indicatorColor: Colors.red,
-                  labelColor: Colors.white,
-                  indicatorWeight: 2,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorPadding: const EdgeInsets.symmetric(horizontal: 40),
-                  labelStyle: const TextStyle(fontSize: 16),
-                  unselectedLabelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
-                  isScrollable: false,
-                  tabs: const [
-                    Tab(
-                      child: Text(
-                        'Movies',
-                        style: TextStyle(
-                          fontSize: 16,
+                  ),
+                  child: TabBar(
+                    controller: _tabController,
+                    indicatorColor: Colors.red,
+                    labelColor: Colors.white,
+                    indicatorWeight: 2,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicatorPadding: const EdgeInsets.symmetric(horizontal: 40),
+                    labelStyle: const TextStyle(fontSize: 16),
+                    unselectedLabelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+                    isScrollable: false,
+                    tabs: const [
+                      Tab(
+                        child: Text(
+                          'Movies',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
                         ),
                       ),
-                    ),
-                    Tab(
-                      child: Text(
-                        'Series', 
-                        style: TextStyle(
-                          fontSize: 16,
+                      Tab(
+                        child: Text(
+                          'Series', 
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: const [
-                    MoviesListPage(),
-                    SeriesListPage(),
-                  ],
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: const [
+                      MoviesListPage(),
+                      SeriesListPage(),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

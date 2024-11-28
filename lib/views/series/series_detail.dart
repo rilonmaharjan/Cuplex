@@ -367,6 +367,34 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                 ],
               ),
             ),
+            Visibility(
+              visible: selectedEpisode == null,
+              child: Positioned(
+                top: 60,
+                left: 20,
+                child: GestureDetector(
+                  onTap:(){
+                    Get.back();
+                  },
+                  child: Container(
+                    height: 36,
+                    width: 36,
+                    padding: const EdgeInsets.only(left: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(100)
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                        size : 26
+                      ),
+                    ),
+                  ),
+                )
+              ),
+            ),
             seriesCon.isEpisodeLoading.isTrue 
               ? Container(
                 height: MediaQuery.of(context).size.height,

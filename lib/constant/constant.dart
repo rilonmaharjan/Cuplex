@@ -20,3 +20,7 @@ const String showEmbedUrl = 'https://vidsrc.xyz/embed/tv';
 
 //MISC 
 const String posterUrl = 'https://image.tmdb.org/t/p/original';
+
+//Trending
+const String trendingMovieUrl = "https://api.themoviedb.org/3/trending/movie/day";
+const String trendingSeriesUrl = "https://api.themoviedb.org/3/trending/tv/day";
