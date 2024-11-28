@@ -271,7 +271,6 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                                     imageUrl: seriesCon.episodeList[index]["still_path"] == "" || seriesCon.episodeList[index]["still_path"] == null
                                                       ? "$posterUrl${seriesCon.seriesDetail.backdropPath}"
                                                       : "$posterUrl${seriesCon.episodeList[index]["still_path"]}",
-                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
                                               ),

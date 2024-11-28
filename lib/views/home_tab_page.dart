@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                     labelStyle: const TextStyle(fontSize: 16),
                     unselectedLabelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
                     isScrollable: false,
+                    physics: const NeverScrollableScrollPhysics(),
                     tabs: const [
                       Tab(
                         child: Text(
@@ -75,6 +76,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                 ),
                 Expanded(
                   child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: _tabController,
                     children: const [
                       MoviesListPage(),

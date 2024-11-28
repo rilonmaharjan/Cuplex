@@ -25,7 +25,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
 
   initialise() async{
     WidgetsBinding.instance.addPostFrameCallback((_) async{
-      await movieCon.getTrendingList();
+      await movieCon.getTrendingMoviesList();
       await movieCon.getTopRatedMovies();
       await movieCon.getMoviesList();
     });

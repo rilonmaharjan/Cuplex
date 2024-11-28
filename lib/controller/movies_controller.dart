@@ -67,8 +67,8 @@ class MoviesController extends GetxController{
     }
   }
 
-    // Get Trend List
-  getTrendingList() async {
+  // Get Trending Movies List
+  getTrendingMoviesList() async {
     try {
       isTrendingMoviesLoading(true);
       var response = await ApiRepo.apiGet(trendingMovieUrl);

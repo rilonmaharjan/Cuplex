@@ -25,7 +25,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
 
   initialise() async{
     WidgetsBinding.instance.addPostFrameCallback((_) async{
-      await seriesCon.getTrendingList();
+      await seriesCon.getTrendingSeriesList();
       await seriesCon.getTopRatedSeries();
       await seriesCon.getSeriesList();
     });

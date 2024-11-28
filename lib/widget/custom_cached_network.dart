@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cuplex/widget/custom_shimmer.dart';
 import 'package:flutter/material.dart';
 
@@ -28,21 +29,13 @@ class _DisplayNetworkImageState extends State<DisplayNetworkImage> {
   Widget build(BuildContext context) {
     return widget.imageUrl == "null" || widget.imageUrl.isEmpty || widget.imageUrl == ''
     ? placeHolder()
-    :  Image.network(
-        widget.imageUrl,
+    :  CachedNetworkImage(
+        imageUrl: widget.imageUrl,
         width: widget.width,
         height: widget.height,
         fit: widget.fit ?? BoxFit.cover,
-        headers: const { "Connection": "Keep-Alive"},
-        loadingBuilder: (context, child, loadingProgress) {
-          return loadingProgress == null
-            ? child
-            : CustomShimmer(
-              height: widget.height,
-              width: widget.width,
-            );
-        }, 
-        errorBuilder: (context, error, stackTrace) => placeHolder(),
+        placeholder: (context, url) => const CustomShimmer(),
+        errorWidget: (context, url,_) => placeHolder(),
       );
   }
 

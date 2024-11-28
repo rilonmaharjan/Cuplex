@@ -30,7 +30,6 @@ class MovieCard extends StatelessWidget {
             // Use an AspectRatio or SizedBox to constrain the image
             DisplayNetworkImage(
               imageUrl: "$posterUrl$image",
-              fit: BoxFit.cover,
             ),
             Positioned(
               top: 0,

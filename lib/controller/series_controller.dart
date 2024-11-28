@@ -32,7 +32,7 @@ class SeriesController extends GetxController{
         isLoading(false);
       }
     } catch (e) {
-      isLoading(false);
+      log(e.toString());
     } finally{
       isLoading(false);
     }
@@ -87,8 +87,8 @@ class SeriesController extends GetxController{
     }
   }
 
-      // Get Trend List
-  getTrendingList() async {
+  // Get Trending Series List
+  getTrendingSeriesList() async {
     try {
       isTrendingSeriesLoading(true);
       var response = await ApiRepo.apiGet(trendingSeriesUrl);
@@ -97,7 +97,7 @@ class SeriesController extends GetxController{
         isTrendingSeriesLoading(false);
       }
     } catch (e) {
-      isTrendingSeriesLoading(false);
+      log('Error fetching trending series: $e');
     } finally {
       isTrendingSeriesLoading(false);
     }
