@@ -1,6 +1,7 @@
 import 'package:cuplex/views/movies/movies_list.dart';
 import 'package:cuplex/views/series/series_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,13 +34,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
             child: Column(
               children: [
                 Container(
-                  height: 50.0,
-                  decoration: const BoxDecoration(
+                  height: 50.0.h,
+                  decoration: BoxDecoration(
                     color: Colors.black,
                     border: Border(
                       bottom: BorderSide(
                         color: Colors.grey,
-                        width: 0.5
+                        width: 0.5.w
                       )
                     )
                   ),
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                     labelColor: Colors.white,
                     indicatorWeight: 2,
                     indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorPadding: const EdgeInsets.symmetric(horizontal: 40),
+                    indicatorPadding: EdgeInsets.symmetric(horizontal: 40.sp),
                     labelStyle: const TextStyle(fontSize: 16),
                     unselectedLabelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
                     isScrollable: false,
@@ -94,19 +95,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
   
   customAppBar() {
     return PreferredSize(
-      preferredSize: const Size(double.infinity, 65),
+      preferredSize: Size(double.infinity, 65.sp),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 26,),
+          SizedBox(height: 26.h,),
           Container(
-            padding: const EdgeInsets.only(top : 18, bottom : 0, left : 18),
+            padding: EdgeInsets.only(top : 18.sp, bottom : 0, left : 18.sp),
             child: Row(
               children: [
-                const SizedBox(width: 30),
+                SizedBox(width: 30.w),
                 SizedBox(
-                  height: 36,
-                  width: 310.0,
+                  height: 36.h,
+                  width: 280.0.w,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(25.0),
                     child: TextFormField( 
@@ -116,7 +117,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                       readOnly: true,
                       decoration: InputDecoration(
                         filled: true,
-                        contentPadding: const EdgeInsets.only(top: 6.0, left: 15.0, right: 10),
+                        contentPadding: EdgeInsets.only(top: 6.0.sp, left: 15.0.sp, right: 10.sp),
                         fillColor: const Color.fromARGB(255, 221, 221, 221),
                         border: OutlineInputBorder(
                           borderSide: BorderSide.none,
@@ -124,16 +125,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                         ),
                         hintText: 'Search',
                         hintStyle:  const TextStyle(fontSize: 14, color: Color.fromARGB(255, 110, 108, 110)),
-                        prefixIconConstraints: const BoxConstraints(
-                          maxWidth: 62.0,
-                          minWidth: 52.0
+                        prefixIconConstraints: BoxConstraints(
+                          maxWidth: 62.0.w,
+                          minWidth: 52.0.w
                         ),
                         prefixIcon: const Icon(Icons.search, color: Color.fromARGB(255, 110, 108, 110))
                       ),
                     ),
                   ),
                 ),                
-                const SizedBox(width: 30),
+                SizedBox(width: 30.w),
               ],
             ),
           ),

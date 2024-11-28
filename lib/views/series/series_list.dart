@@ -3,6 +3,7 @@ import 'package:cuplex/views/series/series_detail.dart';
 import 'package:cuplex/widget/custom_shimmer.dart';
 import 'package:cuplex/widget/tile/movies_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SeriesListPage extends StatefulWidget {
@@ -58,26 +59,26 @@ class _SeriesListPageState extends State<SeriesListPage> {
       body: SingleChildScrollView(
         controller: paginationScrollController,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0.sp),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //trendinglist
               trendingSeriesList(),
-              const SizedBox(height: 16.0,),
+              SizedBox(height: 16.h),
               //topRatedseries
               topRatedSeriesList(),
-              const SizedBox(height: 16.0,),
+              SizedBox(height: 16.h,),
               //all series list
               allSeriesList(),
               //pagination
               Obx(() => 
                 seriesCon.isPageLoading.isTrue
-                ? const Column(
+                ? Column(
                     children: [
                       SizedBox(
-                        height: 100,
-                        child: Center(
+                        height: 100.h,
+                        child: const Center(
                           child: CircularProgressIndicator(
                             color: Colors.red,
                           ),
@@ -99,7 +100,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 8,),
+        SizedBox(height: 8.h,),
         const Text(
           "Trending Series",
           style: TextStyle(
@@ -108,9 +109,9 @@ class _SeriesListPageState extends State<SeriesListPage> {
             color: Colors.white,
           ),
         ),
-        const SizedBox(height: 10.0,),
+        SizedBox(height: 10.h),
         SizedBox(
-          height: 170,
+          height: 170.h,
           child: Obx(() => seriesCon.isTrendingSeriesLoading.isTrue
             ? ListView.builder(
               shrinkWrap: true,
@@ -118,12 +119,12 @@ class _SeriesListPageState extends State<SeriesListPage> {
               itemCount: 10,
               itemBuilder: (context,index){
                 return Padding(
-                  padding: const EdgeInsets.only(right: 8),
+                  padding: EdgeInsets.only(right: 8.sp),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
-                    child: const CustomShimmer(
-                      height: 170,
-                      width: 126,
+                    child: CustomShimmer(
+                      height: 170.h,
+                      width: 126.w,
                     ),
                   ),
                 );
@@ -135,9 +136,9 @@ class _SeriesListPageState extends State<SeriesListPage> {
               itemCount: seriesCon.trendingSeriesList.length,
               itemBuilder: (context,index){
                 return Container(
-                  height: 170,
-                  width: 134,
-                  padding: const EdgeInsets.only(right: 8),
+                  height: 170.h,
+                  width: 134.w,
+                  padding: EdgeInsets.only(right: 8.sp),
                   child: MovieCard(
                     title: seriesCon.trendingSeriesList[index]["name"] ?? "",
                     year: seriesCon.trendingSeriesList[index]["first_air_date"].split("-")[0],
@@ -169,9 +170,9 @@ class _SeriesListPageState extends State<SeriesListPage> {
             color: Colors.white,
           ),
         ),
-        const SizedBox(height: 10.0,),
+        SizedBox(height: 10.h,),
         SizedBox(
-          height: 170,
+          height: 170.h,
           child: Obx(() => seriesCon.isTopRatedSeriesLoading.isTrue
             ? ListView.builder(
               shrinkWrap: true,
@@ -179,12 +180,12 @@ class _SeriesListPageState extends State<SeriesListPage> {
               itemCount: 10,
               itemBuilder: (context,index){
                 return Padding(
-                  padding: const EdgeInsets.only(right: 8),
+                  padding: EdgeInsets.only(right: 8.sp),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
-                    child: const CustomShimmer(
-                      height: 170,
-                      width: 126,
+                    child: CustomShimmer(
+                      height: 170.h,
+                      width: 126.w,
                     ),
                   ),
                 );
@@ -196,9 +197,9 @@ class _SeriesListPageState extends State<SeriesListPage> {
               itemCount: seriesCon.topRatedSeries.length,
               itemBuilder: (context,index){
                 return Container(
-                  height: 170,
-                  width: 134,
-                  padding: const EdgeInsets.only(right: 8),
+                  height: 170.h,
+                  width: 134.w,
+                  padding: EdgeInsets.only(right: 8.sp),
                   child: MovieCard(
                     title: seriesCon.topRatedSeries[index].name ?? "",
                     year: seriesCon.topRatedSeries[index].firstAirDate.split("-")[0],
@@ -230,7 +231,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
             color: Colors.white,
           ),
         ),
-        const SizedBox(height: 10.0,),
+        SizedBox(height: 10.h),
         //Serieslist
         Obx(() => seriesCon.isLoading.isTrue
           ? GridView.builder(
@@ -246,9 +247,9 @@ class _SeriesListPageState extends State<SeriesListPage> {
               itemBuilder: (context, index) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(6),
-                  child: const CustomShimmer(
-                    height: 150,
-                    width: 120,
+                  child: CustomShimmer(
+                    height: 150.h,
+                    width: 120.w,
                   ),
                 );
               }

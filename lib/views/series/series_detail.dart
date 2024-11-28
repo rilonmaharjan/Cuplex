@@ -3,11 +3,12 @@ import 'package:cuplex/controller/series_controller.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:cuplex/widget/custom_webview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SeriesDetailPage extends StatefulWidget {
   final int? id;
-  const SeriesDetailPage({super.key, this.id});
+ const SeriesDetailPage({super.key, this.id});
 
   @override
   State<SeriesDetailPage> createState() => _SeriesDetailPageState();
@@ -52,17 +53,17 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                   (selectedSeason == null && selectedEpisode == null) || seasonPoster == null
                       ? DisplayNetworkImage(
                           imageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
-                          height: 300,
+                          height: 300.h,
                           width: double.infinity,
                         )
                       : selectedSeason != null && selectedEpisode == null
                       ? DisplayNetworkImage(
                           imageUrl: "$posterUrl/$seasonPoster",
-                          height: 300,
+                          height: 300.h,
                           width: double.infinity,
                         )
                       : SizedBox(
-                          height: 300,
+                          height: 300.h,
                           child: CustomWebView(
                             initialUrl: "$showEmbedUrl?tmdb=${seriesCon.seriesDetail.id}&season=$selectedSeason&episode=$selectedEpisode",
                             showAppBar: false,
@@ -70,7 +71,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                           ),
                         ),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0.sp),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -83,7 +84,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                       SizedBox(height: 8.h),
                         // Tagline (if available)
                         if (seriesCon.seriesDetail.tagline != null &&
                             seriesCon.seriesDetail.tagline.isNotEmpty)
@@ -95,7 +96,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                               color: Colors.grey,
                             ),
                           ),
-                        const SizedBox(height: 16),
+                       SizedBox(height: 16.h),
                         // Poster and Series Info
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,11 +108,11 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                 child: DisplayNetworkImage(
                                   imageUrl:
                                       'https://image.tmdb.org/t/p/w500${seriesCon.seriesDetail.posterPath}',
-                                  height: 150,
-                                  width: 100,
+                                  height: 150.h,
+                                  width: 100.w,
                                 ),
                               ),
-                            const SizedBox(width: 16),
+                           SizedBox(width: 16.w),
                             // Other Series Details
                             Expanded(
                               child: Column(
@@ -124,7 +125,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  const SizedBox(height: 8),
+                                 SizedBox(height: 8.h),
                                   Text(
                                     "Seasons: ${seriesCon.seriesDetail.numberOfSeasons}",
                                     style: const TextStyle(
@@ -132,7 +133,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  const SizedBox(height: 8),
+                                 SizedBox(height: 8.h),
                                   Text(
                                     "Episodes: ${seriesCon.seriesDetail.numberOfEpisodes}",
                                     style: const TextStyle(
@@ -140,7 +141,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  const SizedBox(height: 8),
+                                 SizedBox(height: 8.h),
                                   Text(
                                     "Rating: ${seriesCon.seriesDetail.voteAverage.toStringAsFixed(1)}",
                                     style: const TextStyle(
@@ -153,9 +154,9 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 16),
+                       SizedBox(height: 16.h),
                         // Genres
-                        const Text(
+                       const Text(
                           "Genres:",
                           style: TextStyle(
                             fontSize: 16,
@@ -163,7 +164,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                       SizedBox(height: 8.h),
                         Wrap(
                           spacing: 8.0,
                           children: List<Chip>.generate(
@@ -178,9 +179,9 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 16),
+                       SizedBox(height: 16.h),
                         // Seasons Selection
-                        const Text(
+                       const Text(
                           "Seasons:",
                           style: TextStyle(
                             fontSize: 16,
@@ -188,10 +189,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                       SizedBox(height: 8.h),
                         // Seasons Horizontal Scroll List
                         SizedBox(
-                          height: 60,
+                          height: 60.h,
                           child: ListView.builder(
                             itemCount: seriesCon.seriesDetail.seasons.length,
                             scrollDirection: Axis.horizontal,
@@ -208,7 +209,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                   });
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.only(right : 8.0),
+                                  padding: EdgeInsets.only(right : 8.0.sp),
                                   child: Chip(
                                     label: Text('Season ${season.seasonNumber}', style: TextStyle(color: selectedSeason == season.seasonNumber ? Colors.black : Colors.grey),),
                                     backgroundColor: selectedSeason == season.seasonNumber
@@ -220,10 +221,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             } 
                           ),
                         ),
-                        const SizedBox(height: 8),
+                       SizedBox(height: 8.h),
                         // Episodes Selection (only show if a season is selected)
                         if (seriesCon.episodeList.isNotEmpty)
-                          const Text(
+                         const Text(
                             "Episodes:",
                             style: TextStyle(
                               fontSize: 16,
@@ -231,10 +232,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                               color: Colors.white,
                             ),
                           ),
-                        const SizedBox(height: 8),
+                       SizedBox(height: 8.h),
                         if (seriesCon.episodeList.isNotEmpty)
                           SizedBox(
-                            height: 120,
+                            height: 120.h,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: seriesCon.episodeList.length,
@@ -246,12 +247,12 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                     });
                                   },
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 7),
+                                    padding: EdgeInsets.symmetric(horizontal: 7.sp),
                                     child: Column(
                                       children: [
                                         SizedBox(
-                                          width: 140,
-                                          height: 90,
+                                          width: 140.w,
+                                          height: 90.h,
                                           child: Stack(
                                             children: [
                                               Container(
@@ -266,15 +267,15 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                                 child: ClipRRect(
                                                   borderRadius: BorderRadius.circular(8),
                                                   child: DisplayNetworkImage(
-                                                    width: 140,
-                                                    height: 90,
+                                                    width: 140.w,
+                                                    height: 90.h,
                                                     imageUrl: seriesCon.episodeList[index]["still_path"] == "" || seriesCon.episodeList[index]["still_path"] == null
                                                       ? "$posterUrl${seriesCon.seriesDetail.backdropPath}"
                                                       : "$posterUrl${seriesCon.episodeList[index]["still_path"]}",
                                                   ),
                                                 ),
                                               ),
-                                              const Positioned.fill(
+                                             const Positioned.fill(
                                                 child: Center(
                                                   child: Icon(
                                                     Icons.play_circle_outline,
@@ -286,7 +287,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                                 top: 1,
                                                 left: 1,
                                                 child: Container(
-                                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                                  padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 2.sp),
                                                   decoration: const BoxDecoration(
                                                     color: Colors.orange,
                                                     borderRadius: BorderRadius.only(
@@ -303,9 +304,9 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                             ],
                                           ),
                                         ),
-                                        const SizedBox(height: 6,),
+                                       SizedBox(height: 6.h,),
                                         SizedBox(
-                                          width: 140,
+                                          width: 140.w,
                                           child: Center(child: Text(seriesCon.episodeList[index]["name"], style: const TextStyle(color: Colors.white), maxLines: 1,))
                                         )
                                       ],
@@ -315,9 +316,9 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                               },
                             ),
                           ),
-                        const SizedBox(height: 16),
+                       SizedBox(height: 16.h),
                         // Overview Section
-                        const Text(
+                       const Text(
                           "Overview:",
                           style: TextStyle(
                             fontSize: 16,
@@ -325,7 +326,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                       SizedBox(height: 8.h),
                         Text(
                           seriesCon.seriesDetail.overview,
                           style: const TextStyle(
@@ -333,10 +334,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 16),
+                       SizedBox(height: 16.h),
                         // Additional Information
-                        const Divider(color: Colors.grey),
-                        const Text(
+                       const Divider(color: Colors.grey),
+                       const Text(
                           "Additional Info:",
                           style: TextStyle(
                             fontSize: 16,
@@ -344,7 +345,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                       SizedBox(height: 8.h),
                         Text(
                           "Language: ${seriesCon.seriesDetail.originalLanguage.toUpperCase()}",
                           style: const TextStyle(
@@ -352,7 +353,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                       SizedBox(height: 8.h),
                         Text(
                           "Status: ${seriesCon.seriesDetail.status}",
                           style: const TextStyle(
@@ -376,9 +377,9 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                     Get.back();
                   },
                   child: Container(
-                    height: 36,
-                    width: 36,
-                    padding: const EdgeInsets.only(left: 6),
+                    height: 36.h,
+                    width: 36.w,
+                    padding: EdgeInsets.only(left: 6.sp),
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(100)

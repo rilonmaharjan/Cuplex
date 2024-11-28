@@ -1,6 +1,7 @@
 import 'package:cuplex/constant/constant.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MovieCard extends StatelessWidget {
   final String title;
@@ -35,7 +36,7 @@ class MovieCard extends StatelessWidget {
               top: 0,
               left: 0,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 2.sp),
                 decoration: const BoxDecoration(
                   color: Colors.orange,
                   borderRadius: BorderRadius.only(
@@ -53,7 +54,7 @@ class MovieCard extends StatelessWidget {
               top: 0,
               right: 0,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 2.sp),
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.7),
                   borderRadius: const BorderRadius.only(

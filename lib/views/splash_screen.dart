@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cuplex/views/home_tab_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -78,8 +79,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                         borderRadius: BorderRadius.circular(100),
                         child: Image.asset(
                           "assets/images/logo.png", 
-                          width: 150,
-                          height: 150,
+                          width: 150.w,
+                          height: 150.h,
                         ),
                       ),
                     ),

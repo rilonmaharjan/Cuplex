@@ -3,10 +3,11 @@ import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/widget/custom_shimmer.dart';
 import 'package:cuplex/widget/tile/movies_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class MoviesListPage extends StatefulWidget {
-  const MoviesListPage({super.key});
+   const MoviesListPage({super.key});
 
   @override
   State<MoviesListPage> createState() => _MoviesListPageState();
@@ -58,26 +59,26 @@ class _MoviesListPageState extends State<MoviesListPage> {
       body: SingleChildScrollView(
         controller: paginationScrollController,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0.sp),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //trendinglist
               trendingMoviesList(),
-              const SizedBox(height: 16.0,),
+               SizedBox(height: 16.h,),
               //topRatedMovies
               topRatedMoviesList(),
-              const SizedBox(height: 16.0,),
+               SizedBox(height: 16.h,),
               //all movies list
               allMoviesList(),
               //pagination
               Obx(() => 
                 movieCon.isPageLoading.isTrue
-                ? const Column(
+                ?  Column(
                     children: [
                       SizedBox(
-                        height: 100,
-                        child: Center(
+                        height: 100.h,
+                        child: const Center(
                           child: CircularProgressIndicator(
                             color: Colors.red,
                           ),
@@ -85,7 +86,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
                       ),
                     ],
                   )
-                : const SizedBox(),
+                :  const SizedBox(),
               )
             ],
           ),
@@ -99,8 +100,8 @@ class _MoviesListPageState extends State<MoviesListPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 8,),
-        const Text(
+         SizedBox(height: 8.h,),
+         const Text(
           "Trending Movies",
           style: TextStyle(
             fontSize: 17,
@@ -108,9 +109,9 @@ class _MoviesListPageState extends State<MoviesListPage> {
             color: Colors.white,
           ),
         ),
-        const SizedBox(height: 10.0,),
+         SizedBox(height: 10.h,),
         SizedBox(
-          height: 170,
+          height: 170.h,
           child: Obx(() => movieCon.isTrendingMoviesLoading.isTrue
             ? ListView.builder(
               shrinkWrap: true,
@@ -118,12 +119,12 @@ class _MoviesListPageState extends State<MoviesListPage> {
               itemCount: 10,
               itemBuilder: (context,index){
                 return Padding(
-                  padding: const EdgeInsets.only(right: 8),
+                  padding: EdgeInsets.only(right: 8.sp),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
-                    child: const CustomShimmer(
-                      height: 170,
-                      width: 126,
+                    child:  CustomShimmer(
+                      height: 170.h,
+                      width: 126.w,
                     ),
                   ),
                 );
@@ -135,9 +136,9 @@ class _MoviesListPageState extends State<MoviesListPage> {
               itemCount: movieCon.trendingMovieList.length,
               itemBuilder: (context,index){
                 return Container(
-                  height: 170,
-                  width: 134,
-                  padding: const EdgeInsets.only(right: 8),
+                  height: 170.h,
+                  width: 134.w,
+                  padding: EdgeInsets.only(right: 8.w),
                   child: MovieCard(
                     title: movieCon.trendingMovieList[index]["title"] ?? "",
                     year: movieCon.trendingMovieList[index]["release_date"].split("-")[0],
@@ -161,7 +162,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+         const Text(
           "Top Rated Movies",
           style: TextStyle(
             fontSize: 17,
@@ -169,9 +170,9 @@ class _MoviesListPageState extends State<MoviesListPage> {
             color: Colors.white,
           ),
         ),
-        const SizedBox(height: 10.0,),
+         SizedBox(height: 10.h,),
         SizedBox(
-          height: 170,
+          height: 170.h,
           child: Obx(() => movieCon.isTopRatedMoviesLoading.isTrue
             ? ListView.builder(
               shrinkWrap: true,
@@ -179,12 +180,12 @@ class _MoviesListPageState extends State<MoviesListPage> {
               itemCount: 10,
               itemBuilder: (context,index){
                 return Padding(
-                  padding: const EdgeInsets.only(right: 8),
+                  padding: EdgeInsets.only(right: 8.w),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
-                    child: const CustomShimmer(
-                      height: 170,
-                      width: 126,
+                    child:  CustomShimmer(
+                      height: 170.h,
+                      width: 126.w,
                     ),
                   ),
                 );
@@ -196,9 +197,9 @@ class _MoviesListPageState extends State<MoviesListPage> {
               itemCount: movieCon.topRatedMovies.length,
               itemBuilder: (context,index){
                 return Container(
-                  height: 170,
-                  width: 134,
-                  padding: const EdgeInsets.only(right: 8),
+                  height: 170.h,
+                  width: 134.w,
+                  padding: EdgeInsets.only(right: 8.w),
                   child: MovieCard(
                     title: movieCon.topRatedMovies[index].title ?? "",
                     year: movieCon.topRatedMovies[index].releaseDate.split("-")[0],
@@ -222,7 +223,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+         const Text(
           "All Movies",
           style: TextStyle(
             fontSize: 17,
@@ -230,13 +231,13 @@ class _MoviesListPageState extends State<MoviesListPage> {
             color: Colors.white,
           ),
         ),
-        const SizedBox(height: 10.0,),
+         SizedBox(height: 10.h,),
         //movieslist
         Obx(() => movieCon.isLoading.isTrue
           ? GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+              physics:  const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
@@ -246,17 +247,17 @@ class _MoviesListPageState extends State<MoviesListPage> {
               itemBuilder: (context, index) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(6),
-                  child: const CustomShimmer(
-                    height: 150,
-                    width: 120,
+                  child:  CustomShimmer(
+                    height: 150.h,
+                    width: 120.w,
                   ),
                 );
               }
             )
           :  GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
+            physics:  const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,

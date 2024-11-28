@@ -3,6 +3,7 @@ import 'package:cuplex/controller/movies_controller.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:cuplex/widget/custom_webview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class MovieDetailPage extends StatefulWidget {
@@ -47,7 +48,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   // Backdrop with Play Button
                   if (movieCon.moviesDetail.backdropPath != null)
                     SizedBox(
-                      height: 300,
+                      height: 300.h,
                       child: CustomWebView(
                         initialUrl: "$movieEmbedUrl/${movieCon.moviesDetail.imdbId}",
                         showAppBar: false,
@@ -55,7 +56,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       ),
                     ),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0.sp),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -68,7 +69,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        SizedBox(height: 8.h),
                         // Tagline
                         if (movieCon.moviesDetail.tagline != null)
                           Text(
@@ -79,7 +80,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               color: Colors.grey[400],
                             ),
                           ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         // Poster and details
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,11 +92,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                 child: DisplayNetworkImage(
                                   imageUrl:
                                       '$posterUrl${movieCon.moviesDetail.posterPath}',
-                                  height: 150,
-                                  width: 100,
+                                  height: 150.h,
+                                  width: 100.w,
                                 ),
                               ),
-                            const SizedBox(width: 16),
+                            SizedBox(width: 16.w),
                             // Other movie details
                             Expanded(
                               child: Column(
@@ -108,7 +109,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  const SizedBox(height: 8),
+                                  SizedBox(height: 8.h),
                                   Text(
                                     "Rating: ${movieCon.moviesDetail.voteAverage ?? 'N/A'}",
                                     style: const TextStyle(
@@ -116,7 +117,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  const SizedBox(height: 8),
+                                  SizedBox(height: 8.h),
                                   Text(
                                     "Runtime: ${movieCon.moviesDetail.runtime} minutes",
                                     style: const TextStyle(
@@ -129,7 +130,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         // Genres
                         const Text(
                           "Genres:",
@@ -139,7 +140,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        SizedBox(height: 8.h),
                         Wrap(
                           spacing: 8,
                           children: (movieCon.moviesDetail.genres as List)
@@ -149,7 +150,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             ),
                           ).toList(),
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         // Overview
                         const Text(
                           "Overview:",
@@ -159,7 +160,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        SizedBox(height: 8.h),
                         Text(
                           movieCon.moviesDetail.overview ??
                               'No description available.',
@@ -184,12 +185,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             //         Get.back();
             //       },
             //       child: Container(
-            //         padding : const EdgeInsets.all(6),
+            //         padding : EdgeInsets.all(6),
             //         decoration: BoxDecoration(
             //           color: Colors.black.withOpacity(0.2),
             //           borderRadius: BorderRadius.circular(100)
             //         ),
-            //         child: const Center(
+            //         child: Center(
             //           child: Icon(
             //             Icons.arrow_back_ios,
             //             color: Colors.white,
