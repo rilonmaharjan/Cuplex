@@ -15,7 +15,7 @@ class SeriesController extends GetxController{
   late RxBool isPageLoading = true.obs;
   late RxBool isDetailLoading = true.obs;
   late RxBool isEpisodeLoading = false.obs;
-  int pageNum = 0;
+  int pageNum = 1;
   dynamic seriesList = [];
   dynamic episodeList = [];
   dynamic seriesDetail;

@@ -39,7 +39,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
       body: Obx(() => seriesCon.isDetailLoading.isTrue
         ? const Center(
             child: CircularProgressIndicator(
-              color: Colors.red,
+              color: Color(0xffecc877),
             ),
           )
         : Stack(
@@ -51,31 +51,34 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                 if (seriesCon.seriesDetail.backdropPath != null)
                 Stack(
                   children: [
-                    (selectedSeason == null && selectedEpisode == null) || seasonPoster == null
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: (selectedSeason == null && selectedEpisode == null) || seasonPoster == null
                     ? DisplayNetworkImage(
                         imageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
-                        height: 300.h,
+                        height: 280.h,
                         width: double.infinity,
                       )
                     : selectedSeason != null && selectedEpisode == null
                     ? DisplayNetworkImage(
                         imageUrl: "$posterUrl/$seasonPoster",
-                        height: 300.h,
+                        height: 280.h,
                         width: double.infinity,
                       )
                     : SizedBox(
-                        height: 300.h,
+                        height: 280.h,
                         child: CustomWebView(
                           initialUrl: "$showEmbedUrl?tmdb=${seriesCon.seriesDetail.id}&season=$selectedSeason&episode=$selectedEpisode",
                           showAppBar: false,
                           errorImageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
                         ),
                       ),
+                    ),
                     Visibility(
                       visible: selectedEpisode == null,
                       child: Positioned(
-                        top: 60,
-                        left: 20,
+                        top: 50.sp,
+                        left: 20.sp,
                         child: GestureDetector(
                           onTap:(){
                             Get.back();
@@ -102,7 +105,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                   ],
                 ),
                 SizedBox(
-                  height: 512.h,
+                  height: 532.h,
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(16.0.sp,16.0.sp,16.0.sp,0),
@@ -293,7 +296,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
                                                       color: selectedEpisode == seriesCon.episodeList[index]["episode_number"]
-                                                          ? Colors.red
+                                                          ? const Color(0xffecc877)
                                                           : Colors.black,
                                                     ),
                                                     borderRadius: BorderRadius.circular(8),
@@ -323,10 +326,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                                   child: Container(
                                                     padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 2.sp),
                                                     decoration: const BoxDecoration(
-                                                      color: Colors.orange,
+                                                      color: Color(0xffecc877),
                                                       borderRadius: BorderRadius.only(
-                                                        topLeft: Radius.circular(8),
-                                                        bottomRight: Radius.circular(8)
+                                                        topLeft: Radius.circular(6),
+                                                        bottomRight: Radius.circular(6)
                                                       ),
                                                     ),
                                                     child: Text(
@@ -409,7 +412,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                 color: Colors.grey.withOpacity(0.2),
                 child: const Center(
                   child: CircularProgressIndicator(
-                    color: Colors.red,
+                    color: Color(0xffecc877),
                   ),
                 ),
               )

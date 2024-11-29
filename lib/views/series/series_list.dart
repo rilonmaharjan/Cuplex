@@ -81,7 +81,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
                         height: 100.h,
                         child: const Center(
                           child: CircularProgressIndicator(
-                            color: Colors.red,
+                            color: Color(0xffecc877),
                           ),
                         ),
                       ),

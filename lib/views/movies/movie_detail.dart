@@ -36,7 +36,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       body: Obx(() => movieCon.isDetailLoading.isTrue
         ? const Center(
             child: CircularProgressIndicator(
-              color: Colors.red,
+              color: Color(0xffecc877),
             ),
           )
         : Stack(
@@ -46,16 +46,19 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               children: [
                 // Backdrop with Play Button
                 if (movieCon.moviesDetail.backdropPath != null)
-                  SizedBox(
-                    height: 300.h,
-                    child: CustomWebView(
-                      initialUrl: "$movieEmbedUrl/${movieCon.moviesDetail.imdbId}",
-                      showAppBar: false,
-                      errorImageUrl: "$posterUrl${movieCon.moviesDetail.backdropPath}",
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: SizedBox(
+                      height: 280.h,
+                      child: CustomWebView(
+                        initialUrl: "$movieEmbedUrl/${movieCon.moviesDetail.imdbId}",
+                        showAppBar: false,
+                        errorImageUrl: "$posterUrl${movieCon.moviesDetail.backdropPath}",
+                      ),
                     ),
                   ),
                 SizedBox(
-                  height: 512.h,
+                  height: 532.h,
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(16.0.sp,16.0.sp,16.0.sp,0),

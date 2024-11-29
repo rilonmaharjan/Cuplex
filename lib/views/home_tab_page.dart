@@ -40,16 +40,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                     color: Colors.black,
                     border: Border(
                       bottom: BorderSide(
-                        color: Colors.grey,
-                        width: 0.5.w
+                        color: Colors.grey.withOpacity(0.2),
+                        width: 0.3.w
                       )
                     )
                   ),
                   child: TabBar(
                     controller: _tabController,
-                    indicatorColor: Colors.red,
+                    indicatorColor: Color(0xffecc877),
                     labelColor: Colors.white,
-                    indicatorWeight: 2,
+                    indicatorWeight: 3,
                     indicatorSize: TabBarIndicatorSize.tab,
                     indicatorPadding: EdgeInsets.symmetric(horizontal: 40.sp),
                     labelStyle: const TextStyle(fontSize: 16),

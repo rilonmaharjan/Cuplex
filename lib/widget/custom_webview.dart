@@ -110,9 +110,9 @@ class _CustomWebViewState extends State<CustomWebView> {
                         // Show error image if available, otherwise show error icon
                         widget.errorImageUrl != null
                             ? Image.network(widget.errorImageUrl!)
-                            : const Icon(Icons.error_outline, color: Colors.red, size: 50),
+                            : const Icon(Icons.error_outline, color: Color(0xffecc877), size: 50),
                         const SizedBox(height: 10),
-                        const Text('Failed to load the page', style: TextStyle(color: Colors.red)),
+                        const Text('Failed to load the page', style: TextStyle(color: Color(0xffecc877))),
                         const SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: reloadWebView,

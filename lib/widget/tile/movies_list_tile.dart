@@ -21,7 +21,7 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
@@ -49,7 +49,7 @@ class MovieCard extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 2.sp),
                 decoration: const BoxDecoration(
-                  color: Colors.orange,
+                  color: Color(0xffecc877),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(6),
                     bottomRight: Radius.circular(6)
@@ -57,11 +57,11 @@ class MovieCard extends StatelessWidget {
                 ),
                 child: Text(
                   year,
-                  style: const TextStyle(color: Colors.black, fontSize: 12),
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
                 ),
               ),
             ),
-            rating.toString == "0.0"
+            rating == 0.0
             ? const SizedBox()
             : Positioned(
               top: 0,

@@ -14,7 +14,7 @@ class MoviesController extends GetxController{
   late RxBool isTopRatedMoviesLoading = true.obs;
   late RxBool isPageLoading = true.obs;
   late RxBool isDetailLoading = true.obs;
-  int pageNum = 0;
+  int pageNum = 1;
   dynamic moviesList = [];
   dynamic moviesDetail;
   dynamic trendingMovieList = [].obs;
