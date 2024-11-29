@@ -51,7 +51,7 @@ class _DisplayNetworkImageState extends State<DisplayNetworkImage> {
     return Opacity(
       opacity: 1,
       child: Image.asset(
-        "assets/images/logo.png",
+        "assets/images/logo.jpg",
         width: widget.width,
         height: widget.height,
         fit: widget.fit ??  BoxFit.cover,
