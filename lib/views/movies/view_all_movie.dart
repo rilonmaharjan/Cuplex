@@ -45,7 +45,7 @@ class _ViewAllMovieState extends State<ViewAllMovie> {
                 ),
                 itemCount: widget.movieList.length,
                 itemBuilder: (context, index) {
-                  return widget.title == "Trending Series" 
+                  return widget.title == "Trending Movies" 
                   ? MovieCard(
                     title: widget.movieList[index]["title"] ?? "",
                     year: widget.movieList[index]["release_date"].split("-")[0],

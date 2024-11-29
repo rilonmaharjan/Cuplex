@@ -78,7 +78,6 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
               ),
               Expanded(
                 child: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(),
                   controller: _tabController,
                   children: const [
                     SearchMoviePage(),
