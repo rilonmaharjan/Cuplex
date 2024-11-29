@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                   ),
                   child: TabBar(
                     controller: _tabController,
-                    indicatorColor: Color(0xffecc877),
+                    indicatorColor: const Color(0xffecc877),
                     labelColor: Colors.white,
                     indicatorWeight: 3,
                     indicatorSize: TabBarIndicatorSize.tab,
@@ -78,7 +78,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                 ),
                 Expanded(
                   child: TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
                     controller: _tabController,
                     children: const [
                       MoviesListPage(),

@@ -33,7 +33,7 @@ class _SearchSeriesPageState extends State<SearchSeriesPage> {
                   crossAxisSpacing: 8,
                   childAspectRatio: 0.7,
                 ),
-                itemCount: 20,
+                itemCount: 2,
                 itemBuilder: (context, index) {
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(6),

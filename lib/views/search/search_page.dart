@@ -47,7 +47,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                 ),
                 child: TabBar(
                   controller: _tabController,
-                  indicatorColor: Color(0xffecc877),
+                  indicatorColor: const Color(0xffecc877),
                   labelColor: Colors.white,
                   indicatorWeight: 3,
                   indicatorSize: TabBarIndicatorSize.tab,

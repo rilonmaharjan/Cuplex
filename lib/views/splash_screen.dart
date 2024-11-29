@@ -54,17 +54,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 24, 24, 24),
-              Color.fromARGB(255, 19, 19, 19)
-            ],
-            begin: Alignment.centerLeft,
-            end:  Alignment.centerRight,
-            stops: [0.3, 0.7]
-          )
-        ),
+        color: Colors.black,
         child: Stack(
           children: [
             Center(
@@ -77,10 +67,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                       angle: _spinAnimation.value, 
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: Image.asset(
-                          "assets/images/logo.png", 
-                          width: 150.w,
-                          height: 150.h,
+                        child: Transform.scale(
+                          scale: 1.4.sp,
+                          child: Image.asset(
+                            "assets/images/logo.jpg", 
+                            width: 160.w,
+                            height: 160.h,
+                          ),
                         ),
                       ),
                     ),
