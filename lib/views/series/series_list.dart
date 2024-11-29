@@ -113,24 +113,29 @@ class _SeriesListPageState extends State<SeriesListPage> {
               ),
             ),
             const Spacer(),
-            InkWell(
-              onTap: (){
-                Get.to(() => ViewAllSeries(title: "Trending Series", seriesList: seriesCon.trendingSeriesList,));
-              },
-              child: Container(
-                height: 24.h,
-                width: 46.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 0.5.sp,
-                  ),
-                  color: Colors.black
-                ),
-                child: Center(
-                  child: Text(
-                    "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+            Obx(() =>
+              Visibility(
+                visible: seriesCon.trendingSeriesList.isNotEmpty,
+                child: InkWell(
+                  onTap: (){
+                    Get.to(() => ViewAllSeries(title: "Trending Series", seriesList: seriesCon.trendingSeriesList,));
+                  },
+                  child: Container(
+                    height: 24.h,
+                    width: 46.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 0.5.sp,
+                      ),
+                      color: Colors.black
+                    ),
+                    child: Center(
+                      child: Text(
+                        "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -201,24 +206,29 @@ class _SeriesListPageState extends State<SeriesListPage> {
               ),
             ),
             const Spacer(),
-            InkWell(
-              onTap: (){
-                Get.to(() => ViewAllSeries(title: "Top Rated Series", seriesList: seriesCon.topRatedSeries,));
-              },
-              child: Container(
-                height: 24.h,
-                width: 46.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 0.5.sp,
-                  ),
-                  color: Colors.black
-                ),
-                child: Center(
-                  child: Text(
-                    "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+            Obx(() =>
+              Visibility(
+                visible: seriesCon.topRatedSeries.isNotEmpty,
+                child: InkWell(
+                  onTap: (){
+                    Get.to(() => ViewAllSeries(title: "Top Rated Series", seriesList: seriesCon.topRatedSeries,));
+                  },
+                  child: Container(
+                    height: 24.h,
+                    width: 46.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 0.5.sp,
+                      ),
+                      color: Colors.black
+                    ),
+                    child: Center(
+                      child: Text(
+                        "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+                      ),
+                    ),
                   ),
                 ),
               ),

@@ -113,24 +113,29 @@ class _MoviesListPageState extends State<MoviesListPage> {
               ),
             ),
             const Spacer(),
-            InkWell(
-              onTap: (){
-                Get.to(() => ViewAllMovie(title: "Trending Movies", movieList: movieCon.trendingMovieList,));
-              },
-              child: Container(
-                height: 24.h,
-                width: 46.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 0.5.sp,
-                  ),
-                  color: Colors.black
-                ),
-                child: Center(
-                  child: Text(
-                    "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+            Obx(() =>
+              Visibility(
+                visible: movieCon.trendingMovieList.isNotEmpty,
+                child: InkWell(
+                  onTap: (){
+                    Get.to(() => ViewAllMovie(title: "Trending Movies", movieList: movieCon.trendingMovieList,));
+                  },
+                  child: Container(
+                    height: 24.h,
+                    width: 46.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 0.5.sp,
+                      ),
+                      color: Colors.black
+                    ),
+                    child: Center(
+                      child: Text(
+                        "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -201,24 +206,29 @@ class _MoviesListPageState extends State<MoviesListPage> {
               ),
             ),
             const Spacer(),
-            InkWell(
-              onTap: (){
-                Get.to(() => ViewAllMovie(title: "Top Rated Movies", movieList: movieCon.topRatedMovies,));
-              },
-              child: Container(
-                height: 24.h,
-                width: 46.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 0.5.sp,
-                  ),
-                  color: Colors.black
-                ),
-                child: Center(
-                  child: Text(
-                    "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+            Obx(() =>
+              Visibility(
+                visible: movieCon.topRatedMovies.isNotEmpty,
+                child: InkWell(
+                  onTap: (){
+                    Get.to(() => ViewAllMovie(title: "Top Rated Movies", movieList: movieCon.topRatedMovies,));
+                  },
+                  child: Container(
+                    height: 24.h,
+                    width: 46.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 0.5.sp,
+                      ),
+                      color: Colors.black
+                    ),
+                    child: Center(
+                      child: Text(
+                        "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+                      ),
+                    ),
                   ),
                 ),
               ),
