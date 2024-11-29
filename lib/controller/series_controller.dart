@@ -29,7 +29,6 @@ class SeriesController extends GetxController{
       var response = await ApiRepo.apiGet(showListUrl);
       if(response != null) {
         seriesList = response['results'];
-        isLoading(false);
       }
     } catch (e) {
       log(e.toString());
@@ -41,15 +40,17 @@ class SeriesController extends GetxController{
   //series list pagination
   getPagination() async{
     try {
-      isPageLoading(true);
       var response = await ApiRepo.apiGet("$showListUrl?page=$pageNum&sort_by=popularity.desc&include_adult=true");
       if(response != null) {
         seriesList.addAll(response['results']);
+        if(response["page"] == response["total_pages"]){
+          isPageLoading(false);
+        }
+      }else{
+        isPageLoading(false);
       }
     } catch (e) {
       log(e.toString());
-    } finally{
-      isPageLoading(false);
     }
   }
 

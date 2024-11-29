@@ -38,15 +38,17 @@ class MoviesController extends GetxController{
   //movie list pagination
   getPagination() async{
     try {
-      isPageLoading(true);
       var response = await ApiRepo.apiGet("$movieListUrl?page=$pageNum&sort_by=popularity.desc&include_adult=true");
       if(response != null) {
         moviesList.addAll(response['results']);
+        if(response["page"] == response["total_pages"]){
+          isPageLoading(false);
+        }
+      }else{
+        isPageLoading(false);
       }
     } catch (e) {
       log(e.toString());
-    } finally{
-      isPageLoading(false);
     }
   }
 

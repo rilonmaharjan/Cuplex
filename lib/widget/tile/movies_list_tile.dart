@@ -23,16 +23,27 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(6),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.grey.withOpacity(0.5),
+            width: 0.5,
+          ),
+          borderRadius: BorderRadius.circular(6),
+        ),
         child: Stack(
           fit: StackFit.expand,
           children: [
             // Use an AspectRatio or SizedBox to constrain the image
-            DisplayNetworkImage(
-              imageUrl: "$posterUrl$image",
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: DisplayNetworkImage(
+                imageUrl: "$posterUrl$image",
+              ),
             ),
-            Positioned(
+            year == "" 
+            ? const SizedBox()
+            : Positioned(
               top: 0,
               left: 0,
               child: Container(
@@ -50,7 +61,9 @@ class MovieCard extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            rating.toString == "0.0"
+            ? const SizedBox()
+            : Positioned(
               top: 0,
               right: 0,
               child: Container(

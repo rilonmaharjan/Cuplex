@@ -1,5 +1,6 @@
 import 'package:cuplex/controller/movies_controller.dart';
 import 'package:cuplex/views/movies/movie_detail.dart';
+import 'package:cuplex/views/movies/view_all_movie.dart';
 import 'package:cuplex/widget/custom_shimmer.dart';
 import 'package:cuplex/widget/tile/movies_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -101,15 +102,42 @@ class _MoviesListPageState extends State<MoviesListPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
          SizedBox(height: 8.h,),
-         const Text(
-          "Trending Movies",
-          style: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-         SizedBox(height: 10.h,),
+         Row(
+           children: [
+             const Text(
+              "Trending Movies",
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const Spacer(),
+            InkWell(
+              onTap: (){
+                Get.to(() => ViewAllMovie(title: "Trending Movies", movieList: movieCon.trendingMovieList,));
+              },
+              child: Container(
+                height: 24.h,
+                width: 46.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 0.5.sp,
+                  ),
+                  color: Colors.black
+                ),
+                child: Center(
+                  child: Text(
+                    "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+                  ),
+                ),
+              ),
+            )
+           ],
+         ),
+        SizedBox(height: 10.h,),
         SizedBox(
           height: 170.h,
           child: Obx(() => movieCon.isTrendingMoviesLoading.isTrue
@@ -124,7 +152,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
                     borderRadius: BorderRadius.circular(6),
                     child:  CustomShimmer(
                       height: 170.h,
-                      width: 126.w,
+                      width: 114.w,
                     ),
                   ),
                 );
@@ -137,7 +165,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
               itemBuilder: (context,index){
                 return Container(
                   height: 170.h,
-                  width: 134.w,
+                  width: 122.w,
                   padding: EdgeInsets.only(right: 8.w),
                   child: MovieCard(
                     title: movieCon.trendingMovieList[index]["title"] ?? "",
@@ -162,14 +190,41 @@ class _MoviesListPageState extends State<MoviesListPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         const Text(
-          "Top Rated Movies",
-          style: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+         Row(
+           children: [
+             const Text(
+              "Top Rated Movies",
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const Spacer(),
+            InkWell(
+              onTap: (){
+                Get.to(() => ViewAllMovie(title: "Top Rated Movies", movieList: movieCon.topRatedMovies,));
+              },
+              child: Container(
+                height: 24.h,
+                width: 46.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 0.5.sp,
+                  ),
+                  color: Colors.black
+                ),
+                child: Center(
+                  child: Text(
+                    "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+                  ),
+                ),
+              ),
+            )
+           ],
+         ),
          SizedBox(height: 10.h,),
         SizedBox(
           height: 170.h,
@@ -185,7 +240,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
                     borderRadius: BorderRadius.circular(6),
                     child:  CustomShimmer(
                       height: 170.h,
-                      width: 126.w,
+                      width: 114.w,
                     ),
                   ),
                 );
@@ -198,7 +253,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
               itemBuilder: (context,index){
                 return Container(
                   height: 170.h,
-                  width: 134.w,
+                  width: 122.w,
                   padding: EdgeInsets.only(right: 8.w),
                   child: MovieCard(
                     title: movieCon.topRatedMovies[index].title ?? "",

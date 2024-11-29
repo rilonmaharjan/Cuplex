@@ -1,5 +1,6 @@
 import 'package:cuplex/controller/series_controller.dart';
 import 'package:cuplex/views/series/series_detail.dart';
+import 'package:cuplex/views/series/view_all_series.dart';
 import 'package:cuplex/widget/custom_shimmer.dart';
 import 'package:cuplex/widget/tile/movies_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -101,13 +102,40 @@ class _SeriesListPageState extends State<SeriesListPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 8.h,),
-        const Text(
-          "Trending Series",
-          style: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+        Row(
+          children: [
+            const Text(
+              "Trending Series",
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const Spacer(),
+            InkWell(
+              onTap: (){
+                Get.to(() => ViewAllSeries(title: "Trending Series", seriesList: seriesCon.trendingSeriesList,));
+              },
+              child: Container(
+                height: 24.h,
+                width: 46.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 0.5.sp,
+                  ),
+                  color: Colors.black
+                ),
+                child: Center(
+                  child: Text(
+                    "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
         SizedBox(height: 10.h),
         SizedBox(
@@ -124,7 +152,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
                     borderRadius: BorderRadius.circular(6),
                     child: CustomShimmer(
                       height: 170.h,
-                      width: 126.w,
+                      width: 114.w,
                     ),
                   ),
                 );
@@ -137,7 +165,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
               itemBuilder: (context,index){
                 return Container(
                   height: 170.h,
-                  width: 134.w,
+                  width: 122.w,
                   padding: EdgeInsets.only(right: 8.sp),
                   child: MovieCard(
                     title: seriesCon.trendingSeriesList[index]["name"] ?? "",
@@ -162,13 +190,40 @@ class _SeriesListPageState extends State<SeriesListPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Top Rated Series",
-          style: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+        Row(
+          children: [
+            const Text(
+              "Top Rated Series",
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const Spacer(),
+            InkWell(
+              onTap: (){
+                Get.to(() => ViewAllSeries(title: "Top Rated Series", seriesList: seriesCon.topRatedSeries,));
+              },
+              child: Container(
+                height: 24.h,
+                width: 46.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 0.5.sp,
+                  ),
+                  color: Colors.black
+                ),
+                child: Center(
+                  child: Text(
+                    "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
         SizedBox(height: 10.h,),
         SizedBox(
@@ -185,7 +240,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
                     borderRadius: BorderRadius.circular(6),
                     child: CustomShimmer(
                       height: 170.h,
-                      width: 126.w,
+                      width: 114.w,
                     ),
                   ),
                 );
@@ -198,7 +253,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
               itemBuilder: (context,index){
                 return Container(
                   height: 170.h,
-                  width: 134.w,
+                  width: 122.w,
                   padding: EdgeInsets.only(right: 8.sp),
                   child: MovieCard(
                     title: seriesCon.topRatedSeries[index].name ?? "",
