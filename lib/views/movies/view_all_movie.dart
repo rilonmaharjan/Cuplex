@@ -1,4 +1,5 @@
 import 'package:cuplex/views/movies/movie_detail.dart';
+import 'package:cuplex/widget/custom_appbar.dart';
 import 'package:cuplex/widget/tile/movies_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,12 +19,14 @@ class _ViewAllMovieState extends State<ViewAllMovie> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: customAppBar(backButton: true),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(8.sp),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 10.h,),
               Text(
                 widget.title,
                 style: const TextStyle(
