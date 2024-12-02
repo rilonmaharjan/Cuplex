@@ -53,7 +53,7 @@ class _SearchSeriesPageState extends State<SearchSeriesPage> {
             )
             : searchCon.seriesSearchList.isEmpty
             ? const SizedBox(
-              height: 500,
+              height: 400,
               child: Center(
                 child: Text("No Results Found", style: TextStyle(color: Colors.white),)
               ),
