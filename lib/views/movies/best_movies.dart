@@ -35,13 +35,13 @@ class _BestMoviesState extends State<BestMovies> {
 
   void _scrollListener() {
     // Check if the user is near the top of the list
-    if (paginationScrollController.position.pixels <= 1500 && showScrollToTopButton) {
+    if (paginationScrollController.position.pixels <= 2500 && showScrollToTopButton) {
       setState(() {
         showScrollToTopButton = false;
       });
     } 
     // Check if the user is scrolling down past a certain threshold
-    else if (paginationScrollController.position.pixels > 1500 && !showScrollToTopButton) {
+    else if (paginationScrollController.position.pixels > 2500 && !showScrollToTopButton) {
       setState(() {
         showScrollToTopButton = true;
       });
