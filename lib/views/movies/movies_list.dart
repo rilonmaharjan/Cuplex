@@ -1,4 +1,5 @@
 import 'package:cuplex/controller/movies_controller.dart';
+import 'package:cuplex/views/movies/best_movies.dart';
 import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/views/movies/view_all_movie.dart';
 import 'package:cuplex/widget/custom_shimmer.dart';
@@ -17,6 +18,8 @@ class MoviesListPage extends StatefulWidget {
 class _MoviesListPageState extends State<MoviesListPage> {
   final MoviesController movieCon = Get.put(MoviesController());
   ScrollController paginationScrollController = ScrollController();
+  int count = 0;
+  bool showScrollToTopButton = false;
 
   @override
   void initState() {
@@ -33,13 +36,28 @@ class _MoviesListPageState extends State<MoviesListPage> {
     });
   }
 
-  void _scrollListener() {
-    if (paginationScrollController.position.pixels ==
-        paginationScrollController.position.maxScrollExtent) {
-      // When the user reaches the end of the list
+void _scrollListener() {
+  // Check if the user is near the top of the list
+  if (paginationScrollController.position.pixels <= 1500 && showScrollToTopButton) {
+    setState(() {
+      showScrollToTopButton = false;
+    });
+  } 
+  // Check if the user is scrolling down past a certain threshold
+  else if (paginationScrollController.position.pixels > 1500 && !showScrollToTopButton) {
+    setState(() {
+      showScrollToTopButton = true;
+    });
+  }
+
+  // Load more content when reaching the bottom
+  if (paginationScrollController.position.pixels ==
+      paginationScrollController.position.maxScrollExtent) {
+    if (movieCon.prevPageNum == movieCon.pageNum) {
       _loadMorePosts();
     }
   }
+}
 
   Future<void> _loadMorePosts() async {
     movieCon.pageNum = movieCon.pageNum + 1;
@@ -50,6 +68,8 @@ class _MoviesListPageState extends State<MoviesListPage> {
   @override
   void dispose() {
     paginationScrollController.removeListener(_scrollListener);
+    count;
+    movieCon.pageNum;
     super.dispose();
   }
 
@@ -57,6 +77,20 @@ class _MoviesListPageState extends State<MoviesListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      floatingActionButton: Visibility(
+        visible: showScrollToTopButton,
+        child: FloatingActionButton(
+          backgroundColor: const Color(0xffecc877),
+          onPressed: () {
+            paginationScrollController.animateTo(
+              0,
+              duration: const Duration(milliseconds: 800),
+              curve: Curves.easeOut,
+            );
+          },
+          child: const Icon(Icons.arrow_upward_outlined, color: Colors.black),
+        ),
+      ),
       body: SingleChildScrollView(
         controller: paginationScrollController,
         child: Column(
@@ -95,24 +129,32 @@ class _MoviesListPageState extends State<MoviesListPage> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: TextStyle(
-                            color: const Color.fromARGB(255, 224, 224, 224),
-                            fontSize: 22.sp,
-                            fontWeight: FontWeight.w300,
-                            letterSpacing: 1,
-                            height: 1.5,
-                          ),
-                          children: const [
-                            TextSpan(text: "Watch "),
-                            TextSpan(
-                              text: "Free",
-                              style: TextStyle(color: Color(0xffecc877)),
+                      GestureDetector(
+                        onTap: (){
+                          count++;
+                          if(count == 10){
+                            Get.to(() => const BestMovies());
+                          }
+                        },
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 224, 224, 224),
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.w300,
+                              letterSpacing: 1,
+                              height: 1.5,
                             ),
-                            TextSpan(text: " HD Movies &\nTV shows"),
-                          ],
+                            children: const [
+                              TextSpan(text: "Watch "),
+                              TextSpan(
+                                text: "Free",
+                                style: TextStyle(color: Color(0xffecc877)),
+                              ),
+                              TextSpan(text: " HD Movies &\nTV shows"),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(height: 26.h),

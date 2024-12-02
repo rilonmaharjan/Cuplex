@@ -17,6 +17,7 @@ class SeriesListPage extends StatefulWidget {
 class _SeriesListPageState extends State<SeriesListPage> {
   final SeriesController seriesCon = Get.put(SeriesController());
   ScrollController paginationScrollController = ScrollController();
+  bool showScrollToTopButton = false;
 
   @override
   void initState() {
@@ -34,10 +35,24 @@ class _SeriesListPageState extends State<SeriesListPage> {
   }
 
   void _scrollListener() {
+    // Check if the user is near the top of the list
+    if (paginationScrollController.position.pixels <= 1500 && showScrollToTopButton) {
+      setState(() {
+        showScrollToTopButton = false;
+      });
+    } 
+    // Check if the user is scrolling down past a certain threshold
+    else if (paginationScrollController.position.pixels > 1500 && !showScrollToTopButton) {
+      setState(() {
+        showScrollToTopButton = true;
+      });
+    }
     if (paginationScrollController.position.pixels ==
         paginationScrollController.position.maxScrollExtent) {
       // When the user reaches the end of the list
-      _loadMorePosts();
+      if(seriesCon.prevPageNum == seriesCon.pageNum){
+        _loadMorePosts();
+      }
     }
   }
 
@@ -57,6 +72,20 @@ class _SeriesListPageState extends State<SeriesListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      floatingActionButton: Visibility(
+        visible: showScrollToTopButton,
+        child: FloatingActionButton(
+          backgroundColor: const Color(0xffecc877),
+          onPressed: () {
+            paginationScrollController.animateTo(
+              0,
+              duration: const Duration(milliseconds: 800),
+              curve: Curves.easeOut,
+            );
+          },
+          child: const Icon(Icons.arrow_upward_outlined, color: Colors.black),
+        ),
+      ),
       body: SingleChildScrollView(
         controller: paginationScrollController,
         child: Column(

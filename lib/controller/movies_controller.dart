@@ -15,10 +15,14 @@ class MoviesController extends GetxController{
   late RxBool isPageLoading = true.obs;
   late RxBool isDetailLoading = true.obs;
   int pageNum = 1;
+  int prevPageNum = 1;
+  int bestPageNum = 1;
+  int bestPrevPageNum = 1;
   dynamic moviesList = [];
   dynamic moviesDetail;
   dynamic trendingMovieList = [].obs;
   dynamic topRatedMovies = [].obs;
+  dynamic bestMoviesList = [].obs;
 
   // Get Movies List
   getMoviesList() async {
@@ -40,11 +44,13 @@ class MoviesController extends GetxController{
     try {
       var response = await ApiRepo.apiGet("$movieListUrl?page=$pageNum&sort_by=popularity.desc&include_adult=true");
       if(response != null) {
+        prevPageNum = pageNum;
         moviesList.addAll(response['results']);
         if(response["page"] == response["total_pages"]){
           isPageLoading(false);
         }
-      }else{
+      }
+      else{
         isPageLoading(false);
       }
     } catch (e) {
@@ -103,5 +109,44 @@ class MoviesController extends GetxController{
       isTopRatedMoviesLoading(false);
     }
   }
+
+  getBestMoviesList() async {
+    try {
+      isLoading(true);
+      var response = await ApiRepo.apiGet(movieListUrl);
+      if(response != null) {
+        bestMoviesList = response['results'];
+      }
+    } catch (e) {
+      log(e.toString());
+    } finally{
+      isLoading(false);
+    }
+  }
+
+    //movie list pagination
+  getBestPagination() async{
+    try {
+      var response = await ApiRepo.apiGet("$movieListUrl?page=$bestPageNum&sort_by=popularity.desc&include_adult=true");
+      if(response != null) {
+        bestPrevPageNum = bestPageNum;
+        if(response["page"] == response["total_pages"]){
+          isPageLoading(false);
+        }
+        for(var bestList in response['results']){
+          if(bestList['adult'] == true){
+            bestMoviesList.add(bestList);
+          }
+        }
+      }
+      else{
+        isPageLoading(false);
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+
 
 }

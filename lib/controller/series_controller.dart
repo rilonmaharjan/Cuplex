@@ -16,10 +16,12 @@ class SeriesController extends GetxController{
   late RxBool isDetailLoading = true.obs;
   late RxBool isEpisodeLoading = false.obs;
   int pageNum = 1;
+  int prevPageNum = 1;
   dynamic seriesList = [];
   dynamic episodeList = [];
   dynamic seriesDetail;
   dynamic trendingSeriesList = [].obs;
+  dynamic bestSeriesList = [].obs;
   var topRatedSeries = [].obs;
 
   // Get Series List
@@ -42,6 +44,7 @@ class SeriesController extends GetxController{
     try {
       var response = await ApiRepo.apiGet("$showListUrl?page=$pageNum&sort_by=popularity.desc&include_adult=true");
       if(response != null) {
+        prevPageNum = pageNum;
         seriesList.addAll(response['results']);
         if(response["page"] == response["total_pages"]){
           isPageLoading(false);
