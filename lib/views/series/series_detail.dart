@@ -68,6 +68,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                     : SizedBox(
                         height: 280.h,
                         child: CustomWebView(
+                          key: ValueKey('$selectedSeason-$selectedEpisode'),
                           initialUrl: "$showEmbedUrl?tmdb=${seriesCon.seriesDetail.id}&season=$selectedSeason&episode=$selectedEpisode",
                           showAppBar: false,
                           errorImageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
