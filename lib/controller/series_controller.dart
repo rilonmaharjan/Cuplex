@@ -27,8 +27,6 @@ class SeriesController extends GetxController{
   // Get Series List
   getSeriesList() async {
     try {
-      pageNum = 1;
-      prevPageNum = 1;
       isLoading(true);
       var response = await ApiRepo.apiGet(showListUrl);
       if(response != null) {

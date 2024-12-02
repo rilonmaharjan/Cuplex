@@ -98,7 +98,11 @@ void _scrollListener() {
             await movieCon.getTrendingMoviesList();
             await movieCon.getTopRatedMovies();
             await movieCon.getMoviesList();
-            count = 0;
+            setState(() {
+              movieCon.pageNum = 1;
+              movieCon.prevPageNum = 1;
+              count = 0;
+            });
           });
         },
         child: SingleChildScrollView(

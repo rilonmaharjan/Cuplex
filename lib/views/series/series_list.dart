@@ -94,6 +94,10 @@ class _SeriesListPageState extends State<SeriesListPage> {
             await seriesCon.getTrendingSeriesList();
             await seriesCon.getTopRatedSeries();
             await seriesCon.getSeriesList();
+            setState(() {
+              seriesCon.pageNum = 1;
+              seriesCon.prevPageNum = 1;
+            });
           });
         },
         child: SingleChildScrollView(
