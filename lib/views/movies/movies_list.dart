@@ -68,8 +68,7 @@ void _scrollListener() {
   @override
   void dispose() {
     paginationScrollController.removeListener(_scrollListener);
-    count;
-    movieCon.pageNum;
+    count = 0;
     super.dispose();
   }
 
@@ -91,138 +90,150 @@ void _scrollListener() {
           child: const Icon(Icons.arrow_upward_outlined, color: Colors.black),
         ),
       ),
-      body: SingleChildScrollView(
-        controller: paginationScrollController,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 480.h,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Opacity(
-                    opacity: .45,
-                    child: Center(
-                      child: Image.asset(
-                        "assets/images/gof.jpg",
-                        width: double.infinity,
-                        height: 480.h,
-                        fit: BoxFit.cover,
+      body: RefreshIndicator(
+        backgroundColor: const Color(0xffecc877),
+        color: Colors.black,
+        onRefresh: () {
+          return Future.delayed(const Duration(seconds: 1),()async{
+            await movieCon.getTrendingMoviesList();
+            await movieCon.getTopRatedMovies();
+            await movieCon.getMoviesList();
+            count = 0;
+          });
+        },
+        child: SingleChildScrollView(
+          controller: paginationScrollController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 480.h,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Opacity(
+                      opacity: .45,
+                      child: Center(
+                        child: Image.asset(
+                          "assets/images/gof.jpg",
+                          width: double.infinity,
+                          height: 480.h,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 480.h,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.transparent,
-                          Colors.black.withOpacity(.85),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                    Container(
+                      width: double.infinity,
+                      height: 480.h,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withOpacity(.85),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
                       ),
                     ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          count++;
-                          if(count == 10){
-                            Get.to(() => const BestMovies());
-                          }
-                        },
-                        child: RichText(
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            count++;
+                            if(count == 10){
+                              Get.to(() => const BestMovies());
+                            }
+                          },
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 224, 224, 224),
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.w300,
+                                letterSpacing: 1,
+                                height: 1.5,
+                              ),
+                              children: const [
+                                TextSpan(text: "Watch "),
+                                TextSpan(
+                                  text: "Free",
+                                  style: TextStyle(color: Color(0xffecc877)),
+                                ),
+                                TextSpan(text: " HD Movies &\nTV shows"),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 26.h),
+                        RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             style: TextStyle(
-                              color: const Color.fromARGB(255, 224, 224, 224),
-                              fontSize: 22.sp,
+                              color: const Color.fromARGB(255, 219, 219, 219),
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w300,
                               letterSpacing: 1,
-                              height: 1.5,
+                              height: 1.6,
                             ),
                             children: const [
-                              TextSpan(text: "Watch "),
+                              TextSpan(text: "Enjoy your "),
                               TextSpan(
-                                text: "Free",
+                                text: "unlimited",
                                 style: TextStyle(color: Color(0xffecc877)),
                               ),
-                              TextSpan(text: " HD Movies &\nTV shows"),
+                              TextSpan(
+                                  text: " Movies & TV show collection.\nWe are the definitive source for the best\n curated 720p / 1080p HD Movies & TV shows,\nviewable by mobile phone and tablet, for "),
+                              TextSpan(
+                                text: "free",
+                                style: TextStyle(color: Color(0xffecc877)),
+                              ),
+                              TextSpan(text: "."),
                             ],
                           ),
                         ),
-                      ),
-                      SizedBox(height: 26.h),
-                      RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: TextStyle(
-                            color: const Color.fromARGB(255, 219, 219, 219),
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w300,
-                            letterSpacing: 1,
-                            height: 1.6,
-                          ),
-                          children: const [
-                            TextSpan(text: "Enjoy your "),
-                            TextSpan(
-                              text: "unlimited",
-                              style: TextStyle(color: Color(0xffecc877)),
-                            ),
-                            TextSpan(
-                                text: " Movies & TV show collection.\nWe are the definitive source for the best\n curated 720p / 1080p HD Movies & TV shows,\nviewable by mobile phone and tablet, for "),
-                            TextSpan(
-                              text: "free",
-                              style: TextStyle(color: Color(0xffecc877)),
-                            ),
-                            TextSpan(text: "."),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 10.h,),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  //trendinglist
-                  trendingMoviesList(),
-                  SizedBox(height: 16.h,),
-                  //topRatedMovies
-                  topRatedMoviesList(),
-                  SizedBox(height: 16.h,),
-                  //all movies list
-                  allMoviesList(),
-                  //pagination
-                  Obx(() => 
-                    movieCon.isPageLoading.isTrue
-                    ?  Column(
-                        children: [
-                          SizedBox(
-                            height: 100.h,
-                            child: const Center(
-                              child: CircularProgressIndicator(
-                                color: Color(0xffecc877),
+              SizedBox(height: 10.h,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    //trendinglist
+                    trendingMoviesList(),
+                    SizedBox(height: 16.h,),
+                    //topRatedMovies
+                    topRatedMoviesList(),
+                    SizedBox(height: 16.h,),
+                    //all movies list
+                    allMoviesList(),
+                    //pagination
+                    Obx(() => 
+                      movieCon.isPageLoading.isTrue
+                      ?  Column(
+                          children: [
+                            SizedBox(
+                              height: 100.h,
+                              child: const Center(
+                                child: CircularProgressIndicator(
+                                  color: Color(0xffecc877),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                    :  const SizedBox(),
-                  )
-                ],
-              ),
-            )
-          ],
+                          ],
+                        )
+                      :  const SizedBox(),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

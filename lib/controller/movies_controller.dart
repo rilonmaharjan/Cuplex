@@ -28,6 +28,8 @@ class MoviesController extends GetxController{
   getMoviesList() async {
     try {
       isLoading(true);
+      pageNum = 1;
+      prevPageNum = 1;
       var response = await ApiRepo.apiGet(movieListUrl);
       if(response != null) {
         moviesList = response['results'];

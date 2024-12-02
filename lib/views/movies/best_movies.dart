@@ -35,13 +35,13 @@ class _BestMoviesState extends State<BestMovies> {
 
   void _scrollListener() {
     // Check if the user is near the top of the list
-    if (paginationScrollController.position.pixels <= 2500 && showScrollToTopButton) {
+    if (paginationScrollController.position.pixels <= 400 && showScrollToTopButton) {
       setState(() {
         showScrollToTopButton = false;
       });
     } 
     // Check if the user is scrolling down past a certain threshold
-    else if (paginationScrollController.position.pixels > 2500 && !showScrollToTopButton) {
+    else if (paginationScrollController.position.pixels > 400 && !showScrollToTopButton) {
       setState(() {
         showScrollToTopButton = true;
       });
@@ -71,6 +71,13 @@ class _BestMoviesState extends State<BestMovies> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvoked: (b){
+        paginationScrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.easeOut,
+        );
+      },
       child: Scaffold(
         appBar: customAppBar(
           backButton: true,
