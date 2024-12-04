@@ -101,6 +101,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
           });
         },
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           controller: paginationScrollController,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

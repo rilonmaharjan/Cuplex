@@ -21,6 +21,7 @@ class _ViewAllMovieState extends State<ViewAllMovie> {
       backgroundColor: Colors.black,
       appBar: customAppBar(backButton: true),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.all(8.sp),
           child: Column(

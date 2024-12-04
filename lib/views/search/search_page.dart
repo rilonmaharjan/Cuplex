@@ -121,7 +121,10 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                       controller: _searchController,
                       autofocus: true,
                       onFieldSubmitted: (value) {
-                        searchCon.searchForMovie(_searchController.text);
+                        searchCon.searchMovieAndSeries(_searchController.text);
+                        setState(() {
+                          searchCon.searchKeyword = _searchController.text;
+                        });
                       },
                       decoration: InputDecoration(
                         filled: true,

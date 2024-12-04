@@ -102,6 +102,7 @@ class _BestMoviesState extends State<BestMovies> {
         ),
         body: SingleChildScrollView(
           controller: paginationScrollController,
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.fromLTRB(8.sp, 24.h, 8.sp, 8.sp),
             child: Column(

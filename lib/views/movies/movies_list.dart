@@ -107,6 +107,7 @@ void _scrollListener() {
         },
         child: SingleChildScrollView(
           controller: paginationScrollController,
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

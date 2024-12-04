@@ -59,123 +59,133 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   ),
                 SizedBox(
                   height: 532.h,
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(16.0.sp,16.0.sp,16.0.sp,0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Movie Title
-                          Text(
-                            movieCon.moviesDetail.title ?? '',
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height: 8.h),
-                          // Tagline
-                          if (movieCon.moviesDetail.tagline != null)
+                  child: RefreshIndicator(
+                    backgroundColor: const Color(0xffecc877),
+                    color: Colors.black,
+                    onRefresh: (){
+                      return Future.delayed(const Duration(seconds: 1),()async{
+                        await movieCon.getMoviesDetail(widget.id);
+                      });
+                    },
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(16.0.sp,16.0.sp,16.0.sp,80.sp),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Movie Title
                             Text(
-                              movieCon.moviesDetail.tagline ?? '',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontStyle: FontStyle.italic,
-                                color: Colors.grey[400],
+                              movieCon.moviesDetail.title ?? '',
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
                             ),
-                          SizedBox(height: 16.h),
-                          // Poster and details
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Poster image
-                              if (movieCon.moviesDetail.posterPath != null)
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: DisplayNetworkImage(
-                                    imageUrl:
-                                        '$posterUrl${movieCon.moviesDetail.posterPath}',
-                                    height: 150.h,
-                                    width: 100.w,
+                            SizedBox(height: 8.h),
+                            // Tagline
+                            if (movieCon.moviesDetail.tagline != null)
+                              Text(
+                                movieCon.moviesDetail.tagline ?? '',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.grey[400],
+                                ),
+                              ),
+                            SizedBox(height: 16.h),
+                            // Poster and details
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Poster image
+                                if (movieCon.moviesDetail.posterPath != null)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: DisplayNetworkImage(
+                                      imageUrl:
+                                          '$posterUrl${movieCon.moviesDetail.posterPath}',
+                                      height: 150.h,
+                                      width: 100.w,
+                                    ),
+                                  ),
+                                SizedBox(width: 16.w),
+                                // Other movie details
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Release Date: ${movieCon.moviesDetail.releaseDate ?? 'N/A'}",
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      SizedBox(height: 8.h),
+                                      Text(
+                                        "Rating: ${movieCon.moviesDetail.voteAverage ?? 'N/A'}",
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      SizedBox(height: 8.h),
+                                      Text(
+                                        "Runtime: ${movieCon.moviesDetail.runtime} minutes",
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              SizedBox(width: 16.w),
-                              // Other movie details
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Release Date: ${movieCon.moviesDetail.releaseDate ?? 'N/A'}",
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    SizedBox(height: 8.h),
-                                    Text(
-                                      "Rating: ${movieCon.moviesDetail.voteAverage ?? 'N/A'}",
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    SizedBox(height: 8.h),
-                                    Text(
-                                      "Runtime: ${movieCon.moviesDetail.runtime} minutes",
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
+                              ],
+                            ),
+                            SizedBox(height: 16.h),
+                            // Genres
+                            const Text(
+                              "Genres:",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(height: 8.h),
+                            Wrap(
+                              spacing: 8,
+                              children: (movieCon.moviesDetail.genres as List)
+                                .map((genre) =>  Chip(
+                                  label: Text(genre.name, style: const TextStyle(color: Colors.grey),),
+                                  backgroundColor: Colors.black,
                                 ),
+                              ).toList(),
+                            ),
+                            SizedBox(height: 16.h),
+                            // Overview
+                            const Text(
+                              "Overview:",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 16.h),
-                          // Genres
-                          const Text(
-                            "Genres:",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
                             ),
-                          ),
-                          SizedBox(height: 8.h),
-                          Wrap(
-                            spacing: 8,
-                            children: (movieCon.moviesDetail.genres as List)
-                              .map((genre) =>  Chip(
-                                label: Text(genre.name, style: const TextStyle(color: Colors.grey),),
-                                backgroundColor: Colors.black,
+                            SizedBox(height: 8.h),
+                            Text(
+                              movieCon.moviesDetail.overview ??
+                                  'No description available.',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
                               ),
-                            ).toList(),
-                          ),
-                          SizedBox(height: 16.h),
-                          // Overview
-                          const Text(
-                            "Overview:",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
                             ),
-                          ),
-                          SizedBox(height: 8.h),
-                          Text(
-                            movieCon.moviesDetail.overview ??
-                                'No description available.',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          SizedBox(height: 16.h),
-                        ],
+                            SizedBox(height: 16.h),
+                          ],
+                        ),
                       ),
                     ),
                   ),

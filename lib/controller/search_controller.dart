@@ -7,8 +7,9 @@ class SearchhController extends GetxController {
   late RxBool hasSearched = false.obs;
   dynamic movieSearchList = [];
   dynamic seriesSearchList = [];
+  String searchKeyword = "";
 
-  searchForMovie(keyword) async {
+  searchMovieAndSeries(keyword) async {
     isSearchListLoading(true);
     movieSearchList.clear();
     seriesSearchList.clear();
