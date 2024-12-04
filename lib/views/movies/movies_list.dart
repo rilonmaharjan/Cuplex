@@ -414,6 +414,7 @@ void _scrollListener() {
           initialPage: 0,
           unlimitedMode: true,
           autoSliderDelay: const Duration(seconds: 12),
+          autoSliderTransitionTime: const Duration(milliseconds: 1500),
           enableAutoSlider: true,
           itemCount: 7,
           scrollPhysics: const BouncingScrollPhysics(),
@@ -426,19 +427,90 @@ void _scrollListener() {
             currentIndicatorColor: const Color(0xffecc877),
           ),
           slideBuilder: (int carouselIndex) {
-            return Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.grey.withOpacity(.3),
-                    Colors.transparent,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
+            return SizedBox(
+              height: 480.h,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.grey.withOpacity(.3),
+                          Colors.transparent,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    ),
+                    width: double.infinity,
+                    height: 475.0.h,
+                  ),
+                  Positioned(
+                    bottom: 78.h,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            count++;
+                            if(count == 10){
+                              Get.to(() => const BestMovies());
+                            }
+                          },
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 224, 224, 224),
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.w300,
+                                letterSpacing: 1,
+                                height: 1.5,
+                              ),
+                              children: const [
+                                TextSpan(text: "Watch "),
+                                TextSpan(
+                                  text: "Free",
+                                  style: TextStyle(color: Color(0xffecc877)),
+                                ),
+                                TextSpan(text: " HD Movies &\nTV shows"),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 26.h),
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 219, 219, 219),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w300,
+                              letterSpacing: 1,
+                              height: 1.6,
+                            ),
+                            children: const [
+                              TextSpan(text: "Enjoy your "),
+                              TextSpan(
+                                text: "unlimited",
+                                style: TextStyle(color: Color(0xffecc877)),
+                              ),
+                              TextSpan(
+                                  text: " Movies & TV show collection.\nWe are the definitive source for the best\n curated 720p / 1080p HD Movies & TV shows,\nviewable by mobile phone and tablet, for "),
+                              TextSpan(
+                                text: "free",
+                                style: TextStyle(color: Color(0xffecc877)),
+                              ),
+                              TextSpan(text: "."),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
-              width: double.infinity,
-              height: 475.0.h,
             );
           }
         )
