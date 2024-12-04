@@ -1,10 +1,13 @@
+import 'package:cuplex/constant/constant.dart';
 import 'package:cuplex/controller/movies_controller.dart';
 import 'package:cuplex/views/movies/best_movies.dart';
 import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/views/movies/view_all_movie.dart';
+import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:cuplex/widget/custom_shimmer.dart';
 import 'package:cuplex/widget/tile/movies_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -111,99 +114,7 @@ void _scrollListener() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 480.h,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Opacity(
-                      opacity: .45,
-                      child: Center(
-                        child: Image.asset(
-                          "assets/images/gof.jpg",
-                          width: double.infinity,
-                          height: 480.h,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 480.h,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.transparent,
-                            Colors.black.withOpacity(.85),
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                      ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: (){
-                            count++;
-                            if(count == 10){
-                              Get.to(() => const BestMovies());
-                            }
-                          },
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              style: TextStyle(
-                                color: const Color.fromARGB(255, 224, 224, 224),
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.w300,
-                                letterSpacing: 1,
-                                height: 1.5,
-                              ),
-                              children: const [
-                                TextSpan(text: "Watch "),
-                                TextSpan(
-                                  text: "Free",
-                                  style: TextStyle(color: Color(0xffecc877)),
-                                ),
-                                TextSpan(text: " HD Movies &\nTV shows"),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 26.h),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            style: TextStyle(
-                              color: const Color.fromARGB(255, 219, 219, 219),
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w300,
-                              letterSpacing: 1,
-                              height: 1.6,
-                            ),
-                            children: const [
-                              TextSpan(text: "Enjoy your "),
-                              TextSpan(
-                                text: "unlimited",
-                                style: TextStyle(color: Color(0xffecc877)),
-                              ),
-                              TextSpan(
-                                  text: " Movies & TV show collection.\nWe are the definitive source for the best\n curated 720p / 1080p HD Movies & TV shows,\nviewable by mobile phone and tablet, for "),
-                              TextSpan(
-                                text: "free",
-                                style: TextStyle(color: Color(0xffecc877)),
-                              ),
-                              TextSpan(text: "."),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
+              carosel(),
               SizedBox(height: 10.h,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -494,5 +405,203 @@ void _scrollListener() {
     );
   }
 
+//trending carousel
+  carosel() {
+    return SizedBox(
+      height: 475.0.h,
+      child: Obx(() => movieCon.isTrendingMoviesLoading.isTrue
+        ? CarouselSlider.builder(
+          initialPage: 0,
+          unlimitedMode: true,
+          autoSliderDelay: const Duration(seconds: 12),
+          autoSliderTransitionTime: const Duration(milliseconds: 2500),
+          enableAutoSlider: true,
+          itemCount: 7,
+          scrollPhysics: const BouncingScrollPhysics(),
+          slideIndicator: CircularSlideIndicator(
+            itemSpacing: 13.sp,
+            indicatorRadius: 4.r,
+            indicatorBackgroundColor: const Color.fromARGB(255, 151, 151, 151),
+            padding: EdgeInsets.only(bottom: 40.0.h),
+            indicatorBorderColor: Colors.transparent,
+            currentIndicatorColor: const Color(0xffecc877),
+          ),
+          slideBuilder: (int carouselIndex) {
+            return Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.grey.withOpacity(.3),
+                    Colors.transparent,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              width: double.infinity,
+              height: 475.0.h,
+            );
+          }
+        )
+        : CarouselSlider.builder(
+          initialPage: 0,
+          unlimitedMode: true,
+          autoSliderDelay: const Duration(seconds: 12),
+          autoSliderTransitionTime: const Duration(milliseconds: 2500),
+          enableAutoSlider: true,
+          itemCount:  movieCon.trendingMovieList.length > 7 ? 7 : movieCon.trendingMovieList.length,
+          scrollPhysics: const BouncingScrollPhysics(),
+          slideIndicator: CircularSlideIndicator(
+            itemSpacing: 13.sp,
+            indicatorRadius: 4.r,
+            indicatorBackgroundColor: const Color.fromARGB(255, 151, 151, 151),
+            padding: EdgeInsets.only(bottom: 40.0.h),
+            indicatorBorderColor: Colors.transparent,
+            currentIndicatorColor: const Color(0xffecc877),
+          ),
+          slideBuilder: (int carouselIndex) {
+            return Stack(
+              alignment: Alignment.center,
+              children: [
+                Opacity(
+                  opacity: .65,
+                  child: Center(
+                    child: DisplayNetworkImage(
+                      imageUrl: "$posterUrl${movieCon.trendingMovieList[carouselIndex]["poster_path"]}",
+                      width: double.infinity,
+                      height: 475.h,
+                      fit: BoxFit.cover,
+                      isFromCarousel : true
+                    ),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 475.h,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.transparent,
+                        Colors.black,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 78.h,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                       Text(
+                          movieCon.trendingMovieList[carouselIndex]["title"] ?? "",
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 219, 219, 219),
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w300, 
+                            letterSpacing: 1,
+                            height: 1.6,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: 12.h),
+                        RichText(
+                          text: TextSpan(
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 219, 219, 219),
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w300, 
+                              letterSpacing: 1,
+                              height: 1.6,
+                            ),
+                            children: [
+                              const TextSpan(text: "Rating  •  "),
+                              TextSpan(
+                                text: movieCon.trendingMovieList[carouselIndex]["vote_average"] != null &&
+                                        movieCon.trendingMovieList[carouselIndex]["vote_average"] != ""
+                                    ? double.parse(movieCon.trendingMovieList[carouselIndex]["vote_average"]
+                                            .toStringAsFixed(1))
+                                        .toString()
+                                    : "",
+                                style: const TextStyle(color: Color(0xffecc877)), // Yellow color for vote_average
+                              ),
+                              const TextSpan(text: "  •  "),
+                              TextSpan(
+                                text: movieCon.trendingMovieList[carouselIndex]["release_date"] != null &&
+                                        movieCon.trendingMovieList[carouselIndex]["release_date"] != ""
+                                    ? movieCon.trendingMovieList[carouselIndex]["release_date"].split("-")[0]
+                                    : "",
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 16.h),
+                        GestureDetector(
+                          onTap: () {
+                            count++;
+                            if (count == 10) {
+                              Get.to(() => const BestMovies());
+                            }
+                          },
+                          child: SizedBox(
+                            width: 280.w,
+                            child: Text(
+                              movieCon.trendingMovieList[carouselIndex]["overview"],
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 219, 219, 219),
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10.h),
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.to(() => MovieDetailPage(id: movieCon.trendingMovieList[carouselIndex]["id"]));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xffecc877).withOpacity(.9),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            padding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 55.w),
+                          ),
+                          child: Text(
+                            "WATCH",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 12.h),
+                        Text(
+                          "FREE | UNLIMITED | CUPLEX",
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 219, 219, 219),
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w300, 
+                            letterSpacing: 1,
+                            height: 1.6,
+                          ),
+                        ),
+                    ],
+                  ),
+                )
+              ],
+            );
+          }
+        ),
+      ),
+    );
+  }
 
 }

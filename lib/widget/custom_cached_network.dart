@@ -9,9 +9,10 @@ class DisplayNetworkImage extends StatefulWidget {
     this.height, 
     this.width, 
     this.fit,
-    this.fromPage
+    this.fromPage, this.isFromCarousel, 
   }): super(key: key);
       
+  final bool? isFromCarousel;
   final String imageUrl;
   final double? height;
   final double? width;
@@ -37,6 +38,21 @@ class _DisplayNetworkImageState extends State<DisplayNetworkImage> {
         loadingBuilder: (context, child, loadingProgress) {
           return loadingProgress == null
             ? child
+            : widget.isFromCarousel == true
+            ? Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.grey.withOpacity(.3),
+                    Colors.transparent,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              width: widget.width,
+              height: widget.height,
+            ) 
             : CustomShimmer(
               radius: 6,
               height: widget.height,
@@ -48,7 +64,22 @@ class _DisplayNetworkImageState extends State<DisplayNetworkImage> {
   }
 
   placeHolder() {
-    return Opacity(
+    return widget.isFromCarousel == true
+    ? Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.grey.withOpacity(.3),
+            Colors.transparent,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      width: widget.width,
+      height: widget.height,
+    ) 
+    : Opacity(
       opacity: 1,
       child: Image.asset(
         "assets/images/logo.jpg",

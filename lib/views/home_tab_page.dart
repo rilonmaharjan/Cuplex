@@ -20,7 +20,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -78,6 +77,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                 ),
                 Expanded(
                   child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: _tabController,
                     children: const [
                       MoviesListPage(),
