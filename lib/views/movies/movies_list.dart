@@ -414,7 +414,6 @@ void _scrollListener() {
           initialPage: 0,
           unlimitedMode: true,
           autoSliderDelay: const Duration(seconds: 12),
-          autoSliderTransitionTime: const Duration(milliseconds: 2500),
           enableAutoSlider: true,
           itemCount: 7,
           scrollPhysics: const BouncingScrollPhysics(),
