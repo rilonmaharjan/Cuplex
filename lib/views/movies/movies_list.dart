@@ -5,7 +5,7 @@ import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/views/movies/view_all_movie.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:cuplex/widget/loading_widget.dart';
-import 'package:cuplex/widget/tile/movies_list_tile.dart';
+import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -473,7 +473,7 @@ void _scrollListener() {
                   height: 170.h,
                   width: 122.w,
                   padding: EdgeInsets.only(right: 8.w),
-                  child: MovieCard(
+                  child: MediaCardTile(
                     title: reversedList[index]["title"] ?? "",
                     year: reversedList[index]["release_date"].split("-")[0],
                     rating: double.parse(reversedList[index]["vote_average"].toStringAsFixed(1)),
@@ -589,7 +589,7 @@ void _scrollListener() {
                   height: 170.h,
                   width: 122.w,
                   padding: EdgeInsets.only(right: 8.w),
-                  child: MovieCard(
+                  child: MediaCardTile(
                     title: movieCon.topRatedMovies[index].title ?? "",
                     year: movieCon.topRatedMovies[index].releaseDate.split("-")[0],
                     rating: double.parse(movieCon.topRatedMovies[index].voteAverage.toStringAsFixed(1)),
@@ -671,7 +671,7 @@ void _scrollListener() {
             ),
             itemCount: movieCon.moviesList.length,
             itemBuilder: (context, index) {
-              return MovieCard(
+              return MediaCardTile(
                 title: movieCon.moviesList[index]["title"] ?? "",
                 year: movieCon.moviesList[index]["release_date"].split("-")[0],
                 rating: double.parse(movieCon.moviesList[index]["vote_average"].toStringAsFixed(1)),

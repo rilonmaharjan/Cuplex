@@ -3,14 +3,14 @@ import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MovieCard extends StatelessWidget {
+class MediaCardTile extends StatelessWidget {
   final String title;
   final String year;
   final double rating;
   final String image;
   final VoidCallback? onTap;
 
-  const MovieCard({
+  const MediaCardTile({
     super.key,
     required this.title,
     required this.year,

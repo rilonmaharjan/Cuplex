@@ -1,6 +1,6 @@
 import 'package:cuplex/controller/search_controller.dart';
 import 'package:cuplex/views/series/series_detail.dart';
-import 'package:cuplex/widget/tile/movies_list_tile.dart';
+import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -116,7 +116,7 @@ class _SearchSeriesPageState extends State<SearchSeriesPage> {
                 ),
                 itemCount: searchCon.seriesSearchList.length,
                 itemBuilder: (context, index) {
-                  return MovieCard(
+                  return MediaCardTile(
                     title: searchCon.seriesSearchList[index]["name"] ?? "",
                     year: (searchCon.seriesSearchList[index]['first_air_date'] ?? '').split('-').first,
                     rating: double.parse(searchCon.seriesSearchList[index]["vote_average"].toStringAsFixed(1)),

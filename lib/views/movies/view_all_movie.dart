@@ -1,6 +1,6 @@
 import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/widget/custom_appbar.dart';
-import 'package:cuplex/widget/tile/movies_list_tile.dart';
+import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -52,7 +52,7 @@ class _ViewAllMovieState extends State<ViewAllMovie> {
                 itemCount: widget.movieList.length,
                 itemBuilder: (context, index) {
                   return widget.title == "Trending Movies" 
-                  ? MovieCard(
+                  ? MediaCardTile(
                     title: widget.movieList[index]["title"] ?? "",
                     year: widget.movieList[index]["release_date"].split("-")[0],
                     rating: double.parse(widget.movieList[index]["vote_average"].toStringAsFixed(1)),
@@ -61,7 +61,7 @@ class _ViewAllMovieState extends State<ViewAllMovie> {
                       Get.to(() => MovieDetailPage(id: widget.movieList[index]["id"]));
                     },
                   )
-                  : MovieCard(
+                  : MediaCardTile(
                     title: widget.movieList[index].title ?? "",
                     year: widget.movieList[index].releaseDate.split("-")[0],
                     rating: double.parse(widget.movieList[index].voteAverage.toStringAsFixed(1)),

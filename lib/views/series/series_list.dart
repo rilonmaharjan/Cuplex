@@ -4,7 +4,7 @@ import 'package:cuplex/views/series/series_detail.dart';
 import 'package:cuplex/views/series/view_all_series.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:cuplex/widget/loading_widget.dart';
-import 'package:cuplex/widget/tile/movies_list_tile.dart';
+import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -460,7 +460,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
                   height: 170.h,
                   width: 122.w,
                   padding: EdgeInsets.only(right: 8.sp),
-                  child: MovieCard(
+                  child: MediaCardTile(
                     title: reversedList[index]["name"] ?? "",
                     year: reversedList[index]["first_air_date"].split("-")[0],
                     rating: reversedList[index]["vote_average"] == null ? 0 : double.parse(reversedList[index]["vote_average"].toStringAsFixed(1)),
@@ -576,7 +576,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
                   height: 170.h,
                   width: 122.w,
                   padding: EdgeInsets.only(right: 8.sp),
-                  child: MovieCard(
+                  child: MediaCardTile(
                     title: seriesCon.topRatedSeries[index].name ?? "",
                     year: seriesCon.topRatedSeries[index].firstAirDate.split("-")[0],
                     rating: seriesCon.topRatedSeries[index].voteAverage == null ? 0 : double.parse(seriesCon.topRatedSeries[index].voteAverage.toStringAsFixed(1)),
@@ -658,7 +658,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
             ),
             itemCount: seriesCon.seriesList.length,
             itemBuilder: (context, index) {
-              return MovieCard(
+              return MediaCardTile(
                 title: seriesCon.seriesList[index]["name"] ?? "",
                 year: seriesCon.seriesList[index]["first_air_date"].split("-")[0],
                 rating: seriesCon.seriesList[index]["vote_average"] == null ? 0 : double.parse(seriesCon.seriesList[index]["vote_average"].toStringAsFixed(1)),

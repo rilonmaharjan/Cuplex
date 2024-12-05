@@ -3,7 +3,7 @@ import 'package:cuplex/views/home_tab_page.dart';
 import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/widget/custom_appbar.dart';
 import 'package:cuplex/widget/loading_widget.dart';
-import 'package:cuplex/widget/tile/movies_list_tile.dart';
+import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -194,7 +194,7 @@ class _BestMoviesState extends State<BestMovies> {
                 ),
                 itemCount: movieCon.bestMoviesList.length,
                 itemBuilder: (context, index) {
-                  return MovieCard(
+                  return MediaCardTile(
                     title: movieCon.bestMoviesList[index]["title"] ?? "",
                     year: movieCon.bestMoviesList[index]["release_date"]
                         .split("-")[0],

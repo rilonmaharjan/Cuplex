@@ -1,6 +1,6 @@
 import 'package:cuplex/views/series/series_detail.dart';
 import 'package:cuplex/widget/custom_appbar.dart';
-import 'package:cuplex/widget/tile/movies_list_tile.dart';
+import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -52,7 +52,7 @@ class _ViewAllSeriesState extends State<ViewAllSeries> {
                 itemCount: widget.seriesList.length,
                 itemBuilder: (context, index) {
                   return widget.title == "Trending Series" 
-                  ? MovieCard(
+                  ? MediaCardTile(
                     title: widget.seriesList[index]["name"] ?? "",
                     year: widget.seriesList[index]["first_air_date"].split("-")[0],
                     rating: widget.seriesList[index]["vote_average"] == null ? 0 : double.parse(widget.seriesList[index]["vote_average"].toStringAsFixed(1)),
@@ -61,7 +61,7 @@ class _ViewAllSeriesState extends State<ViewAllSeries> {
                       Get.to(() => SeriesDetailPage(id: widget.seriesList[index]["id"],));
                     },
                   )
-                  : MovieCard(
+                  : MediaCardTile(
                     title: widget.seriesList[index].name ?? "",
                     year: widget.seriesList[index].firstAirDate.split("-")[0],
                     rating: widget.seriesList[index].voteAverage == null ? 0 : double.parse(widget.seriesList[index].voteAverage.toStringAsFixed(1)),
