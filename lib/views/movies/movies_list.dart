@@ -154,7 +154,7 @@ void _scrollListener() {
     );
   }
 
-    //trending carousel
+  //trending carousel
   carosel() {
     return Container(
       height: 475.0.h,

@@ -30,6 +30,8 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
       backgroundColor: Colors.black,
       appBar: customAppBar(),
       body: SafeArea(
+        top: true,
+        bottom: false,
         child: DefaultTabController(
           length: 2,
           initialIndex: 0,

@@ -54,6 +54,31 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
               ),
             ),
         )
+        : seriesCon.seriesDetail == null
+        ? Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.grey.withOpacity(.4),
+                Colors.transparent,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: const Center(
+              child: Text(
+                'Something went wrong!',
+                style: TextStyle(
+                  fontWeight: FontWeight.w300, 
+                  letterSpacing: 1,
+                  height: 1.6,
+                  color:Color.fromARGB(255, 219, 219, 219),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+        )
         : Stack(
           children: [
             Column(
