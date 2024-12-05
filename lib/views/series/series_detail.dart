@@ -51,27 +51,42 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                 if (seriesCon.seriesDetail.backdropPath != null)
                 Stack(
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: (selectedSeason == null && selectedEpisode == null) || seasonPoster == null
-                    ? DisplayNetworkImage(
-                        imageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
-                        height: 280.h,
-                        width: double.infinity,
-                      )
-                    : selectedSeason != null && selectedEpisode == null
-                    ? DisplayNetworkImage(
-                        imageUrl: "$posterUrl/$seasonPoster",
-                        height: 280.h,
-                        width: double.infinity,
-                      )
-                    : SizedBox(
-                        height: 280.h,
-                        child: CustomWebView(
-                          key: ValueKey('$selectedSeason-$selectedEpisode'),
-                          initialUrl: "$showEmbedUrl?tmdb=${seriesCon.seriesDetail.id}&season=$selectedSeason&episode=$selectedEpisode",
-                          showAppBar: false,
-                          errorImageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.grey.withOpacity(.3),
+                            Colors.transparent,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6),
+                        child: (selectedSeason == null && selectedEpisode == null) || seasonPoster == null
+                      ? DisplayNetworkImage(
+                          imageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
+                          height: 280.h,
+                          width: double.infinity,
+                          isFromweb: true,
+                        )
+                      : selectedSeason != null && selectedEpisode == null
+                      ? DisplayNetworkImage(
+                          imageUrl: "$posterUrl/$seasonPoster",
+                          height: 280.h,
+                          width: double.infinity,
+                          isFromweb: true,
+                        )
+                      : SizedBox(
+                          height: 280.h,
+                          child: CustomWebView(
+                            key: ValueKey('$selectedSeason-$selectedEpisode'),
+                            initialUrl: "$showEmbedUrl?tmdb=${seriesCon.seriesDetail.id}&season=$selectedSeason&episode=$selectedEpisode",
+                            showAppBar: false,
+                            errorImageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
+                          ),
                         ),
                       ),
                     ),
@@ -150,13 +165,30 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                               children: [
                                 // Poster Image
                                 if (seriesCon.seriesDetail.posterPath != null)
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: DisplayNetworkImage(
-                                      imageUrl:
-                                          'https://image.tmdb.org/t/p/w500${seriesCon.seriesDetail.posterPath}',
-                                      height: 150.h,
-                                      width: 100.w,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        width: 0.5,
+                                      ),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.grey.withOpacity(.3),
+                                          Colors.transparent,
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: DisplayNetworkImage(
+                                        imageUrl:
+                                            'https://image.tmdb.org/t/p/w500${seriesCon.seriesDetail.posterPath}',
+                                        height: 150.h,
+                                        width: 100.w,
+                                      ),
                                     ),
                                   ),
                                SizedBox(width: 16.w),
@@ -304,10 +336,21 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                                 children: [
                                                   Container(
                                                     decoration: BoxDecoration(
+                                                      gradient: LinearGradient(
+                                                        colors: [
+                                                          Colors.grey.withOpacity(.3),
+                                                          Colors.transparent,
+                                                        ],
+                                                        begin: Alignment.topCenter,
+                                                        end: Alignment.bottomCenter,
+                                                      ),
                                                       border: Border.all(
+                                                        width: selectedEpisode == seriesCon.episodeList[index]["episode_number"]
+                                                            ? 1.sp
+                                                            : 0.5.sp,
                                                         color: selectedEpisode == seriesCon.episodeList[index]["episode_number"]
                                                             ? const Color(0xffecc877)
-                                                            : Colors.black,
+                                                            : Colors.grey.withOpacity(0.5),
                                                       ),
                                                       borderRadius: BorderRadius.circular(8),
                                                     ),

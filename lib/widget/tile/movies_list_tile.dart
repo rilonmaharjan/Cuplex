@@ -29,6 +29,14 @@ class MovieCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             width: 0.5,
           ),
+          gradient: LinearGradient(
+            colors: [
+              Colors.grey.withOpacity(.3),
+              Colors.transparent,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Stack(

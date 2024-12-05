@@ -101,13 +101,30 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               children: [
                                 // Poster image
                                 if (movieCon.moviesDetail.posterPath != null)
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: DisplayNetworkImage(
-                                      imageUrl:
-                                          '$posterUrl${movieCon.moviesDetail.posterPath}',
-                                      height: 150.h,
-                                      width: 100.w,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        width: 0.5,
+                                      ),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.grey.withOpacity(.3),
+                                          Colors.transparent,
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: DisplayNetworkImage(
+                                        imageUrl:
+                                            '$posterUrl${movieCon.moviesDetail.posterPath}',
+                                        height: 150.h,
+                                        width: 100.w,
+                                      ),
                                     ),
                                   ),
                                 SizedBox(width: 16.w),

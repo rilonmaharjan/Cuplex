@@ -4,7 +4,6 @@ import 'package:cuplex/views/movies/best_movies.dart';
 import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/views/movies/view_all_movie.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
-import 'package:cuplex/widget/custom_shimmer.dart';
 import 'package:cuplex/widget/tile/movies_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
@@ -214,7 +213,22 @@ void _scrollListener() {
                   padding: EdgeInsets.only(right: 8.sp),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
-                    child:  CustomShimmer(
+                    child:  Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.withOpacity(0.5),
+                          width: 0.5,
+                        ),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.grey.withOpacity(.3),
+                            Colors.transparent,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
                       height: 170.h,
                       width: 114.w,
                     ),
@@ -254,47 +268,47 @@ void _scrollListener() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Row(
-           children: [
-             const Text(
-              "Top Rated Movies",
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+        Row(
+          children: [
+            const Text(
+            "Top Rated Movies",
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
-            const Spacer(),
-            Obx(() =>
-              Visibility(
-                visible: movieCon.topRatedMovies.isNotEmpty,
-                child: InkWell(
-                  onTap: (){
-                    Get.to(() => ViewAllMovie(title: "Top Rated Movies", movieList: movieCon.topRatedMovies,));
-                  },
-                  child: Container(
-                    height: 24.h,
-                    width: 46.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 0.5.sp,
-                      ),
-                      color: Colors.black
+          ),
+          const Spacer(),
+          Obx(() =>
+            Visibility(
+              visible: movieCon.topRatedMovies.isNotEmpty,
+              child: InkWell(
+                onTap: (){
+                  Get.to(() => ViewAllMovie(title: "Top Rated Movies", movieList: movieCon.topRatedMovies,));
+                },
+                child: Container(
+                  height: 24.h,
+                  width: 46.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 0.5.sp,
                     ),
-                    child: Center(
-                      child: Text(
-                        "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
-                      ),
+                    color: Colors.black
+                  ),
+                  child: Center(
+                    child: Text(
+                      "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
                     ),
                   ),
                 ),
               ),
-            )
-           ],
-         ),
-         SizedBox(height: 10.h,),
+            ),
+          )
+          ],
+        ),
+        SizedBox(height: 10.h,),
         SizedBox(
           height: 170.h,
           child: Obx(() => movieCon.isTopRatedMoviesLoading.isTrue
@@ -307,7 +321,22 @@ void _scrollListener() {
                   padding: EdgeInsets.only(right: 8.w),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
-                    child:  CustomShimmer(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.withOpacity(0.5),
+                          width: 0.5,
+                        ),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.grey.withOpacity(.3),
+                            Colors.transparent,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
                       height: 170.h,
                       width: 114.w,
                     ),
@@ -371,7 +400,22 @@ void _scrollListener() {
               itemBuilder: (context, index) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(6),
-                  child:  CustomShimmer(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey.withOpacity(0.5),
+                        width: 0.5,
+                      ),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.grey.withOpacity(.3),
+                          Colors.transparent,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
                     height: 150.h,
                     width: 120.w,
                   ),
@@ -407,8 +451,18 @@ void _scrollListener() {
 
 //trending carousel
   carosel() {
-    return SizedBox(
+    return Container(
       height: 475.0.h,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.grey.withOpacity(.3),
+            Colors.transparent,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
       child: Obx(() => movieCon.isTrendingMoviesLoading.isTrue
         ? CarouselSlider.builder(
           initialPage: 0,
@@ -446,69 +500,6 @@ void _scrollListener() {
                     width: double.infinity,
                     height: 475.0.h,
                   ),
-                  Positioned(
-                    bottom: 78.h,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: (){
-                            count++;
-                            if(count == 10){
-                              Get.to(() => const BestMovies());
-                            }
-                          },
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              style: TextStyle(
-                                color: const Color.fromARGB(255, 224, 224, 224),
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.w300,
-                                letterSpacing: 1,
-                                height: 1.5,
-                              ),
-                              children: const [
-                                TextSpan(text: "Watch "),
-                                TextSpan(
-                                  text: "Free",
-                                  style: TextStyle(color: Color(0xffecc877)),
-                                ),
-                                TextSpan(text: " HD Movies &\nTV shows"),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 26.h),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            style: TextStyle(
-                              color: const Color.fromARGB(255, 219, 219, 219),
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w300,
-                              letterSpacing: 1,
-                              height: 1.6,
-                            ),
-                            children: const [
-                              TextSpan(text: "Enjoy your "),
-                              TextSpan(
-                                text: "unlimited",
-                                style: TextStyle(color: Color(0xffecc877)),
-                              ),
-                              TextSpan(
-                                  text: " Movies & TV show collection.\nWe are the definitive source for the best\n curated 720p / 1080p HD Movies & TV shows,\nviewable by mobile phone and tablet, for "),
-                              TextSpan(
-                                text: "free",
-                                style: TextStyle(color: Color(0xffecc877)),
-                              ),
-                              TextSpan(text: "."),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
                 ],
               ),
             );
