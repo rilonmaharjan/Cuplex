@@ -10,7 +10,8 @@ class DisplayNetworkImage extends StatefulWidget {
     this.fit,
     this.fromPage, 
     this.isFromCarousel, 
-    this.isFromweb, 
+    this.isFromweb,  
+    this.alignment, 
   }): super(key: key);
       
   final bool? isFromCarousel;
@@ -20,6 +21,7 @@ class DisplayNetworkImage extends StatefulWidget {
   final double? width;
   final BoxFit? fit;
   final String? fromPage;
+  final Alignment? alignment;
 
   @override
   State<DisplayNetworkImage> createState() => _DisplayNetworkImageState();
@@ -37,6 +39,7 @@ class _DisplayNetworkImageState extends State<DisplayNetworkImage> {
         height: widget.height,
         fit: widget.fit ?? BoxFit.cover,
         headers: const { "Connection": "Keep-Alive"},
+        alignment: widget.alignment ?? Alignment.center,
         loadingBuilder: (context, child, loadingProgress) {
           return loadingProgress == null
             ? child

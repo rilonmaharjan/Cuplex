@@ -4,6 +4,7 @@ import 'package:cuplex/views/movies/best_movies.dart';
 import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/views/movies/view_all_movie.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
+import 'package:cuplex/widget/loading_widget.dart';
 import 'package:cuplex/widget/tile/movies_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
@@ -134,10 +135,8 @@ void _scrollListener() {
                           children: [
                             SizedBox(
                               height: 100.h,
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  color: Color(0xffecc877),
-                                ),
+                              child: Center(
+                                child: loadingWidget()
                               ),
                             ),
                           ],
@@ -175,7 +174,7 @@ void _scrollListener() {
           autoSliderDelay: const Duration(seconds: 12),
           autoSliderTransitionTime: const Duration(milliseconds: 1500),
           enableAutoSlider: true,
-          itemCount: 7,
+          itemCount: 10,
           scrollPhysics: const BouncingScrollPhysics(),
           slideIndicator: CircularSlideIndicator(
             itemSpacing: 13.sp,
@@ -216,7 +215,7 @@ void _scrollListener() {
           autoSliderDelay: const Duration(seconds: 12),
           autoSliderTransitionTime: const Duration(milliseconds: 2500),
           enableAutoSlider: true,
-          itemCount:  movieCon.trendingMovieList.length > 7 ? 7 : movieCon.trendingMovieList.length,
+          itemCount:  movieCon.trendingMovieList.length > 10 ? 10 : movieCon.trendingMovieList.length,
           scrollPhysics: const BouncingScrollPhysics(),
           slideIndicator: CircularSlideIndicator(
             itemSpacing: 13.sp,
@@ -238,7 +237,8 @@ void _scrollListener() {
                       width: double.infinity,
                       height: 475.h,
                       fit: BoxFit.cover,
-                      isFromCarousel : true
+                      isFromCarousel : true,
+                      alignment: Alignment.topCenter,
                     ),
                   ),
                 ),
@@ -468,17 +468,18 @@ void _scrollListener() {
               scrollDirection: Axis.horizontal,
               itemCount: movieCon.trendingMovieList.length,
               itemBuilder: (context,index){
+                final reversedList = movieCon.trendingMovieList.reversed.toList();
                 return Container(
                   height: 170.h,
                   width: 122.w,
                   padding: EdgeInsets.only(right: 8.w),
                   child: MovieCard(
-                    title: movieCon.trendingMovieList[index]["title"] ?? "",
-                    year: movieCon.trendingMovieList[index]["release_date"].split("-")[0],
-                    rating: double.parse(movieCon.trendingMovieList[index]["vote_average"].toStringAsFixed(1)),
-                    image: movieCon.trendingMovieList[index]["poster_path"] ?? "",
+                    title: reversedList[index]["title"] ?? "",
+                    year: reversedList[index]["release_date"].split("-")[0],
+                    rating: double.parse(reversedList[index]["vote_average"].toStringAsFixed(1)),
+                    image: reversedList[index]["poster_path"] ?? "",
                     onTap: () {
-                      Get.to(() => MovieDetailPage(id: movieCon.trendingMovieList[index]["id"]));
+                      Get.to(() => MovieDetailPage(id: reversedList[index]["id"]));
                     },
                   ),
                 );

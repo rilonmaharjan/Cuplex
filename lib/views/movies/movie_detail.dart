@@ -2,6 +2,7 @@ import 'package:cuplex/constant/constant.dart';
 import 'package:cuplex/controller/movies_controller.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:cuplex/widget/custom_webview.dart';
+import 'package:cuplex/widget/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -45,10 +46,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               end: Alignment.bottomCenter,
             ),
           ),
-          child: const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xffecc877),
-              ),
+          child: Center(
+              child: loadingWidget()
             ),
         )
         : movieCon.moviesDetail == null

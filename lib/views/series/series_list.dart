@@ -3,6 +3,7 @@ import 'package:cuplex/controller/series_controller.dart';
 import 'package:cuplex/views/series/series_detail.dart';
 import 'package:cuplex/views/series/view_all_series.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
+import 'package:cuplex/widget/loading_widget.dart';
 import 'package:cuplex/widget/tile/movies_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
@@ -116,10 +117,10 @@ class _SeriesListPageState extends State<SeriesListPage> {
                   children: [
                     //trendinglist
                     trendingSeriesList(),
-                    SizedBox(height: 16.h),
+                    SizedBox(height: 16.h,),
                     //topRatedseries
                     topRatedSeriesList(),
-                    SizedBox(height: 16.h,),
+                    SizedBox(height: 16.h),
                     //all series list
                     allSeriesList(),
                     //pagination
@@ -129,10 +130,8 @@ class _SeriesListPageState extends State<SeriesListPage> {
                           children: [
                             SizedBox(
                               height: 100.h,
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  color: Color(0xffecc877),
-                                ),
+                              child: Center(
+                                child: loadingWidget()
                               ),
                             ),
                           ],
@@ -170,7 +169,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
           autoSliderDelay: const Duration(seconds: 12),
           autoSliderTransitionTime: const Duration(milliseconds: 1500),
           enableAutoSlider: true,
-          itemCount: 7,
+          itemCount: 10,
           scrollPhysics: const BouncingScrollPhysics(),
           slideIndicator: CircularSlideIndicator(
             itemSpacing: 13.sp,
@@ -211,7 +210,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
           autoSliderDelay: const Duration(seconds: 12),
           autoSliderTransitionTime: const Duration(milliseconds: 2500),
           enableAutoSlider: true,
-          itemCount:  seriesCon.trendingSeriesList.length > 7 ? 7 : seriesCon.trendingSeriesList.length,
+          itemCount:  seriesCon.trendingSeriesList.length > 10 ? 10 : seriesCon.trendingSeriesList.length,
           scrollPhysics: const BouncingScrollPhysics(),
           slideIndicator: CircularSlideIndicator(
             itemSpacing: 13.sp,
@@ -233,7 +232,8 @@ class _SeriesListPageState extends State<SeriesListPage> {
                       width: double.infinity,
                       height: 475.h,
                       fit: BoxFit.cover,
-                      isFromCarousel : true
+                      isFromCarousel : true,
+                      alignment: Alignment.topCenter,
                     ),
                   ),
                 ),
@@ -455,17 +455,18 @@ class _SeriesListPageState extends State<SeriesListPage> {
               scrollDirection: Axis.horizontal,
               itemCount: seriesCon.trendingSeriesList.length,
               itemBuilder: (context,index){
+                final reversedList = seriesCon.trendingSeriesList.reversed.toList();
                 return Container(
                   height: 170.h,
                   width: 122.w,
                   padding: EdgeInsets.only(right: 8.sp),
                   child: MovieCard(
-                    title: seriesCon.trendingSeriesList[index]["name"] ?? "",
-                    year: seriesCon.trendingSeriesList[index]["first_air_date"].split("-")[0],
-                    rating: seriesCon.trendingSeriesList[index]["vote_average"] == null ? 0 : double.parse(seriesCon.trendingSeriesList[index]["vote_average"].toStringAsFixed(1)),
-                    image: seriesCon.trendingSeriesList[index]["poster_path"] ?? "",
+                    title: reversedList[index]["name"] ?? "",
+                    year: reversedList[index]["first_air_date"].split("-")[0],
+                    rating: reversedList[index]["vote_average"] == null ? 0 : double.parse(reversedList[index]["vote_average"].toStringAsFixed(1)),
+                    image: reversedList[index]["poster_path"] ?? "",
                     onTap: (){
-                      Get.to(() => SeriesDetailPage(id: seriesCon.trendingSeriesList[index]["id"],));
+                      Get.to(() => SeriesDetailPage(id: reversedList[index]["id"],));
                     },
                   ),
                 );

@@ -2,6 +2,7 @@ import 'package:cuplex/controller/movies_controller.dart';
 import 'package:cuplex/views/home_tab_page.dart';
 import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/widget/custom_appbar.dart';
+import 'package:cuplex/widget/loading_widget.dart';
 import 'package:cuplex/widget/tile/movies_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -114,10 +115,8 @@ class _BestMoviesState extends State<BestMovies> {
                         children: [
                           SizedBox(
                             height: 100.h,
-                            child: const Center(
-                              child: CircularProgressIndicator(
-                                color: Color(0xffecc877),
-                              ),
+                            child: Center(
+                              child: loadingWidget()
                             ),
                           ),
                         ],

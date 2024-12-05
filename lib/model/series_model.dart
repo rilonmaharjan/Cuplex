@@ -89,7 +89,7 @@ class SeriesDetailModel {
         inProduction: json["in_production"],
         languages: List<String>.from(json["languages"].map((x) => x)),
         lastAirDate: json["last_air_date"],
-        lastEpisodeToAir: TEpisodeToAir.fromJson(json["last_episode_to_air"]),
+        lastEpisodeToAir: json["last_episode_to_air"] == null ? TEpisodeToAir() : TEpisodeToAir.fromJson(json["last_episode_to_air"]),
         name: json["name"],
         nextEpisodeToAir: json["next_episode_to_air"] == null ? TEpisodeToAir() : TEpisodeToAir.fromJson(json["next_episode_to_air"]),
         networks: List<Network>.from(json["networks"].map((x) => Network.fromJson(x))),

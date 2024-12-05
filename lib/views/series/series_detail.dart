@@ -2,6 +2,7 @@ import 'package:cuplex/constant/constant.dart';
 import 'package:cuplex/controller/series_controller.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:cuplex/widget/custom_webview.dart';
+import 'package:cuplex/widget/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -48,10 +49,8 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
               end: Alignment.bottomCenter,
             ),
           ),
-          child: const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xffecc877),
-              ),
+          child: Center(
+              child: loadingWidget()
             ),
         )
         : seriesCon.seriesDetail == null
@@ -372,7 +371,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                           ),
                                         ),
                                         backgroundColor: selectedSeason == season.seasonNumber
-                                            ? Colors.white
+                                            ? const Color.fromARGB(255, 219, 219, 219)
                                             : Colors.black,
                                       ),
                                     ),
@@ -574,10 +573,8 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
               ? Container(
                 height: MediaQuery.of(context).size.height,
                 color: Colors.grey.withOpacity(0.2),
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: Color(0xffecc877),
-                  ),
+                child: Center(
+                  child: loadingWidget()
                 ),
               )
               : const SizedBox()
