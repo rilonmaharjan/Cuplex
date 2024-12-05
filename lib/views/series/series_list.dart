@@ -238,12 +238,14 @@ class _SeriesListPageState extends State<SeriesListPage> {
         SizedBox(height: 8.h,),
         Row(
           children: [
-            const Text(
+            Text(
               "Trending Series",
               style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w300, 
+                letterSpacing: 1,
+                height: 1.6,
+                color: const Color.fromARGB(255, 219, 219, 219),
               ),
             ),
             const Spacer(),
@@ -267,7 +269,13 @@ class _SeriesListPageState extends State<SeriesListPage> {
                     ),
                     child: Center(
                       child: Text(
-                        "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+                        "ALL", style: TextStyle(
+                        color: Colors.white.withOpacity(0.8), 
+                        fontSize: 12.sp, 
+                          fontWeight: FontWeight.w300, 
+                          letterSpacing: 1,
+                          height: 1.6,
+                        ) ,
                       ),
                     ),
                   ),
@@ -346,12 +354,14 @@ class _SeriesListPageState extends State<SeriesListPage> {
       children: [
         Row(
           children: [
-            const Text(
+            Text(
               "Top Rated Series",
               style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w300, 
+                letterSpacing: 1,
+                height: 1.6,
+                color: const Color.fromARGB(255, 219, 219, 219),
               ),
             ),
             const Spacer(),
@@ -375,7 +385,13 @@ class _SeriesListPageState extends State<SeriesListPage> {
                     ),
                     child: Center(
                       child: Text(
-                        "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
+                        "ALL", style: TextStyle(
+                          fontSize: 12.sp, 
+                          color: Colors.white.withOpacity(0.8), 
+                          fontWeight: FontWeight.w300, 
+                          letterSpacing: 1,
+                          height: 1.6,
+                        ) ,
                       ),
                     ),
                   ),
@@ -452,12 +468,14 @@ class _SeriesListPageState extends State<SeriesListPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           "All Series",
           style: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w300, 
+            letterSpacing: 1,
+            height: 1.6,
+            color: const Color.fromARGB(255, 219, 219, 219),
           ),
         ),
         SizedBox(height: 10.h),

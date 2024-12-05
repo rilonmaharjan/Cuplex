@@ -34,11 +34,23 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Obx(() => movieCon.isDetailLoading.isTrue
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Color(0xffecc877),
+        ? Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.grey.withOpacity(.4),
+                Colors.transparent,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-          )
+          ),
+          child: const Center(
+              child: CircularProgressIndicator(
+                color: Color(0xffecc877),
+              ),
+            ),
+        )
         : Stack(
           children: [
             Column(
@@ -46,18 +58,41 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               children: [
                 // Backdrop with Play Button
                 if (movieCon.moviesDetail.backdropPath != null)
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: SizedBox(
-                      height: 280.h,
-                      child: CustomWebView(
-                        initialUrl: "$movieEmbedUrl/${movieCon.moviesDetail.imdbId}",
-                        showAppBar: false,
-                        errorImageUrl: "$posterUrl${movieCon.moviesDetail.backdropPath}",
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.grey.withOpacity(.4),
+                          Colors.transparent,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: SizedBox(
+                        height: 280.h,
+                        child: CustomWebView(
+                          initialUrl: "$movieEmbedUrl/${movieCon.moviesDetail.imdbId}",
+                          showAppBar: false,
+                          errorImageUrl: "$posterUrl${movieCon.moviesDetail.backdropPath}",
+                        ),
                       ),
                     ),
                   ),
-                SizedBox(
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.grey.withOpacity(.3),
+                        Colors.transparent,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
                   height: 532.h,
                   child: RefreshIndicator(
                     backgroundColor: const Color(0xffecc877),
@@ -77,21 +112,26 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             // Movie Title
                             Text(
                               movieCon.moviesDetail.title ?? '',
-                              style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                              style: TextStyle(
+                                fontSize: 24.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color:const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
                             SizedBox(height: 8.h),
                             // Tagline
-                            if (movieCon.moviesDetail.tagline != null)
+                            if (movieCon.moviesDetail.tagline != "")
                               Text(
-                                movieCon.moviesDetail.tagline ?? '',
+                                movieCon.moviesDetail.tagline ?? "",
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w300, 
+                                  letterSpacing: 1,
+                                  height: 1.6,
+                                  color:const Color.fromARGB(255, 219, 219, 219),
                                   fontStyle: FontStyle.italic,
-                                  color: Colors.grey[400],
                                 ),
                               ),
                             SizedBox(height: 16.h),
@@ -135,25 +175,34 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                     children: [
                                       Text(
                                         "Release Date: ${movieCon.moviesDetail.releaseDate ?? 'N/A'}",
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w300, 
+                                          letterSpacing: 1,
+                                          height: 1.6,
+                                          color:const Color.fromARGB(255, 219, 219, 219),
                                         ),
                                       ),
                                       SizedBox(height: 8.h),
                                       Text(
                                         "Rating: ${movieCon.moviesDetail.voteAverage ?? 'N/A'}",
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w300, 
+                                          letterSpacing: 1,
+                                          height: 1.6,
+                                          color:const Color.fromARGB(255, 219, 219, 219),
                                         ),
                                       ),
                                       SizedBox(height: 8.h),
                                       Text(
                                         "Runtime: ${movieCon.moviesDetail.runtime} minutes",
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w300, 
+                                          letterSpacing: 1,
+                                          height: 1.6,
+                                          color:const Color.fromARGB(255, 219, 219, 219),
                                         ),
                                       ),
                                     ],
@@ -163,12 +212,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             ),
                             SizedBox(height: 16.h),
                             // Genres
-                            const Text(
+                            Text(
                               "Genres:",
                               style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color:const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
                             SizedBox(height: 8.h),
@@ -176,31 +227,42 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               spacing: 8,
                               children: (movieCon.moviesDetail.genres as List)
                                 .map((genre) =>  Chip(
-                                  label: Text(genre.name, style: const TextStyle(color: Colors.grey),),
+                                  label: Text(genre.name, style: const TextStyle(
+                                      fontWeight: FontWeight.w300, 
+                                      letterSpacing: 1,
+                                      height: 1.6,
+                                      color:Color.fromARGB(255, 219, 219, 219),
+                                    ),
+                                  ),
                                   backgroundColor: Colors.black,
                                 ),
                               ).toList(),
                             ),
                             SizedBox(height: 16.h),
                             // Overview
-                            const Text(
+                            Text(
                               "Overview:",
                               style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color:const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
                             SizedBox(height: 8.h),
                             Text(
                               movieCon.moviesDetail.overview ??
                                   'No description available.',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color:const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
-                            SizedBox(height: 16.h),
+                            SizedBox(height: 26.h),
                           ],
                         ),
                       ),

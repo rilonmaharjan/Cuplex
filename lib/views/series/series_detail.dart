@@ -37,11 +37,23 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Obx(() => seriesCon.isDetailLoading.isTrue
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Color(0xffecc877),
+        ? Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.grey.withOpacity(.4),
+                Colors.transparent,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-          )
+          ),
+          child: const Center(
+              child: CircularProgressIndicator(
+                color: Color(0xffecc877),
+              ),
+            ),
+        )
         : Stack(
           children: [
             Column(
@@ -55,7 +67,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Colors.grey.withOpacity(.3),
+                            Colors.grey.withOpacity(.4),
                             Colors.transparent,
                           ],
                           begin: Alignment.topCenter,
@@ -120,7 +132,17 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                     ),
                   ],
                 ),
-                SizedBox(
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.grey.withOpacity(.3),
+                        Colors.transparent,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
                   height: 532.h,
                   child: RefreshIndicator(
                     backgroundColor: const Color(0xffecc877),
@@ -140,10 +162,12 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             // Series Title
                             Text(
                               seriesCon.seriesDetail.name,
-                              style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                              style: TextStyle(
+                                fontSize: 24.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color: const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
                            SizedBox(height: 8.h),
@@ -152,10 +176,13 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                 seriesCon.seriesDetail.tagline.isNotEmpty)
                               Text(
                                 seriesCon.seriesDetail.tagline!,
-                                style: const TextStyle(
-                                  fontSize: 16,
+                                style: TextStyle(
+                                  fontSize: 16.sp,
                                   fontStyle: FontStyle.italic,
-                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w300, 
+                                  letterSpacing: 1,
+                                  height: 1.6,
+                                  color: const Color.fromARGB(255, 219, 219, 219),
                                 ),
                               ),
                            SizedBox(height: 16.h),
@@ -198,34 +225,46 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "First Air Date: ${seriesCon.seriesDetail.firstAirDate ?? 'N/A'}",
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
+                                        "First Air Date${seriesCon.seriesDetail.firstAirDate ?? 'N/A'}",
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w300, 
+                                          letterSpacing: 1,
+                                          height: 1.6,
+                                          color: const Color.fromARGB(255, 219, 219, 219),
                                         ),
                                       ),
-                                     SizedBox(height: 8.h),
+                                      SizedBox(height: 8.h),
                                       Text(
                                         "Seasons: ${seriesCon.seriesDetail.numberOfSeasons}",
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w300, 
+                                          letterSpacing: 1,
+                                          height: 1.6,
+                                          color: const Color.fromARGB(255, 219, 219, 219),
                                         ),
                                       ),
                                      SizedBox(height: 8.h),
                                       Text(
                                         "Episodes: ${seriesCon.seriesDetail.numberOfEpisodes}",
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w300, 
+                                          letterSpacing: 1,
+                                          height: 1.6,
+                                          color: const Color.fromARGB(255, 219, 219, 219),
                                         ),
                                       ),
                                      SizedBox(height: 8.h),
                                       Text(
                                         "Rating: ${seriesCon.seriesDetail.voteAverage.toStringAsFixed(1)}",
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w300, 
+                                          letterSpacing: 1,
+                                          height: 1.6,
+                                          color: const Color.fromARGB(255, 219, 219, 219),
                                         ),
                                       ),
                                     ],
@@ -235,15 +274,17 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                             ),
                            SizedBox(height: 16.h),
                             // Genres
-                           const Text(
+                           Text(
                               "Genres:",
                               style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color: const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
-                           SizedBox(height: 8.h),
+                            SizedBox(height: 8.h),
                             Wrap(
                               spacing: 8.0,
                               children: List<Chip>.generate(
@@ -252,23 +293,30 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                   label: Text(
                                     seriesCon.seriesDetail.genres[index].name ??
                                         'Unknown',
-                                    style: const TextStyle(color: Colors.grey),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w300, 
+                                      letterSpacing: 1,
+                                      height: 1.6,
+                                      color: Color.fromARGB(255, 219, 219, 219),
+                                    ),
                                   ),
                                   backgroundColor: Colors.black,
                                 ),
                               ),
                             ),
-                           SizedBox(height: 16.h),
+                            SizedBox(height: 16.h),
                             // Seasons Selection
-                           const Text(
+                            Text(
                               "Seasons:",
                               style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color: const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
-                           SizedBox(height: 8.h),
+                            SizedBox(height: 8.h),
                             // Seasons Horizontal Scroll List
                             SizedBox(
                               height: 60.h,
@@ -290,7 +338,14 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                     child: Padding(
                                       padding: EdgeInsets.only(right : 8.0.sp),
                                       child: Chip(
-                                        label: Text('Season ${season.seasonNumber}', style: TextStyle(color: selectedSeason == season.seasonNumber ? Colors.black : Colors.grey),),
+                                        label: Text('Season ${season.seasonNumber}', 
+                                          style: TextStyle(
+                                            color: selectedSeason == season.seasonNumber ? Colors.black : const Color.fromARGB(255, 219, 219, 219),
+                                            fontWeight: selectedSeason == season.seasonNumber ? FontWeight.w400 : FontWeight.w300, 
+                                            letterSpacing: 1,
+                                            height: 1.6,
+                                          ),
+                                        ),
                                         backgroundColor: selectedSeason == season.seasonNumber
                                             ? Colors.white
                                             : Colors.black,
@@ -303,12 +358,14 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                            SizedBox(height: 8.h),
                             // Episodes Selection (only show if a season is selected)
                             if (seriesCon.episodeList.isNotEmpty)
-                             const Text(
+                              Text(
                                 "Episodes:",
                                 style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w300, 
+                                  letterSpacing: 1,
+                                  height: 1.6,
+                                  color: const Color.fromARGB(255, 219, 219, 219),
                                 ),
                               ),
                            SizedBox(height: 8.h),
@@ -387,7 +444,13 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                                       ),
                                                       child: Text(
                                                         seriesCon.episodeList[index]["episode_number"].toString(),
-                                                        style: const TextStyle(color: Colors.black, fontSize: 12),
+                                                        style: TextStyle(
+                                                          color: Colors.black, 
+                                                          fontSize: 12.sp,
+                                                          fontWeight: FontWeight.w300, 
+                                                          letterSpacing: 1,
+                                                          height: 1.6,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -397,7 +460,16 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                            SizedBox(height: 6.h,),
                                             SizedBox(
                                               width: 140.w,
-                                              child: Center(child: Text(seriesCon.episodeList[index]["name"], style: const TextStyle(color: Colors.white), maxLines: 1,))
+                                              child: Center(child: Text(
+                                                seriesCon.episodeList[index]["name"], 
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w300, 
+                                                  letterSpacing: 1,
+                                                  height: 1.6,
+                                                  color: Color.fromARGB(255, 219, 219, 219),
+                                                ), 
+                                                maxLines: 1,)
+                                              )
                                             )
                                           ],
                                         ),
@@ -406,49 +478,62 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                   },
                                 ),
                               ),
-                           SizedBox(height: 16.h),
+                            SizedBox(height: 16.h),
                             // Overview Section
-                           const Text(
+                            Text(
                               "Overview:",
                               style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color: const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
-                           SizedBox(height: 8.h),
+                            SizedBox(height: 8.h),
                             Text(
                               seriesCon.seriesDetail.overview,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color: const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
-                           SizedBox(height: 16.h),
-                            // Additional Information
-                           const Divider(color: Colors.grey),
-                           const Text(
+                            SizedBox(height: 16.h),
+                              // Additional Information
+                            const Divider(color: Colors.grey),
+                            Text(
                               "Additional Info:",
                               style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color: const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
-                           SizedBox(height: 8.h),
+                            SizedBox(height: 8.h),
                             Text(
                               "Language: ${seriesCon.seriesDetail.originalLanguage.toUpperCase()}",
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color: const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
-                           SizedBox(height: 8.h),
+                            SizedBox(height: 8.h),
                             Text(
                               "Status: ${seriesCon.seriesDetail.status}",
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                                color: const Color.fromARGB(255, 219, 219, 219),
                               ),
                             ),
                            SizedBox(height: 16.h),

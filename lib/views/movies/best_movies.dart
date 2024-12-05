@@ -136,12 +136,14 @@ class _BestMoviesState extends State<BestMovies> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           "Best Movies",
           style: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+            fontSize: 17.sp,
+            fontWeight: FontWeight.w300, 
+            letterSpacing: 1,
+            height: 1.6,
+            color:const Color.fromARGB(255, 219, 219, 219),
           ),
         ),
         SizedBox(height: 10.h),

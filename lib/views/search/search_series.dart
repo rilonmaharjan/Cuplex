@@ -29,7 +29,17 @@ class _SearchSeriesPageState extends State<SearchSeriesPage> {
         },
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Padding(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.grey.withOpacity(.4),
+                  Colors.transparent,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
             padding: EdgeInsets.fromLTRB(8.0.sp,16.sp,8.sp,8.sp),
             child:  Obx(() => searchCon.isSearchListLoading.isTrue
               ? GridView.builder(
@@ -71,14 +81,28 @@ class _SearchSeriesPageState extends State<SearchSeriesPage> {
               ? const SizedBox(
                 height: 400,
                 child: Center(
-                  child: Text("Enter Keywords...", style: TextStyle(color: Colors.white),)
+                  child: Text(
+                    "Enter Keywords...", 
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300, 
+                      letterSpacing: 1,
+                      height: 1.6,
+                      color:Color.fromARGB(255, 219, 219, 219),
+                    ),
+                  )
                 ),
               )
               : searchCon.seriesSearchList.isEmpty
               ? const SizedBox(
                 height: 400,
                 child: Center(
-                  child: Text("No Results Found", style: TextStyle(color: Colors.white),)
+                  child: Text("No Results Found", style: TextStyle(
+                      fontWeight: FontWeight.w300, 
+                      letterSpacing: 1,
+                      height: 1.6,
+                      color:Color.fromARGB(255, 219, 219, 219),
+                    ),
+                  )
                 ),
               )
               :  GridView.builder(

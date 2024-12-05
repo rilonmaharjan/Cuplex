@@ -1,4 +1,4 @@
-  import 'package:cuplex/views/search/search_page.dart';
+import 'package:cuplex/views/search/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -44,7 +44,11 @@ customAppBar({backButton, onTap}) {
                           borderRadius: BorderRadius.circular(25.0),
                         ),
                         hintText: 'Search',
-                        hintStyle:  const TextStyle(fontSize: 14, color: Color.fromARGB(255, 110, 108, 110)),
+                        hintStyle: TextStyle(fontSize: 14.sp, color: const Color.fromARGB(255, 20, 20, 20),
+                          fontWeight: FontWeight.w300, 
+                          letterSpacing: 1,
+                          height: 1.6,
+                        ),
                         prefixIconConstraints: BoxConstraints(
                           maxWidth: 62.0.w,
                           minWidth: 52.0.w

@@ -121,10 +121,10 @@ void _scrollListener() {
                   children: [
                     //trendinglist
                     trendingMoviesList(),
-                    SizedBox(height: 16.h,),
+                    SizedBox(height: 18.h,),
                     //topRatedMovies
                     topRatedMoviesList(),
-                    SizedBox(height: 16.h,),
+                    SizedBox(height: 18.h,),
                     //all movies list
                     allMoviesList(),
                     //pagination
@@ -154,302 +154,7 @@ void _scrollListener() {
     );
   }
 
-  //trending Movies
-  trendingMoviesList() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-         SizedBox(height: 8.h,),
-         Row(
-           children: [
-             const Text(
-              "Trending Movies",
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            const Spacer(),
-            Obx(() =>
-              Visibility(
-                visible: movieCon.trendingMovieList.isNotEmpty,
-                child: InkWell(
-                  onTap: (){
-                    Get.to(() => ViewAllMovie(title: "Trending Movies", movieList: movieCon.trendingMovieList,));
-                  },
-                  child: Container(
-                    height: 24.h,
-                    width: 46.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 0.5.sp,
-                      ),
-                      color: Colors.black
-                    ),
-                    child: Center(
-                      child: Text(
-                        "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            )
-           ],
-         ),
-        SizedBox(height: 10.h,),
-        SizedBox(
-          height: 170.h,
-          child: Obx(() => movieCon.isTrendingMoviesLoading.isTrue
-            ? ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (context,index){
-                return Padding(
-                  padding: EdgeInsets.only(right: 8.sp),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child:  Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey.withOpacity(0.5),
-                          width: 0.5,
-                        ),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.grey.withOpacity(.3),
-                            Colors.transparent,
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      height: 170.h,
-                      width: 114.w,
-                    ),
-                  ),
-                );
-              }
-            )
-            : ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: movieCon.trendingMovieList.length,
-              itemBuilder: (context,index){
-                return Container(
-                  height: 170.h,
-                  width: 122.w,
-                  padding: EdgeInsets.only(right: 8.w),
-                  child: MovieCard(
-                    title: movieCon.trendingMovieList[index]["title"] ?? "",
-                    year: movieCon.trendingMovieList[index]["release_date"].split("-")[0],
-                    rating: double.parse(movieCon.trendingMovieList[index]["vote_average"].toStringAsFixed(1)),
-                    image: movieCon.trendingMovieList[index]["poster_path"] ?? "",
-                    onTap: () {
-                      Get.to(() => MovieDetailPage(id: movieCon.trendingMovieList[index]["id"]));
-                    },
-                  ),
-                );
-              }
-            )
-          ),
-        ),
-      ],
-    );
-  }
-  
-  //topRated Movies 
-  topRatedMoviesList() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Text(
-            "Top Rated Movies",
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          const Spacer(),
-          Obx(() =>
-            Visibility(
-              visible: movieCon.topRatedMovies.isNotEmpty,
-              child: InkWell(
-                onTap: (){
-                  Get.to(() => ViewAllMovie(title: "Top Rated Movies", movieList: movieCon.topRatedMovies,));
-                },
-                child: Container(
-                  height: 24.h,
-                  width: 46.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 0.5.sp,
-                    ),
-                    color: Colors.black
-                  ),
-                  child: Center(
-                    child: Text(
-                      "ALL", style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 12, fontWeight: FontWeight.w300) ,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-          ],
-        ),
-        SizedBox(height: 10.h,),
-        SizedBox(
-          height: 170.h,
-          child: Obx(() => movieCon.isTopRatedMoviesLoading.isTrue
-            ? ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (context,index){
-                return Padding(
-                  padding: EdgeInsets.only(right: 8.w),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey.withOpacity(0.5),
-                          width: 0.5,
-                        ),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.grey.withOpacity(.3),
-                            Colors.transparent,
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      height: 170.h,
-                      width: 114.w,
-                    ),
-                  ),
-                );
-              }
-            )
-            : ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: movieCon.topRatedMovies.length,
-              itemBuilder: (context,index){
-                return Container(
-                  height: 170.h,
-                  width: 122.w,
-                  padding: EdgeInsets.only(right: 8.w),
-                  child: MovieCard(
-                    title: movieCon.topRatedMovies[index].title ?? "",
-                    year: movieCon.topRatedMovies[index].releaseDate.split("-")[0],
-                    rating: double.parse(movieCon.topRatedMovies[index].voteAverage.toStringAsFixed(1)),
-                    image: movieCon.topRatedMovies[index].posterPath ?? "",
-                    onTap: () {
-                      Get.to(() => MovieDetailPage(id: movieCon.topRatedMovies[index].id));
-                    },
-                  ),
-                );
-              }
-            )
-          ),
-        ),
-      ],
-    );
-  }
-  
-  //all movies list
-  allMoviesList() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-         const Text(
-          "All Movies",
-          style: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-         SizedBox(height: 10.h,),
-        //movieslist
-        Obx(() => movieCon.isLoading.isTrue
-          ? GridView.builder(
-              physics:  const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-                childAspectRatio: 0.7,
-              ),
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey.withOpacity(0.5),
-                        width: 0.5,
-                      ),
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.grey.withOpacity(.3),
-                          Colors.transparent,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    height: 150.h,
-                    width: 120.w,
-                  ),
-                );
-              }
-            )
-          :  GridView.builder(
-            physics:  const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              childAspectRatio: 0.7,
-            ),
-            itemCount: movieCon.moviesList.length,
-            itemBuilder: (context, index) {
-              return MovieCard(
-                title: movieCon.moviesList[index]["title"] ?? "",
-                year: movieCon.moviesList[index]["release_date"].split("-")[0],
-                rating: double.parse(movieCon.moviesList[index]["vote_average"].toStringAsFixed(1)),
-                image: movieCon.moviesList[index]["poster_path"] ?? "",
-                onTap: () {
-                  Get.to(() => MovieDetailPage(id: movieCon.moviesList[index]["id"]));
-                },
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-//trending carousel
+    //trending carousel
   carosel() {
     return Container(
       height: 475.0.h,
@@ -640,7 +345,9 @@ void _scrollListener() {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16.sp,
-                              fontWeight: FontWeight.w300,
+                              fontWeight: FontWeight.w300, 
+                              letterSpacing: 1,
+                              height: 1.6,
                             ),
                           ),
                         ),
@@ -665,5 +372,321 @@ void _scrollListener() {
       ),
     );
   }
+
+  //trending Movies
+  trendingMoviesList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+         SizedBox(height: 8.h,),
+         Row(
+           children: [
+             Text(
+              "Trending Movies",
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w300, 
+                letterSpacing: 1,
+                height: 1.6,
+                color: const Color.fromARGB(255, 219, 219, 219),
+              ),
+            ),
+            const Spacer(),
+            Obx(() =>
+              Visibility(
+                visible: movieCon.trendingMovieList.isNotEmpty,
+                child: InkWell(
+                  onTap: (){
+                    Get.to(() => ViewAllMovie(title: "Trending Movies", movieList: movieCon.trendingMovieList,));
+                  },
+                  child: Container(
+                    height: 24.h,
+                    width: 46.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 0.5.sp,
+                      ),
+                      color: Colors.black
+                    ),
+                    child: Center(
+                      child: Text(
+                        "ALL", style: TextStyle(
+                        color: Colors.white.withOpacity(0.8), 
+                        fontSize: 12.sp, 
+                          fontWeight: FontWeight.w300, 
+                          letterSpacing: 1,
+                          height: 1.6,
+                        ) ,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
+           ],
+         ),
+        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 170.h,
+          child: Obx(() => movieCon.isTrendingMoviesLoading.isTrue
+            ? ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: 10,
+              itemBuilder: (context,index){
+                return Padding(
+                  padding: EdgeInsets.only(right: 8.sp),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child:  Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.withOpacity(0.5),
+                          width: 0.5,
+                        ),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.grey.withOpacity(.3),
+                            Colors.transparent,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      height: 170.h,
+                      width: 114.w,
+                    ),
+                  ),
+                );
+              }
+            )
+            : ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: movieCon.trendingMovieList.length,
+              itemBuilder: (context,index){
+                return Container(
+                  height: 170.h,
+                  width: 122.w,
+                  padding: EdgeInsets.only(right: 8.w),
+                  child: MovieCard(
+                    title: movieCon.trendingMovieList[index]["title"] ?? "",
+                    year: movieCon.trendingMovieList[index]["release_date"].split("-")[0],
+                    rating: double.parse(movieCon.trendingMovieList[index]["vote_average"].toStringAsFixed(1)),
+                    image: movieCon.trendingMovieList[index]["poster_path"] ?? "",
+                    onTap: () {
+                      Get.to(() => MovieDetailPage(id: movieCon.trendingMovieList[index]["id"]));
+                    },
+                  ),
+                );
+              }
+            )
+          ),
+        ),
+      ],
+    );
+  }
+  
+  //topRated Movies 
+  topRatedMoviesList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+            "Top Rated Movies",
+              style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w300, 
+              letterSpacing: 1,
+              height: 1.6,
+              color: const Color.fromARGB(255, 219, 219, 219),
+            ),
+          ),
+          const Spacer(),
+          Obx(() =>
+            Visibility(
+              visible: movieCon.topRatedMovies.isNotEmpty,
+              child: InkWell(
+                onTap: (){
+                  Get.to(() => ViewAllMovie(title: "Top Rated Movies", movieList: movieCon.topRatedMovies,));
+                },
+                child: Container(
+                  height: 24.h,
+                  width: 46.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 0.5.sp,
+                    ),
+                    color: Colors.black
+                  ),
+                  child: Center(
+                    child:  Text(
+                      "ALL", style: TextStyle(
+                      color: Colors.white.withOpacity(0.8), 
+                      fontSize: 12.sp, 
+                        fontWeight: FontWeight.w300, 
+                        letterSpacing: 1,
+                        height: 1.6,
+                      ) ,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+          ],
+        ),
+        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 170.h,
+          child: Obx(() => movieCon.isTopRatedMoviesLoading.isTrue
+            ? ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: 10,
+              itemBuilder: (context,index){
+                return Padding(
+                  padding: EdgeInsets.only(right: 8.w),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.withOpacity(0.5),
+                          width: 0.5,
+                        ),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.grey.withOpacity(.3),
+                            Colors.transparent,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      height: 170.h,
+                      width: 114.w,
+                    ),
+                  ),
+                );
+              }
+            )
+            : ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: movieCon.topRatedMovies.length,
+              itemBuilder: (context,index){
+                return Container(
+                  height: 170.h,
+                  width: 122.w,
+                  padding: EdgeInsets.only(right: 8.w),
+                  child: MovieCard(
+                    title: movieCon.topRatedMovies[index].title ?? "",
+                    year: movieCon.topRatedMovies[index].releaseDate.split("-")[0],
+                    rating: double.parse(movieCon.topRatedMovies[index].voteAverage.toStringAsFixed(1)),
+                    image: movieCon.topRatedMovies[index].posterPath ?? "",
+                    onTap: () {
+                      Get.to(() => MovieDetailPage(id: movieCon.topRatedMovies[index].id));
+                    },
+                  ),
+                );
+              }
+            )
+          ),
+        ),
+      ],
+    );
+  }
+  
+  //all movies list
+  allMoviesList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "All Movies",
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w300, 
+            letterSpacing: 1,
+            height: 1.6,
+            color: const Color.fromARGB(255, 219, 219, 219),
+          ),
+        ),
+         SizedBox(height: 10.h,),
+        //movieslist
+        Obx(() => movieCon.isLoading.isTrue
+          ? GridView.builder(
+              physics:  const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                childAspectRatio: 0.7,
+              ),
+              itemCount: 20,
+              itemBuilder: (context, index) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey.withOpacity(0.5),
+                        width: 0.5,
+                      ),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.grey.withOpacity(.3),
+                          Colors.transparent,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    height: 150.h,
+                    width: 120.w,
+                  ),
+                );
+              }
+            )
+          :  GridView.builder(
+            physics:  const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 0.7,
+            ),
+            itemCount: movieCon.moviesList.length,
+            itemBuilder: (context, index) {
+              return MovieCard(
+                title: movieCon.moviesList[index]["title"] ?? "",
+                year: movieCon.moviesList[index]["release_date"].split("-")[0],
+                rating: double.parse(movieCon.moviesList[index]["vote_average"].toStringAsFixed(1)),
+                image: movieCon.moviesList[index]["poster_path"] ?? "",
+                onTap: () {
+                  Get.to(() => MovieDetailPage(id: movieCon.moviesList[index]["id"]));
+                },
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+  
+
+
 
 }

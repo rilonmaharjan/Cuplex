@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  final int? tabIndex;
+  const SearchPage({super.key, this.tabIndex});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -19,7 +20,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this); 
+    _tabController = TabController(length: 2, initialIndex: widget.tabIndex ?? 0, vsync: this); 
     super.initState();
   }
 
@@ -56,12 +57,16 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                   unselectedLabelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
                   isScrollable: false,
                   physics: const NeverScrollableScrollPhysics(),
-                  tabs: const [
+                  tabs: [
                     Tab(
                       child: Text(
                         'Movies',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w300, 
+                          letterSpacing: 1,
+                          height: 1.6,
+                          color:const Color.fromARGB(255, 219, 219, 219),
                         ),
                       ),
                     ),
@@ -69,7 +74,11 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                       child: Text(
                         'Series', 
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w300, 
+                          letterSpacing: 1,
+                          height: 1.6,
+                          color:const Color.fromARGB(255, 219, 219, 219),
                         ),
                       ),
                     ),
@@ -109,7 +118,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                   },
                   child: SizedBox(
                     width: 40.w,
-                    child: const Icon(Icons.arrow_back_ios, color: Colors.white,),
+                    child: const Icon(Icons.arrow_back_ios, color: Color.fromARGB(255, 219, 219, 219),),
                   ),
                 ),
                 SizedBox(
@@ -126,6 +135,9 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                           searchCon.searchKeyword = _searchController.text;
                         });
                       },
+                      cursorColor: const Color.fromARGB(255, 110, 108, 110),
+                      cursorRadius: const Radius.circular(6),
+                      cursorHeight: 20.sp,
                       decoration: InputDecoration(
                         filled: true,
                         contentPadding: EdgeInsets.only(top: 6.0.sp, left: 15.0.sp, right: 10.sp),
@@ -135,7 +147,11 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                           borderRadius: BorderRadius.circular(25.0),
                         ),
                         hintText: 'Search',
-                        hintStyle:  const TextStyle(fontSize: 14, color: Color.fromARGB(255, 110, 108, 110)),
+                        hintStyle: TextStyle(fontSize: 14.sp, color: const Color.fromARGB(255, 20, 20, 20),
+                          fontWeight: FontWeight.w300, 
+                          letterSpacing: 1,
+                          height: 1.6,
+                        ),
                         prefixIconConstraints: BoxConstraints(
                           maxWidth: 62.0.w,
                           minWidth: 52.0.w

@@ -55,12 +55,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                     unselectedLabelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
                     isScrollable: false,
                     physics: const NeverScrollableScrollPhysics(),
-                    tabs: const [
+                    tabs: [
                       Tab(
                         child: Text(
                           'Movies',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w300, 
+                            letterSpacing: 1,
+                            height: 1.6,
                           ),
                         ),
                       ),
@@ -68,7 +71,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                         child: Text(
                           'Series', 
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w300, 
+                            letterSpacing: 1,
+                            height: 1.6,
                           ),
                         ),
                       ),

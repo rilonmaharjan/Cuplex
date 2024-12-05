@@ -65,7 +65,13 @@ class MovieCard extends StatelessWidget {
                 ),
                 child: Text(
                   year,
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400, 
+                    letterSpacing: 1,
+                    height: 1.6,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -85,7 +91,13 @@ class MovieCard extends StatelessWidget {
                 ),
                 child: Text(
                   rating.toString(),
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w300, 
+                    letterSpacing: 1,
+                    height: 1.6,
+                    color:const Color.fromARGB(255, 219, 219, 219),
+                  ),
                 ),
               ),
             ),

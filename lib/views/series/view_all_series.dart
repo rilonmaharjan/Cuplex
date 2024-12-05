@@ -30,10 +30,12 @@ class _ViewAllSeriesState extends State<ViewAllSeries> {
               SizedBox(height: 10.h,),
               Text(
                 widget.title,
-                style: const TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w300, 
+                  letterSpacing: 1,
+                  height: 1.6,
+                  color: const Color.fromARGB(255, 219, 219, 219),
                 ),
               ),
               SizedBox(height: 20.h),
