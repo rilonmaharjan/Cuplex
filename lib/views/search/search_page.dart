@@ -1,4 +1,5 @@
-import 'package:cuplex/controller/search_controller.dart';
+import 'package:cuplex/controller/search_movie_controller.dart';
+import 'package:cuplex/controller/search_series_controller.dart';
 import 'package:cuplex/views/search/search_movie.dart';
 import 'package:cuplex/views/search/search_series.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
-  final SearchhController searchCon = Get.put(SearchhController());
+  final SearchMovieController searchCon = Get.put(SearchMovieController());
+  final SearchSeriesController searchSeriesCon = Get.put(SearchSeriesController());
   final TextEditingController _searchController = TextEditingController();
   late final TabController _tabController;
 
@@ -119,7 +121,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                     Get.back();
                   },
                   child: SizedBox(
-                    width: 35.w,
+                    width: 30.w,
                     child: const Icon(Icons.arrow_back_ios, color: Color.fromARGB(255, 219, 219, 219),),
                   ),
                 ),
@@ -131,13 +133,18 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                     child: TextFormField(
                       controller: _searchController,
                       autofocus: true,
-                      onFieldSubmitted: (value) {
-                        searchCon.searchMovieAndSeries(_searchController.text);
-                        setState(() {
-                          searchCon.searchKeyword = _searchController.text;
-                        });
+                      onFieldSubmitted: (value) async{
+                        if(_searchController.text != ""){
+                          await searchCon.searchMovie(_searchController.text);
+                          setState(() {
+                            searchCon.searchKeyword = _searchController.text;
+                          });
+                          await searchSeriesCon.searchSeries(_searchController.text);
+                          setState(() {
+                            searchSeriesCon.searchKeyword = _searchController.text;
+                          });
+                        }
                       },
-                      cursorColor: const Color.fromARGB(255, 110, 108, 110),
                       cursorRadius: const Radius.circular(6),
                       cursorHeight: 20.sp,
                       decoration: InputDecoration(
@@ -155,12 +162,12 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                           height: 1.6,
                         ),
                         prefixIconConstraints: BoxConstraints(
-                          maxWidth: 62.0.w,
+                          maxWidth: 52.0.w,
                           minWidth: 52.0.w
                         ),
                         prefixIcon: const Icon(Icons.search, color: Color.fromARGB(255, 110, 108, 110)),
                         suffixIconConstraints: BoxConstraints(
-                          maxWidth: 62.0.w,
+                          maxWidth: 52.0.w,
                           minWidth: 52.0.w
                         ),
                         suffixIcon: GestureDetector(
@@ -173,7 +180,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                     ),
                   ),
                 ),                
-                SizedBox(width: 25.w),
+                SizedBox(width: 30.w),
               ],
             ),
           ),

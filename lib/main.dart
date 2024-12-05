@@ -7,9 +7,10 @@ import 'package:get/get.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.black,
-    statusBarColor: Colors.black,
-  ));
+      systemNavigationBarColor: Colors.black,
+      statusBarColor: Colors.black,
+    )
+  );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
@@ -34,6 +35,11 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: const Color.fromARGB(255, 110, 108, 110),
+              selectionColor: const Color(0xffecc877).withOpacity(.7),
+              selectionHandleColor: const Color.fromARGB(255, 228, 191, 106), 
+            ),
           ),
           home: const SplashScreen(),
         );

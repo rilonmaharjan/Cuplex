@@ -60,8 +60,6 @@ class _DisplayNetworkImageState extends State<DisplayNetworkImage> {
                 end: Alignment.bottomCenter,
               ),
             ),
-            width: widget.width,
-            height: widget.height,
           );
         }, 
         errorBuilder: (context, error, stackTrace) => placeHolder(),

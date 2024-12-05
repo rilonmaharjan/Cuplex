@@ -4,7 +4,6 @@ import 'package:cuplex/views/movies/best_movies.dart';
 import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/views/movies/view_all_movie.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
-import 'package:cuplex/widget/loading_widget.dart';
 import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
@@ -39,28 +38,28 @@ class _MoviesListPageState extends State<MoviesListPage> {
     });
   }
 
-void _scrollListener() {
-  // Check if the user is near the top of the list
-  if (paginationScrollController.position.pixels <= 2500 && showScrollToTopButton) {
-    setState(() {
-      showScrollToTopButton = false;
-    });
-  } 
-  // Check if the user is scrolling down past a certain threshold
-  else if (paginationScrollController.position.pixels > 2500 && !showScrollToTopButton) {
-    setState(() {
-      showScrollToTopButton = true;
-    });
-  }
+  void _scrollListener() {
+    // Check if the user is near the top of the list
+    if (paginationScrollController.position.pixels <= 2500 && showScrollToTopButton) {
+      setState(() {
+        showScrollToTopButton = false;
+      });
+    } 
+    // Check if the user is scrolling down past a certain threshold
+    else if (paginationScrollController.position.pixels > 2500 && !showScrollToTopButton) {
+      setState(() {
+        showScrollToTopButton = true;
+      });
+    }
 
-  // Load more content when reaching the bottom
-  if (paginationScrollController.position.pixels ==
-      paginationScrollController.position.maxScrollExtent) {
-    if (movieCon.prevPageNum == movieCon.pageNum) {
-      _loadMorePosts();
+    // Load more content when reaching the bottom
+    if (paginationScrollController.position.pixels ==
+        paginationScrollController.position.maxScrollExtent) {
+      if (movieCon.prevPageNum == movieCon.pageNum) {
+        _loadMorePosts();
+      }
     }
   }
-}
 
   Future<void> _loadMorePosts() async {
     movieCon.pageNum = movieCon.pageNum + 1;
@@ -135,8 +134,10 @@ void _scrollListener() {
                           children: [
                             SizedBox(
                               height: 100.h,
-                              child: Center(
-                                child: loadingWidget()
+                              child: const Center(
+                                child: CircularProgressIndicator(
+                                  color: Color(0xffecc877),
+                                )
                               ),
                             ),
                           ],

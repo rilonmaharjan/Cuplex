@@ -3,7 +3,6 @@ import 'package:cuplex/controller/series_controller.dart';
 import 'package:cuplex/views/series/series_detail.dart';
 import 'package:cuplex/views/series/view_all_series.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
-import 'package:cuplex/widget/loading_widget.dart';
 import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
@@ -130,8 +129,10 @@ class _SeriesListPageState extends State<SeriesListPage> {
                           children: [
                             SizedBox(
                               height: 100.h,
-                              child: Center(
-                                child: loadingWidget()
+                              child: const Center(
+                                child: CircularProgressIndicator(
+                                  color: Color(0xffecc877),
+                                )
                               ),
                             ),
                           ],
