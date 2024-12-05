@@ -20,7 +20,7 @@ customAppBar({backButton, onTap, tabIndex}) {
                     Get.back();
                   },
                   child: SizedBox(
-                    width: 40.w,
+                    width: 30.w,
                     child: const Icon(Icons.arrow_back_ios, color: Colors.white,),
                   ),
                 )
@@ -29,7 +29,7 @@ customAppBar({backButton, onTap, tabIndex}) {
                   height: 36.h,
                   width: 280.0.w,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(25.0),
+                    borderRadius: BorderRadius.circular(8.0),
                     child: TextFormField( 
                       onTap: () {
                         Get.to(() => SearchPage(tabIndex: tabIndex));
@@ -41,7 +41,7 @@ customAppBar({backButton, onTap, tabIndex}) {
                         fillColor: const Color.fromARGB(255, 221, 221, 221),
                         border: OutlineInputBorder(
                           borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                         hintText: 'Search',
                         hintStyle: TextStyle(fontSize: 14.sp, color: const Color.fromARGB(255, 20, 20, 20),
@@ -58,7 +58,7 @@ customAppBar({backButton, onTap, tabIndex}) {
                     ),
                   ),
                 ),                
-                SizedBox(width: backButton == true ? 20.w : 30.w),
+                SizedBox(width: 30.w),
               ],
             ),
           ),

@@ -119,7 +119,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                     Get.back();
                   },
                   child: SizedBox(
-                    width: 40.w,
+                    width: 35.w,
                     child: const Icon(Icons.arrow_back_ios, color: Color.fromARGB(255, 219, 219, 219),),
                   ),
                 ),
@@ -127,7 +127,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                   height: 36.h,
                   width: 280.0.w,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(25.0),
+                    borderRadius: BorderRadius.circular(8.0),
                     child: TextFormField(
                       controller: _searchController,
                       autofocus: true,
@@ -146,7 +146,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                         fillColor: const Color.fromARGB(255, 221, 221, 221),
                         border: OutlineInputBorder(
                           borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                         hintText: 'Search',
                         hintStyle: TextStyle(fontSize: 14.sp, color: const Color.fromARGB(255, 20, 20, 20),
@@ -173,11 +173,10 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                     ),
                   ),
                 ),                
-                SizedBox(width: 20.w),
+                SizedBox(width: 25.w),
               ],
             ),
           ),
-          SizedBox(height: 10.h,),
         ],
       ),
     );

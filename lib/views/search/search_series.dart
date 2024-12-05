@@ -54,7 +54,7 @@ class _SearchSeriesPageState extends State<SearchSeriesPage> {
                   itemCount: 2,
                   itemBuilder: (context, index) {
                     return ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
+                      borderRadius: BorderRadius.circular(4),
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -69,7 +69,7 @@ class _SearchSeriesPageState extends State<SearchSeriesPage> {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                           ),
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(4),
                         ),
                         height: 150.h,
                         width: 120.w,

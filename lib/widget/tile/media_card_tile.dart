@@ -37,14 +37,14 @@ class MediaCardTile extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(4),
         ),
         child: Stack(
           fit: StackFit.expand,
           children: [
             // Use an AspectRatio or SizedBox to constrain the image
             ClipRRect(
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(4),
               child: DisplayNetworkImage(
                 imageUrl: "$posterUrl$image",
               ),
@@ -59,8 +59,8 @@ class MediaCardTile extends StatelessWidget {
                 decoration: const BoxDecoration(
                   color: Color(0xffecc877),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(6),
-                    bottomRight: Radius.circular(6)
+                    topLeft: Radius.circular(4),
+                    bottomRight: Radius.circular(4)
                   ),
                 ),
                 child: Text(
@@ -85,8 +85,8 @@ class MediaCardTile extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.7),
                   borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(6),
-                    topRight: Radius.circular(6)
+                    bottomLeft: Radius.circular(4),
+                    topRight: Radius.circular(4)
                   ),
                 ),
                 child: Text(

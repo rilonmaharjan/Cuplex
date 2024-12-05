@@ -230,10 +230,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
                                       ),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(4),
                                       child: DisplayNetworkImage(
                                         imageUrl:
                                             'https://image.tmdb.org/t/p/w500${seriesCon.seriesDetail.posterPath}',
@@ -249,7 +249,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "First Air Date${seriesCon.seriesDetail.firstAirDate ?? 'N/A'}",
+                                        "First Air Date: ${seriesCon.seriesDetail.firstAirDate ?? 'N/A'}",
                                         style: TextStyle(
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.w300, 
@@ -325,6 +325,14 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                     ),
                                   ),
                                   backgroundColor: Colors.black,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                  ),
+                                  padding: EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 6.0.h),
+                                  side: BorderSide(
+                                    color: const Color.fromARGB(255, 122, 122, 122),
+                                    width: 1.0.sp
+                                  ),
                                 ),
                               ),
                             ),
@@ -371,8 +379,16 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                           ),
                                         ),
                                         backgroundColor: selectedSeason == season.seasonNumber
-                                            ? const Color.fromARGB(255, 219, 219, 219)
+                                            ? const Color.fromARGB(255, 189, 188, 188)
                                             : Colors.black,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(4.0),
+                                        ),
+                                        padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 6.0.h),
+                                        side: BorderSide(
+                                          color: selectedSeason == season.seasonNumber ? const Color.fromARGB(255, 189, 188, 188) : const Color.fromARGB(255, 122, 122, 122),
+                                          width: 1.0.sp
+                                        ),
                                       ),
                                     ),
                                   );
@@ -433,10 +449,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                                             ? const Color(0xffecc877)
                                                             : Colors.grey.withOpacity(0.5),
                                                       ),
-                                                      borderRadius: BorderRadius.circular(8),
+                                                      borderRadius: BorderRadius.circular(4),
                                                     ),
                                                     child: ClipRRect(
-                                                      borderRadius: BorderRadius.circular(8),
+                                                      borderRadius: BorderRadius.circular(4),
                                                       child: DisplayNetworkImage(
                                                         width: 140.w,
                                                         height: 90.h,
@@ -455,15 +471,15 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                                     ),
                                                   ),
                                                   Positioned(
-                                                    top: 1,
-                                                    left: 1,
+                                                    top: 0.5,
+                                                    left: 0.5,
                                                     child: Container(
                                                       padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 2.sp),
                                                       decoration: const BoxDecoration(
                                                         color: Color(0xffecc877),
                                                         borderRadius: BorderRadius.only(
-                                                          topLeft: Radius.circular(6),
-                                                          bottomRight: Radius.circular(6)
+                                                          topLeft: Radius.circular(4),
+                                                          bottomRight: Radius.circular(4)
                                                         ),
                                                       ),
                                                       child: Text(

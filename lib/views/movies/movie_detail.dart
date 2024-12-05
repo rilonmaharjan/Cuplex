@@ -179,10 +179,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
                                       ),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(4),
                                       child: DisplayNetworkImage(
                                         imageUrl:
                                             '$posterUrl${movieCon.moviesDetail.posterPath}',
@@ -259,6 +259,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                     ),
                                   ),
                                   backgroundColor: Colors.black,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                  ),
+                                  padding: EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 6.0.h),
+                                  side: BorderSide(
+                                    color: const Color.fromARGB(255, 122, 122, 122),
+                                    width: 1.0.sp
+                                  ),
                                 ),
                               ).toList(),
                             ),

@@ -45,7 +45,7 @@ class _DisplayNetworkImageState extends State<DisplayNetworkImage> {
             ? child
             : widget.isFromweb == true
             ? CustomShimmer(
-              radius: 6,
+              radius: 4,
               width: widget.width,
               height: widget.height,
             )
