@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
   late final TabController _tabController;
+  int? tabIndex;
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
       canPop: false,
       child: Scaffold(
         backgroundColor: Colors.black,
-        appBar: customAppBar(),
+        appBar: customAppBar(tabIndex: tabIndex),
         body: SafeArea(
           child: DefaultTabController(
             length: 2,
@@ -79,6 +80,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                         ),
                       ),
                     ],
+                    onTap: (val){
+                      setState(() {
+                        tabIndex = val;
+                      });
+                    },
                   ),
                 ),
                 Expanded(

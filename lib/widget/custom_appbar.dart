@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-customAppBar({backButton, onTap}) {
+customAppBar({backButton, onTap, tabIndex}) {
     return PreferredSize(
       preferredSize: Size(double.infinity, 65.sp),
       child: Column(
@@ -32,7 +32,7 @@ customAppBar({backButton, onTap}) {
                     borderRadius: BorderRadius.circular(25.0),
                     child: TextFormField( 
                       onTap: () {
-                        Get.to(() => const SearchPage(), );
+                        Get.to(() => SearchPage(tabIndex: tabIndex));
                       },
                       readOnly: true,
                       decoration: InputDecoration(
