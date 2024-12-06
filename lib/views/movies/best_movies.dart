@@ -71,7 +71,7 @@ class _BestMoviesState extends State<BestMovies> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (b){
+      onPopInvokedWithResult: (b, abc){
         paginationScrollController.animateTo(
           0,
           duration: const Duration(milliseconds: 800),

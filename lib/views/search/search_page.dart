@@ -29,7 +29,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, abc) {
         setState(() {
           searchCon.hasSearched.value = false;
           searchCon.movieSearchList.clear();
