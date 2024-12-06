@@ -82,12 +82,13 @@ class _SearchSeriesPageState extends State<SearchSeriesPage> {
         color: Colors.black,
         onRefresh: (){
           return Future.delayed(const Duration(seconds: 1),()async{
-            searchCon.searchSeries(searchCon.searchKeyword);
+            if(searchCon.searchKeyword != ""){
+              searchCon.searchSeries(searchCon.searchKeyword);
+            }
           });
         },
         child: SingleChildScrollView(
           controller: paginationScrollController,
-          physics: const BouncingScrollPhysics(),
           child: Obx(() => searchCon.isSearchListLoading.isTrue
             ? Padding(
               padding: EdgeInsets.fromLTRB(8.0.sp,16.sp,8.sp,8.sp),
