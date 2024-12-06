@@ -1,5 +1,4 @@
 import 'package:cuplex/controller/search_movie_controller.dart';
-import 'package:cuplex/controller/search_series_controller.dart';
 import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/widget/gesture_painter.dart';
 import 'package:cuplex/widget/tile/media_card_tile.dart';
@@ -16,7 +15,6 @@ class SearchMoviePage extends StatefulWidget {
 
 class _SearchMoviePageState extends State<SearchMoviePage> {
   final SearchMovieController searchCon = Get.put(SearchMovieController());
-  final SearchSeriesController searchSeriesCon = Get.put(SearchSeriesController());
   ScrollController paginationScrollController = ScrollController();
   bool showScrollToTopButton = false;
   List<Offset> points = [];
@@ -65,45 +63,143 @@ class _SearchMoviePageState extends State<SearchMoviePage> {
   
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      onPopInvoked: (didPop) {
-        setState(() {
-          searchCon.isAdult = false;
-          searchSeriesCon.isAdult = false;
-        });
-      },
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        floatingActionButton: Visibility(
-          visible: showScrollToTopButton,
-          child: FloatingActionButton(
-            backgroundColor: const Color(0xffecc877),
-            onPressed: () {
-              paginationScrollController.animateTo(
-                0,
-                duration: const Duration(milliseconds: 800),
-                curve: Curves.easeOut,
-              );
-            },
-            child: const Icon(Icons.arrow_upward_outlined, color: Colors.black),
-          ),
-        ),
-        body: RefreshIndicator(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      floatingActionButton: Visibility(
+        visible: showScrollToTopButton,
+        child: FloatingActionButton(
           backgroundColor: const Color(0xffecc877),
-          color: Colors.black,
-          onRefresh: (){
-            return Future.delayed(const Duration(seconds: 1),()async{
-              if(searchCon.searchKeyword != ""){
-                searchCon.searchMovie(searchCon.searchKeyword);
-              }
-            });
-          }, 
-          child: SingleChildScrollView(
-            controller: paginationScrollController,
-            child: Obx(() => searchCon.isSearchListLoading.isTrue
-              ? Padding(
-                padding: EdgeInsets.fromLTRB(8.0.sp,16.sp,8.sp,8.sp),
-                child: GridView.builder(
+          onPressed: () {
+            paginationScrollController.animateTo(
+              0,
+              duration: const Duration(milliseconds: 800),
+              curve: Curves.easeOut,
+            );
+          },
+          child: const Icon(Icons.arrow_upward_outlined, color: Colors.black),
+        ),
+      ),
+      body: RefreshIndicator(
+        backgroundColor: const Color(0xffecc877),
+        color: Colors.black,
+        onRefresh: (){
+          return Future.delayed(const Duration(seconds: 1),()async{
+            if(searchCon.searchKeyword != ""){
+              searchCon.searchMovie(searchCon.searchKeyword);
+            }
+          });
+        }, 
+        child: SingleChildScrollView(
+          controller: paginationScrollController,
+          child: Obx(() => searchCon.isSearchListLoading.isTrue
+            ? Padding(
+              padding: EdgeInsets.fromLTRB(8.0.sp,16.sp,8.sp,8.sp),
+              child: GridView.builder(
+                  physics:  const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                    childAspectRatio: 0.7,
+                  ),
+                  itemCount: 2,
+                  itemBuilder: (context, index) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey.withOpacity(0.5),
+                            width: 0.5,
+                          ),
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.grey.withOpacity(.3),
+                              Colors.transparent,
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        height: 150.h,
+                        width: 120.w,
+                      ),
+                    );
+                  }
+                ),
+            )
+            : searchCon.hasSearched.isFalse
+            ? Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.grey.withOpacity(.4),
+                    Colors.transparent,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              height: 400,
+              child: GestureDetector(onPanUpdate: (details) {
+                  setState(() {
+                    points.add(details.localPosition);
+                  });
+                },
+                onPanEnd: (details) {
+                  if (detectZShape()) {
+                    setState(() {
+                      searchCon.isAdult = !searchCon.isAdult;
+                    });
+                  }
+                  setState(() {
+                    points.clear();
+                  });
+                },
+                child: CustomPaint(
+                  painter: GesturePatternPainter(points),
+                  child: Center(
+                    child: Text(searchCon.isAdult == true ? "Enter Keywords...." : "Enter Keywords...", style: const TextStyle(
+                        fontWeight: FontWeight.w300, 
+                        letterSpacing: 1,
+                        height: 1.6,
+                        color:Color.fromARGB(255, 219, 219, 219),
+                      ),
+                    )
+                  ),
+                ),
+              ),
+            )
+            : searchCon.movieSearchList.isEmpty
+            ? Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.grey.withOpacity(.4),
+                    Colors.transparent,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              height: 400,
+              child: const Center(
+                child: Text("No Results Found", style: TextStyle(
+                    fontWeight: FontWeight.w300, 
+                    letterSpacing: 1,
+                    height: 1.6,
+                    color:Color.fromARGB(255, 219, 219, 219),
+                  ),
+                )
+              ),
+            )
+            : Padding(
+              padding: EdgeInsets.fromLTRB(8.0.sp,16.sp,8.sp,8.sp),
+              child: Column(
+                children: [
+                  GridView.builder(
                     physics:  const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
@@ -112,153 +208,45 @@ class _SearchMoviePageState extends State<SearchMoviePage> {
                       crossAxisSpacing: 8,
                       childAspectRatio: 0.7,
                     ),
-                    itemCount: 2,
+                    itemCount: searchCon.movieSearchList.length,
                     itemBuilder: (context, index) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey.withOpacity(0.5),
-                              width: 0.5,
-                            ),
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.grey.withOpacity(.3),
-                                Colors.transparent,
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          height: 150.h,
-                          width: 120.w,
-                        ),
+                      return MediaCardTile(
+                        title: searchCon.movieSearchList[index]["title"] ?? "",
+                        year: searchCon.movieSearchList[index]["release_date"] != null && searchCon.movieSearchList[index]["release_date"] != ""
+                              ? searchCon.movieSearchList[index]["release_date"].split("-")[0]
+                              : "", 
+                        rating: searchCon.movieSearchList[index]["vote_average"] != null &&
+                                    searchCon.movieSearchList[index]["vote_average"].toString().isNotEmpty
+                                ? double.parse(
+                                    double.tryParse(searchCon.movieSearchList[index]["vote_average"].toString())?.toStringAsFixed(1) ?? "0.0")
+                                : 0.0,
+                        image: searchCon.movieSearchList[index]["poster_path"] ?? "",
+                        onTap: () {
+                          Get.to(() => MovieDetailPage(id: searchCon.movieSearchList[index]["id"]));
+                        },
                       );
-                    }
+                    },
                   ),
-              )
-              : searchCon.hasSearched.isFalse
-              ? Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.grey.withOpacity(.4),
-                      Colors.transparent,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-                height: 400,
-                child: GestureDetector(onPanUpdate: (details) {
-                    setState(() {
-                      points.add(details.localPosition);
-                    });
-                  },
-                  onPanEnd: (details) {
-                    if (detectZShape()) {
-                      setState(() {
-                        searchCon.isAdult = !searchCon.isAdult;
-                        searchSeriesCon.isAdult = !searchSeriesCon.isAdult;
-                      });
-                      print("Z-shape detected! isHidden: ${searchCon.isAdult}");
-                    }
-                    setState(() {
-                      points.clear();
-                    });
-                  },
-                  child: CustomPaint(
-                    painter: GesturePatternPainter(points),
-                    child: const Center(
-                      child: Text("Enter Keywords...", style: TextStyle(
-                          fontWeight: FontWeight.w300, 
-                          letterSpacing: 1,
-                          height: 1.6,
-                          color:Color.fromARGB(255, 219, 219, 219),
-                        ),
-                      )
-                    ),
-                  ),
-                ),
-              )
-              : searchCon.movieSearchList.isEmpty
-              ? Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.grey.withOpacity(.4),
-                      Colors.transparent,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-                height: 400,
-                child: const Center(
-                  child: Text("No Results Found", style: TextStyle(
-                      fontWeight: FontWeight.w300, 
-                      letterSpacing: 1,
-                      height: 1.6,
-                      color:Color.fromARGB(255, 219, 219, 219),
-                    ),
-                  )
-                ),
-              )
-              : Padding(
-                padding: EdgeInsets.fromLTRB(8.0.sp,16.sp,8.sp,8.sp),
-                child: Column(
-                  children: [
-                    GridView.builder(
-                      physics:  const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                        childAspectRatio: 0.7,
-                      ),
-                      itemCount: searchCon.movieSearchList.length,
-                      itemBuilder: (context, index) {
-                        return MediaCardTile(
-                          title: searchCon.movieSearchList[index]["title"] ?? "",
-                          year: searchCon.movieSearchList[index]["release_date"] != null && searchCon.movieSearchList[index]["release_date"] != ""
-                                ? searchCon.movieSearchList[index]["release_date"].split("-")[0]
-                                : "", 
-                          rating: searchCon.movieSearchList[index]["vote_average"] != null &&
-                                      searchCon.movieSearchList[index]["vote_average"].toString().isNotEmpty
-                                  ? double.parse(
-                                      double.tryParse(searchCon.movieSearchList[index]["vote_average"].toString())?.toStringAsFixed(1) ?? "0.0")
-                                  : 0.0,
-                          image: searchCon.movieSearchList[index]["poster_path"] ?? "",
-                          onTap: () {
-                            Get.to(() => MovieDetailPage(id: searchCon.movieSearchList[index]["id"]));
-                          },
-                        );
-                      },
-                    ),
-                    //pagination
-                    searchCon.movieSearchList.length <= 14
-                    ? const SizedBox()
-                    : Obx(() => 
-                      searchCon.isPageLoading.isTrue
-                      ?  Column(
-                          children: [
-                            SizedBox(
-                              height: 100.h,
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  color: Color(0xffecc877),
-                                )
-                              ),
+                  //pagination
+                  searchCon.movieSearchList.length <= 14
+                  ? const SizedBox()
+                  : Obx(() => 
+                    searchCon.isPageLoading.isTrue
+                    ?  Column(
+                        children: [
+                          SizedBox(
+                            height: 100.h,
+                            child: const Center(
+                              child: CircularProgressIndicator(
+                                color: Color(0xffecc877),
+                              )
                             ),
-                          ],
-                        )
-                      :  const SizedBox(),
-                    )
-                  ],
-                ),
+                          ),
+                        ],
+                      )
+                    :  const SizedBox(),
+                  )
+                ],
               ),
             ),
           ),

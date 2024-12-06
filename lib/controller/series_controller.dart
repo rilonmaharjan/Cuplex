@@ -4,11 +4,13 @@ import 'dart:developer';
 
 import 'package:cuplex/apiConfig/api_repo.dart';
 import 'package:cuplex/constant/constant.dart';
+import 'package:cuplex/controller/search_movie_controller.dart';
 import 'package:cuplex/model/series_model.dart';
 import 'package:cuplex/model/top_series_model.dart';
 import 'package:get/get.dart';
 
 class SeriesController extends GetxController{
+  final SearchMovieController searchCon = Get.put(SearchMovieController());
   late RxBool isLoading = true.obs;
   late RxBool isTrendingSeriesLoading = true.obs;
   late RxBool isTopRatedSeriesLoading = true.obs;
@@ -42,7 +44,7 @@ class SeriesController extends GetxController{
   //series list pagination
   getPagination() async{
     try {
-      var response = await ApiRepo.apiGet("$showListUrl?page=$pageNum&sort_by=popularity.desc&include_adult=false");
+      var response = await ApiRepo.apiGet("$showListUrl?page=$pageNum&sort_by=popularity.desc&include_adult=${searchCon.isAdult}");
       if(response != null) {
         prevPageNum = pageNum;
         seriesList.addAll(response['results']);
