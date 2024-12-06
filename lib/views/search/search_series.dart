@@ -193,7 +193,7 @@ class _SearchSeriesPageState extends State<SearchSeriesPage> {
                       return MediaCardTile(
                         title: searchCon.seriesSearchList[index]["name"] ?? "",
                         year: (searchCon.seriesSearchList[index]['first_air_date'] ?? '').split('-').first,
-                        rating: double.parse(searchCon.seriesSearchList[index]["vote_average"].toStringAsFixed(1)),
+                        rating: searchCon.seriesSearchList[index]["vote_average"] == null ? 0.0 :  double.parse(searchCon.seriesSearchList[index]["vote_average"].toStringAsFixed(1)),
                         image: searchCon.seriesSearchList[index]["poster_path"] ?? "",
                         onTap: () {
                           Get.to(() => SeriesDetailPage(id: searchCon.seriesSearchList[index]["id"]));
@@ -202,7 +202,9 @@ class _SearchSeriesPageState extends State<SearchSeriesPage> {
                     },
                   ),
                   //pagination
-                  Obx(() => 
+                  searchCon.seriesSearchList.length <= 14
+                  ? const SizedBox()
+                  : Obx(() => 
                     searchCon.isPageLoading.isTrue
                     ?  Column(
                         children: [

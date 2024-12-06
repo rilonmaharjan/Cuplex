@@ -11,12 +11,13 @@ class SearchSeriesController extends GetxController {
   int prevPageNum = 1;
   dynamic seriesSearchList = [];
   String searchKeyword = "";
+  bool isAdult = false;
 
   searchSeries(keyword) async {
     isSearchListLoading(true);
     seriesSearchList.clear();
     try {
-      var response = await ApiRepo.apiGet('$searchShowUrl?query=$keyword');
+      var response = await ApiRepo.apiGet('$searchShowUrl?query=$keyword&include_adult=$isAdult');
       if (response != null) {
         seriesSearchList = response["results"];
       }
@@ -31,7 +32,7 @@ class SearchSeriesController extends GetxController {
   //search pagination
   getSearchSeriesPagination() async{
     try {
-      var response = await ApiRepo.apiGet("$searchShowUrl?query=$searchKeyword&page=$pageNum&sort_by=popularity.desc&include_adult=true");
+      var response = await ApiRepo.apiGet("$searchShowUrl?query=$searchKeyword&page=$pageNum&sort_by=popularity.desc&include_adult=$isAdult");
       if(response != null) {
         prevPageNum = pageNum;
         seriesSearchList.addAll(response['results']);

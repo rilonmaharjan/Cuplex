@@ -42,7 +42,7 @@ class MoviesController extends GetxController{
   //movie list pagination
   getPagination() async{
     try {
-      var response = await ApiRepo.apiGet("$movieListUrl?page=$pageNum&sort_by=popularity.desc&include_adult=true");
+      var response = await ApiRepo.apiGet("$movieListUrl?page=$pageNum&sort_by=popularity.desc&include_adult=false");
       if(response != null) {
         prevPageNum = pageNum;
         moviesList.addAll(response['results']);

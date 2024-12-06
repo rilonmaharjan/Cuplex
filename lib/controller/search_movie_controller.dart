@@ -11,12 +11,13 @@ class SearchMovieController extends GetxController {
   int prevPageNum = 1;
   dynamic movieSearchList = [];
   String searchKeyword = "";
+  bool isAdult = false;
 
   searchMovie(keyword) async {
     isSearchListLoading(true);
     movieSearchList.clear();
     try {
-      var response = await ApiRepo.apiGet('$searchMovieUrl?query=$keyword');
+      var response = await ApiRepo.apiGet('$searchMovieUrl?query=$keyword&include_adult=$isAdult');
       if (response != null) {
         movieSearchList = response["results"];
       }
@@ -31,7 +32,7 @@ class SearchMovieController extends GetxController {
   //search pagination
   getSearchMoviePagination() async{
     try {
-      var response = await ApiRepo.apiGet("$searchMovieUrl?query=$searchKeyword&page=$pageNum&sort_by=popularity.desc&include_adult=true");
+      var response = await ApiRepo.apiGet("$searchMovieUrl?query=$searchKeyword&page=$pageNum&sort_by=popularity.desc&include_adult=$isAdult");
       if(response != null) {
         prevPageNum = pageNum;
         movieSearchList.addAll(response['results']);

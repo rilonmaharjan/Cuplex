@@ -25,15 +25,6 @@ class _SeriesListPageState extends State<SeriesListPage> {
   void initState() {
     super.initState();
     paginationScrollController.addListener(_scrollListener);
-    initialise();
-  }
-
-  initialise() async{
-    WidgetsBinding.instance.addPostFrameCallback((_) async{
-      await seriesCon.getTrendingSeriesList();
-      await seriesCon.getTopRatedSeries();
-      await seriesCon.getSeriesList();
-    });
   }
 
   void _scrollListener() {
@@ -463,8 +454,11 @@ class _SeriesListPageState extends State<SeriesListPage> {
                   padding: EdgeInsets.only(right: 8.sp),
                   child: MediaCardTile(
                     title: reversedList[index]["name"] ?? "",
-                    year: reversedList[index]["first_air_date"].split("-")[0],
-                    rating: reversedList[index]["vote_average"] == null ? 0 : double.parse(reversedList[index]["vote_average"].toStringAsFixed(1)),
+                    year: reversedList[index]["first_air_date"] != null &&
+                              reversedList[index]["first_air_date"] != ""
+                          ? reversedList[index]["first_air_date"].split("-")[0]
+                          : "",
+                    rating: reversedList[index]["vote_average"] == null ? 0.0 : double.parse(reversedList[index]["vote_average"].toStringAsFixed(1)),
                     image: reversedList[index]["poster_path"] ?? "",
                     onTap: (){
                       Get.to(() => SeriesDetailPage(id: reversedList[index]["id"],));
@@ -661,7 +655,10 @@ class _SeriesListPageState extends State<SeriesListPage> {
             itemBuilder: (context, index) {
               return MediaCardTile(
                 title: seriesCon.seriesList[index]["name"] ?? "",
-                year: seriesCon.seriesList[index]["first_air_date"].split("-")[0],
+                year: seriesCon.seriesList[index]["first_air_date"] != null &&
+                          seriesCon.seriesList[index]["first_air_date"] != ""
+                      ? seriesCon.seriesList[index]["first_air_date"].split("-")[0]
+                      : "",
                 rating: seriesCon.seriesList[index]["vote_average"] == null ? 0 : double.parse(seriesCon.seriesList[index]["vote_average"].toStringAsFixed(1)),
                 image: seriesCon.seriesList[index]["poster_path"] ?? "",
                 onTap: (){

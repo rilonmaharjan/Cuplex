@@ -97,32 +97,28 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                         ),
-                        borderRadius: BorderRadius.circular(6),
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(6),
-                        child: (selectedSeason == null && selectedEpisode == null) || seasonPoster == null
+                      child: (selectedSeason == null && selectedEpisode == null) || seasonPoster == null
                       ? DisplayNetworkImage(
-                          imageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
-                          height: 280.h,
-                          width: double.infinity,
-                          isFromweb: true,
-                        )
+                        imageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
+                        height: 280.h,
+                        width: double.infinity,
+                        isFromweb: true,
+                      )
                       : selectedSeason != null && selectedEpisode == null
                       ? DisplayNetworkImage(
-                          imageUrl: "$posterUrl/$seasonPoster",
-                          height: 280.h,
-                          width: double.infinity,
-                          isFromweb: true,
-                        )
+                        imageUrl: "$posterUrl/$seasonPoster",
+                        height: 280.h,
+                        width: double.infinity,
+                        isFromweb: true,
+                      )
                       : SizedBox(
-                          height: 280.h,
-                          child: CustomWebView(
-                            key: ValueKey('$selectedSeason-$selectedEpisode'),
-                            initialUrl: "$showEmbedUrl?tmdb=${seriesCon.seriesDetail.id}&season=$selectedSeason&episode=$selectedEpisode",
-                            showAppBar: false,
-                            errorImageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
-                          ),
+                        height: 280.h,
+                        child: CustomWebView(
+                          key: ValueKey('$selectedSeason-$selectedEpisode'),
+                          initialUrl: "$showEmbedUrl?tmdb=${seriesCon.seriesDetail.id}&season=$selectedSeason&episode=$selectedEpisode",
+                          showAppBar: false,
+                          errorImageUrl: "$posterUrl${seriesCon.seriesDetail.backdropPath}",
                         ),
                       ),
                     ),
@@ -154,6 +150,22 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                         )
                       ),
                     ),
+                    selectedEpisode == null 
+                    ? Container(
+                      height: 280.h,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            Colors.black,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                    )
+                    : const SizedBox()
                   ],
                 ),
                 Container(
@@ -217,6 +229,8 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                 // Poster Image
                                 if (seriesCon.seriesDetail.posterPath != null)
                                   Container(
+                                    height: 150.h,
+                                    width: 100.w,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color: Colors.grey.withOpacity(0.5),

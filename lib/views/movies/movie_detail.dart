@@ -17,6 +17,7 @@ class MovieDetailPage extends StatefulWidget {
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
   final MoviesController movieCon = Get.put(MoviesController());
+  bool isPlaying = false;
 
   @override
   void initState() {
@@ -92,17 +93,59 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                       ),
-                      borderRadius: BorderRadius.circular(6),
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: SizedBox(
-                        height: 280.h,
-                        child: CustomWebView(
-                          initialUrl: "$movieEmbedUrl/${movieCon.moviesDetail.imdbId}",
-                          showAppBar: false,
-                          errorImageUrl: "$posterUrl${movieCon.moviesDetail.backdropPath}",
+                    child: isPlaying == false
+                    ? Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        DisplayNetworkImage(
+                          imageUrl: "$posterUrl${movieCon.moviesDetail.backdropPath}",
+                          height: 280.h,
+                          width: double.infinity,
+                          isFromweb: true,
                         ),
+                        Container(
+                          height: 280.h,
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.transparent,
+                                Colors.black,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isPlaying = true;
+                            });
+                          },
+                          child: Container(
+                            width: 70.sp, 
+                            height: 70.sp,
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.5),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.play_arrow_rounded, 
+                              color: Colors.white, 
+                              size: 46.sp, 
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                    : SizedBox(
+                      height: 280.h,
+                      child: CustomWebView(
+                        initialUrl: "$movieEmbedUrl/${movieCon.moviesDetail.imdbId}",
+                        showAppBar: false,
+                        errorImageUrl: "$posterUrl${movieCon.moviesDetail.backdropPath}",
                       ),
                     ),
                   ),
@@ -166,6 +209,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                 // Poster image
                                 if (movieCon.moviesDetail.posterPath != null)
                                   Container(
+                                    height: 150.h,
+                                    width: 100.w,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color: Colors.grey.withOpacity(0.5),

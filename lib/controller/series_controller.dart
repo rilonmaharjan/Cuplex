@@ -42,7 +42,7 @@ class SeriesController extends GetxController{
   //series list pagination
   getPagination() async{
     try {
-      var response = await ApiRepo.apiGet("$showListUrl?page=$pageNum&sort_by=popularity.desc&include_adult=true");
+      var response = await ApiRepo.apiGet("$showListUrl?page=$pageNum&sort_by=popularity.desc&include_adult=false");
       if(response != null) {
         prevPageNum = pageNum;
         seriesList.addAll(response['results']);

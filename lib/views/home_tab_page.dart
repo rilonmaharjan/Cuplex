@@ -1,8 +1,11 @@
+import 'package:cuplex/controller/movies_controller.dart';
+import 'package:cuplex/controller/series_controller.dart';
 import 'package:cuplex/views/movies/movies_list.dart';
 import 'package:cuplex/views/series/series_list.dart';
 import 'package:cuplex/widget/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,13 +15,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
+  final MoviesController movieCon = Get.put(MoviesController());
+  final SeriesController seriesCon = Get.put(SeriesController());
   late final TabController _tabController;
   int? tabIndex;
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this); 
     super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    initialise();
+  }
+
+  initialise() async{
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+      await movieCon.getTrendingMoviesList();
+      await movieCon.getTopRatedMovies();
+      await movieCon.getMoviesList();
+      await seriesCon.getTrendingSeriesList();
+      await seriesCon.getTopRatedSeries();
+      await seriesCon.getSeriesList();
+    });
   }
 
   @override

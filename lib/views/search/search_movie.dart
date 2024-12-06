@@ -190,8 +190,14 @@ class _SearchMoviePageState extends State<SearchMoviePage> {
                     itemBuilder: (context, index) {
                       return MediaCardTile(
                         title: searchCon.movieSearchList[index]["title"] ?? "",
-                        year: searchCon.movieSearchList[index]["release_date"].split("-")[0] ?? "",
-                        rating: double.parse(searchCon.movieSearchList[index]["vote_average"].toStringAsFixed(1)),
+                        year: searchCon.movieSearchList[index]["release_date"] != null && searchCon.movieSearchList[index]["release_date"] != ""
+                              ? searchCon.movieSearchList[index]["release_date"].split("-")[0]
+                              : "", 
+                        rating: searchCon.movieSearchList[index]["vote_average"] != null &&
+                                    searchCon.movieSearchList[index]["vote_average"].toString().isNotEmpty
+                                ? double.parse(
+                                    double.tryParse(searchCon.movieSearchList[index]["vote_average"].toString())?.toStringAsFixed(1) ?? "0.0")
+                                : 0.0,
                         image: searchCon.movieSearchList[index]["poster_path"] ?? "",
                         onTap: () {
                           Get.to(() => MovieDetailPage(id: searchCon.movieSearchList[index]["id"]));
@@ -200,7 +206,9 @@ class _SearchMoviePageState extends State<SearchMoviePage> {
                     },
                   ),
                   //pagination
-                  Obx(() => 
+                  searchCon.movieSearchList.length <= 14
+                  ? const SizedBox()
+                  : Obx(() => 
                     searchCon.isPageLoading.isTrue
                     ?  Column(
                         children: [

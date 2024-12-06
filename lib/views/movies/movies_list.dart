@@ -27,15 +27,6 @@ class _MoviesListPageState extends State<MoviesListPage> {
   void initState() {
     super.initState();
     paginationScrollController.addListener(_scrollListener);
-    initialise();
-  }
-
-  initialise() async{
-    WidgetsBinding.instance.addPostFrameCallback((_) async{
-      await movieCon.getTrendingMoviesList();
-      await movieCon.getTopRatedMovies();
-      await movieCon.getMoviesList();
-    });
   }
 
   void _scrollListener() {
@@ -476,8 +467,13 @@ class _MoviesListPageState extends State<MoviesListPage> {
                   padding: EdgeInsets.only(right: 8.w),
                   child: MediaCardTile(
                     title: reversedList[index]["title"] ?? "",
-                    year: reversedList[index]["release_date"].split("-")[0],
-                    rating: double.parse(reversedList[index]["vote_average"].toStringAsFixed(1)),
+                    year: reversedList[index]["release_date"] != null && reversedList[index]["release_date"] != ""
+                          ? reversedList[index]["release_date"].split("-")[0]
+                          : "",
+                    rating: reversedList[index]["vote_average"] != null && reversedList[index]["vote_average"].toString().isNotEmpty
+                            ? double.parse(
+                                double.tryParse(reversedList[index]["vote_average"].toString())?.toStringAsFixed(1) ?? "0.0")
+                            : 0.0,
                     image: reversedList[index]["poster_path"] ?? "",
                     onTap: () {
                       Get.to(() => MovieDetailPage(id: reversedList[index]["id"]));
@@ -674,8 +670,14 @@ class _MoviesListPageState extends State<MoviesListPage> {
             itemBuilder: (context, index) {
               return MediaCardTile(
                 title: movieCon.moviesList[index]["title"] ?? "",
-                year: movieCon.moviesList[index]["release_date"].split("-")[0],
-                rating: double.parse(movieCon.moviesList[index]["vote_average"].toStringAsFixed(1)),
+                year: movieCon.moviesList[index]["release_date"] != null && movieCon.moviesList[index]["release_date"] != ""
+                      ? movieCon.moviesList[index]["release_date"].split("-")[0]
+                      : "",
+                rating: movieCon.moviesList[index]["vote_average"] != null &&
+                          movieCon.moviesList[index]["vote_average"].toString().isNotEmpty
+                      ? double.parse(
+                          double.tryParse(movieCon.moviesList[index]["vote_average"].toString())?.toStringAsFixed(1) ?? "0.0")
+                      : 0.0,
                 image: movieCon.moviesList[index]["poster_path"] ?? "",
                 onTap: () {
                   Get.to(() => MovieDetailPage(id: movieCon.moviesList[index]["id"]));
