@@ -163,6 +163,7 @@ class _SearchMoviePageState extends State<SearchMoviePage> {
                         searchCon.isAdult = !searchCon.isAdult;
                         searchSeriesCon.isAdult = !searchSeriesCon.isAdult;
                       });
+                      print("Z-shape detected! isHidden: ${searchCon.isAdult}");
                     }
                     setState(() {
                       points.clear();
@@ -269,20 +270,27 @@ class _SearchMoviePageState extends State<SearchMoviePage> {
   bool detectZShape() {
     if (points.length < 3) return false;
 
-    // Analyze the gesture points for a rough "Z" shape
-    Offset topLeft = points.first;
-    Offset bottomRight = points.last;
+    // Split points into 3 parts: beginning, middle, and end
+    int oneThird = (points.length / 3).floor();
+    List<Offset> start = points.sublist(0, oneThird);
+    List<Offset> middle = points.sublist(oneThird, 2 * oneThird);
+    List<Offset> end = points.sublist(2 * oneThird);
 
-    // Ensure the gesture starts from top-left and ends at bottom-right
-    bool startsAtTopLeft =
-        topLeft.dy < bottomRight.dy && topLeft.dx < bottomRight.dx;
+    // Detect horizontal movement in start (left to right)
+    bool horizontalStart = start.last.dx > start.first.dx &&
+        (start.last.dy - start.first.dy).abs() < 30;
 
-    // Check for diagonal movement in the middle
-    bool hasDiagonal = points.any((point) =>
-        (point.dx - topLeft.dx).abs() > 50 &&
-        (point.dy - topLeft.dy).abs() > 50);
+    // Detect diagonal movement in middle (top-right to bottom-left)
+    bool diagonalMiddle = middle.first.dx > middle.last.dx &&
+        middle.last.dy > middle.first.dy &&
+        (middle.first.dx - middle.last.dx).abs() > 50 &&
+        (middle.last.dy - middle.first.dy).abs() > 50;
 
-    return startsAtTopLeft && hasDiagonal;
+    // Detect horizontal movement in end (left to right)
+    bool horizontalEnd = end.last.dx > end.first.dx &&
+        (end.last.dy - end.first.dy).abs() < 30;
+
+    return horizontalStart && diagonalMiddle && horizontalEnd;
   }
 
 }
