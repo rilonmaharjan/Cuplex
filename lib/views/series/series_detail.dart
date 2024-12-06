@@ -223,47 +223,48 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                               ),
                            SizedBox(height: 16.h),
                             // Poster and Series Info
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Poster Image
-                                if (seriesCon.seriesDetail.posterPath != null)
-                                  Container(
-                                    height: 150.h,
-                                    width: 100.w,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        width: 0.5,
-                                      ),
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Colors.grey.withOpacity(.3),
-                                          Colors.transparent,
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      ),
-                                      borderRadius: BorderRadius.circular(4),
+                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Poster Image
+                              if (seriesCon.seriesDetail.posterPath != null)
+                                Container(
+                                  height: 150.h,
+                                  width: 100.w,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      width: 0.5,
                                     ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(4),
-                                      child: DisplayNetworkImage(
-                                        imageUrl:
-                                            'https://image.tmdb.org/t/p/w500${seriesCon.seriesDetail.posterPath}',
-                                        height: 150.h,
-                                        width: 100.w,
-                                      ),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.grey.withOpacity(.3),
+                                        Colors.transparent,
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                    ),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(4),
+                                    child: DisplayNetworkImage(
+                                      imageUrl: 'https://image.tmdb.org/t/p/w500${seriesCon.seriesDetail.posterPath}',
+                                      height: 150.h,
+                                      width: 100.w,
                                     ),
                                   ),
-                               SizedBox(width: 16.w),
-                                // Other Series Details
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
+                                ),
+                              SizedBox(width: 16.w),
+                              // Other Series Details
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // First Air Date
+                                    if (seriesCon.seriesDetail.firstAirDate != null)
                                       Text(
-                                        "First Air Date: ${seriesCon.seriesDetail.firstAirDate ?? 'N/A'}",
+                                        "First Air Date: ${seriesCon.seriesDetail.firstAirDate}",
                                         style: TextStyle(
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.w300, 
@@ -272,7 +273,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                           color: const Color.fromARGB(255, 219, 219, 219),
                                         ),
                                       ),
-                                      SizedBox(height: 8.h),
+                                    if (seriesCon.seriesDetail.firstAirDate != null) SizedBox(height: 8.h),
+                                    
+                                    // Seasons
+                                    if (seriesCon.seriesDetail.numberOfSeasons != null)
                                       Text(
                                         "Seasons: ${seriesCon.seriesDetail.numberOfSeasons}",
                                         style: TextStyle(
@@ -283,7 +287,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                           color: const Color.fromARGB(255, 219, 219, 219),
                                         ),
                                       ),
-                                     SizedBox(height: 8.h),
+                                    if (seriesCon.seriesDetail.numberOfSeasons != null) SizedBox(height: 8.h),
+                                    
+                                    // Episodes
+                                    if (seriesCon.seriesDetail.numberOfEpisodes != null)
                                       Text(
                                         "Episodes: ${seriesCon.seriesDetail.numberOfEpisodes}",
                                         style: TextStyle(
@@ -294,7 +301,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                           color: const Color.fromARGB(255, 219, 219, 219),
                                         ),
                                       ),
-                                     SizedBox(height: 8.h),
+                                    if (seriesCon.seriesDetail.numberOfEpisodes != null) SizedBox(height: 8.h),
+                                    
+                                    // Rating
+                                    if (seriesCon.seriesDetail.voteAverage != null)
                                       Text(
                                         "Rating: ${seriesCon.seriesDetail.voteAverage.toStringAsFixed(1)}",
                                         style: TextStyle(
@@ -305,24 +315,31 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                           color: const Color.fromARGB(255, 219, 219, 219),
                                         ),
                                       ),
-                                    ],
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 16.h),
+                          // Genres
+                          if (seriesCon.seriesDetail.genres != null && seriesCon.seriesDetail.genres.isNotEmpty)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Genres:",
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w300, 
+                                    letterSpacing: 1,
+                                    height: 1.6,
+                                    color: const Color.fromARGB(255, 219, 219, 219),
                                   ),
                                 ),
+                                SizedBox(height: 8.h),
+                                // Display genres here if needed
                               ],
                             ),
-                           SizedBox(height: 16.h),
-                            // Genres
-                           Text(
-                              "Genres:",
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w300, 
-                                letterSpacing: 1,
-                                height: 1.6,
-                                color: const Color.fromARGB(255, 219, 219, 219),
-                              ),
-                            ),
-                            SizedBox(height: 8.h),
                             Wrap(
                               spacing: 8.0,
                               children: List<Chip>.generate(

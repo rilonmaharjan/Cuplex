@@ -206,7 +206,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Poster image
+                                // Poster Image
                                 if (movieCon.moviesDetail.posterPath != null)
                                   Container(
                                     height: 150.h,
@@ -229,51 +229,58 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(4),
                                       child: DisplayNetworkImage(
-                                        imageUrl:
-                                            '$posterUrl${movieCon.moviesDetail.posterPath}',
+                                        imageUrl: '$posterUrl${movieCon.moviesDetail.posterPath}',
                                         height: 150.h,
                                         width: 100.w,
                                       ),
                                     ),
                                   ),
                                 SizedBox(width: 16.w),
-                                // Other movie details
+                                // Other Movie Details
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "Release Date: ${movieCon.moviesDetail.releaseDate ?? 'N/A'}",
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w300, 
-                                          letterSpacing: 1,
-                                          height: 1.6,
-                                          color:const Color.fromARGB(255, 219, 219, 219),
+                                      // Release Date
+                                      if (movieCon.moviesDetail.releaseDate != null)
+                                        Text(
+                                          "Release Date: ${movieCon.moviesDetail.releaseDate}",
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w300, 
+                                            letterSpacing: 1,
+                                            height: 1.6,
+                                            color: const Color.fromARGB(255, 219, 219, 219),
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 8.h),
-                                      Text(
-                                        "Rating: ${movieCon.moviesDetail.voteAverage ?? 'N/A'}",
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w300, 
-                                          letterSpacing: 1,
-                                          height: 1.6,
-                                          color:const Color.fromARGB(255, 219, 219, 219),
+                                      if (movieCon.moviesDetail.releaseDate != null) SizedBox(height: 8.h),
+
+                                      // Rating
+                                      if (movieCon.moviesDetail.voteAverage != null)
+                                        Text(
+                                          "Rating: ${movieCon.moviesDetail.voteAverage}",
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w300, 
+                                            letterSpacing: 1,
+                                            height: 1.6,
+                                            color: const Color.fromARGB(255, 219, 219, 219),
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 8.h),
-                                      Text(
-                                        "Runtime: ${movieCon.moviesDetail.runtime} minutes",
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w300, 
-                                          letterSpacing: 1,
-                                          height: 1.6,
-                                          color:const Color.fromARGB(255, 219, 219, 219),
+                                      if (movieCon.moviesDetail.voteAverage != null) SizedBox(height: 8.h),
+
+                                      // Runtime
+                                      if (movieCon.moviesDetail.runtime != null)
+                                        Text(
+                                          "Runtime: ${movieCon.moviesDetail.runtime} minutes",
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w300, 
+                                            letterSpacing: 1,
+                                            height: 1.6,
+                                            color: const Color.fromARGB(255, 219, 219, 219),
+                                          ),
                                         ),
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -281,64 +288,75 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             ),
                             SizedBox(height: 16.h),
                             // Genres
-                            Text(
-                              "Genres:",
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w300, 
-                                letterSpacing: 1,
-                                height: 1.6,
-                                color:const Color.fromARGB(255, 219, 219, 219),
-                              ),
-                            ),
-                            SizedBox(height: 8.h),
-                            Wrap(
-                              spacing: 8,
-                              children: (movieCon.moviesDetail.genres as List)
-                                .map((genre) =>  Chip(
-                                  label: Text(genre.name, style: const TextStyle(
+                            if (movieCon.moviesDetail.genres != null && movieCon.moviesDetail.genres.isNotEmpty)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Genres:",
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
                                       fontWeight: FontWeight.w300, 
                                       letterSpacing: 1,
                                       height: 1.6,
-                                      color:Color.fromARGB(255, 219, 219, 219),
+                                      color: const Color.fromARGB(255, 219, 219, 219),
                                     ),
                                   ),
-                                  backgroundColor: Colors.black,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4.0),
+                                  SizedBox(height: 8.h),
+                                  Wrap(
+                                    spacing: 8,
+                                    children: (movieCon.moviesDetail.genres as List)
+                                      .map((genre) => Chip(
+                                        label: Text(genre.name, style: const TextStyle(
+                                            fontWeight: FontWeight.w300, 
+                                            letterSpacing: 1,
+                                            height: 1.6,
+                                            color: Color.fromARGB(255, 219, 219, 219),
+                                          ),
+                                        ),
+                                        backgroundColor: Colors.black,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(4.0),
+                                        ),
+                                        padding: EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 6.0.h),
+                                        side: BorderSide(
+                                          color: const Color.fromARGB(255, 122, 122, 122),
+                                          width: 1.0.sp
+                                        ),
+                                      ),
+                                    ).toList(),
                                   ),
-                                  padding: EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 6.0.h),
-                                  side: BorderSide(
-                                    color: const Color.fromARGB(255, 122, 122, 122),
-                                    width: 1.0.sp
-                                  ),
-                                ),
-                              ).toList(),
-                            ),
+                                ],
+                              ),
                             SizedBox(height: 16.h),
                             // Overview
-                            Text(
-                              "Overview:",
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w300, 
-                                letterSpacing: 1,
-                                height: 1.6,
-                                color:const Color.fromARGB(255, 219, 219, 219),
+                            if (movieCon.moviesDetail.overview != null && movieCon.moviesDetail.overview!.isNotEmpty)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Overview:",
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w300, 
+                                      letterSpacing: 1,
+                                      height: 1.6,
+                                      color: const Color.fromARGB(255, 219, 219, 219),
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.h),
+                                  Text(
+                                    movieCon.moviesDetail.overview ?? 'No description available.',
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w300, 
+                                      letterSpacing: 1,
+                                      height: 1.6,
+                                      color: const Color.fromARGB(255, 219, 219, 219),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            SizedBox(height: 8.h),
-                            Text(
-                              movieCon.moviesDetail.overview ??
-                                  'No description available.',
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w300, 
-                                letterSpacing: 1,
-                                height: 1.6,
-                                color:const Color.fromARGB(255, 219, 219, 219),
-                              ),
-                            ),
                             SizedBox(height: 26.h),
                           ],
                         ),
