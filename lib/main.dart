@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           defaultTransition: Transition.rightToLeft,
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffecc877)),
             useMaterial3: true,
             textSelectionTheme: TextSelectionThemeData(
               cursorColor: const Color.fromARGB(255, 110, 108, 110),
