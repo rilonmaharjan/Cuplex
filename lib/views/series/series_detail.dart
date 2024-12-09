@@ -20,6 +20,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
   int? selectedSeason;
   int? selectedEpisode;
   String? seasonPoster;
+  String synopsis = "";
 
   @override
   void initState() {
@@ -448,9 +449,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                     itemCount: seriesCon.episodeList.length,
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
-                                        onTap: () {
+                                        onTap: () {                                                                             
                                           setState(() {
                                             selectedEpisode = seriesCon.episodeList[index]["episode_number"];
+                                            synopsis = seriesCon.episodeList[index]["overview"];
                                           });
                                         },
                                         child: Padding(
@@ -549,7 +551,51 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                     },
                                   ),
                                 ),
+                                Visibility(
+                                  visible: synopsis != "",
+                                  child: SizedBox(height: 16.0.h,)
+                                ),
+                                // Synopsis Section
+                                Visibility(
+                                  visible: synopsis != "", 
+                                  child: Container(
+                                    padding: const EdgeInsets.all(8.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.r),
+                                      border: Border.all(
+                                        color: const Color.fromARGB(255, 122, 122, 122),
+                                      )
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Synopsis:",
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w300, 
+                                            letterSpacing: 1,
+                                            height: 1.6,
+                                            color: const Color.fromARGB(255, 219, 219, 219),
+                                          ),
+                                        ),
+                                        SizedBox(height: 8.h),
+                                        Text(
+                                          synopsis,
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w300, 
+                                            letterSpacing: 1,
+                                            height: 1.6,
+                                            color: const Color.fromARGB(255, 219, 219, 219),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               SizedBox(height: 16.h),
+                              if(seriesCon.seriesDetail.overview != "")
                               // Overview Section
                               Text(
                                 "Overview:",
