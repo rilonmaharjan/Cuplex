@@ -1,5 +1,6 @@
 import 'package:cuplex/controller/search_series_controller.dart';
 import 'package:cuplex/views/series/series_detail.dart';
+import 'package:cuplex/widget/custom_shimmer.dart';
 import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -103,27 +104,35 @@ class _SearchSeriesPageState extends State<SearchSeriesPage> {
                   ),
                   itemCount: 2,
                   itemBuilder: (context, index) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(4),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.grey.withOpacity(0.5),
-                            width: 0.5,
-                          ),
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.grey.withOpacity(.3),
-                              Colors.transparent,
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
+                    return Stack(
+                      children: [
+                        ClipRRect(
                           borderRadius: BorderRadius.circular(4),
+                          child: CustomShimmer(
+                            height: 190.h,
+                            width: 120.w,
+                          ),
                         ),
-                        height: 150.h,
-                        width: 120.w,
-                      ),
+                        Container(
+                          height: 190.h,
+                          width: 120.w,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey.withOpacity(0.5),
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(4),
+                            gradient: const LinearGradient(
+                              colors: [
+                                Colors.transparent,
+                                Colors.black,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   }
                 ),

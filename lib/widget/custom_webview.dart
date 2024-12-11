@@ -197,22 +197,9 @@ class _CustomWebViewState extends State<CustomWebView> {
                     ),
                   // Purple loading screen
                   if (isLoading)
-                    Container(
+                    CustomShimmer(
                       height: 280.h,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.grey.withOpacity(.3),
-                            Colors.transparent,
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                      ),
-                      child: CustomShimmer(
-                        height: 280.h,
-                        width: MediaQuery.of(context).size.width,
-                      ),
+                      width: MediaQuery.of(context).size.width,
                     ),
                 ],
               ),

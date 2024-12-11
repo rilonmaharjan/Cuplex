@@ -559,12 +559,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                 Visibility(
                                   visible: synopsis != "", 
                                   child: Container(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: EdgeInsets.symmetric(horizontal: 12.0.sp,vertical: 8.0.sp),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4.r),
-                                      border: Border.all(
-                                        color: const Color.fromARGB(255, 122, 122, 122),
-                                      )
+                                      color: Colors.white.withOpacity(0.15)
                                     ),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
