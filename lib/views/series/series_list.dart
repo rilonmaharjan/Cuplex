@@ -41,13 +41,13 @@ class _SeriesListPageState extends State<SeriesListPage> {
     }
     
     // Check if the user is near the top of the list
-    if (paginationScrollController.position.pixels <= 2500 && showScrollToTopButton) {
+    if (paginationScrollController.position.pixels <= 2000 && showScrollToTopButton) {
       setState(() {
         showScrollToTopButton = false;
       });
     } 
     // Check if the user is scrolling down past a certain threshold
-    else if (paginationScrollController.position.pixels > 2500 && !showScrollToTopButton) {
+    else if (paginationScrollController.position.pixels > 2000 && !showScrollToTopButton) {
       setState(() {
         showScrollToTopButton = true;
       });
@@ -87,6 +87,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
               duration: const Duration(milliseconds: 800),
               curve: Curves.easeOut,
             );
+            movieCon.isScrollUp.value = false;
           },
           child: const Icon(Icons.arrow_upward_outlined, color: Colors.black),
         ),
