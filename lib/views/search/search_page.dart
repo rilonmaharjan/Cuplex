@@ -152,14 +152,26 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
                       autofocus: true,
                       onFieldSubmitted: (value) async{
                         if(_searchController.text != ""){
-                          await searchCon.searchMovie(_searchController.text);
-                          setState(() {
-                            searchCon.searchKeyword = _searchController.text;
-                          });
-                          await searchSeriesCon.searchSeries(_searchController.text);
-                          setState(() {
-                            searchSeriesCon.searchKeyword = _searchController.text;
-                          });
+                          if(_tabController.index == 1){
+                            await searchSeriesCon.searchSeries(_searchController.text);
+                            setState(() {
+                              searchSeriesCon.searchKeyword = _searchController.text;
+                            });
+                            await searchCon.searchMovie(_searchController.text);
+                            setState(() {
+                              searchCon.searchKeyword = _searchController.text;
+                            });
+                          }
+                          else{
+                            await searchCon.searchMovie(_searchController.text);
+                            setState(() {
+                              searchCon.searchKeyword = _searchController.text;
+                            });
+                            await searchSeriesCon.searchSeries(_searchController.text);
+                            setState(() {
+                              searchSeriesCon.searchKeyword = _searchController.text;
+                            });
+                          }
                         }
                       },
                       cursorRadius: const Radius.circular(6),
