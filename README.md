@@ -1,5 +1,9 @@
 # Cuplex 🎥🍿
 
+**API Key and Token**
+Get your API key and token from TMDB and add to constant.dart
+
+
 **Cuplex** is a cross-platform mobile application developed using Flutter, allowing users to watch free and unlimited movies and series in HD. It features a sleek, intuitive UI for an enjoyable viewing experience.
 
 ## Features ✨
