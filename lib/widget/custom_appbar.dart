@@ -9,9 +9,8 @@ customAppBar({backButton, onTap, tabIndex}) {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 26.h,),
           Container(
-            padding: EdgeInsets.only(top : 18.sp, bottom : 0, left : 18.sp),
+            padding: EdgeInsets.only(top : 36.sp, bottom : 8.sp, left : 18.sp),
             child: Row(
               children: [
                 backButton == true 

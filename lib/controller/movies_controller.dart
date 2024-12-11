@@ -25,6 +25,7 @@ class MoviesController extends GetxController{
   dynamic trendingMovieList = [].obs;
   dynamic topRatedMovies = [].obs;
   dynamic bestMoviesList = [].obs;
+  late RxBool isScrollUp = false.obs;
 
   // Get Movies List
   getMoviesList() async {

@@ -1,10 +1,12 @@
 import 'package:cuplex/constant/constant.dart';
+import 'package:cuplex/controller/movies_controller.dart';
 import 'package:cuplex/controller/series_controller.dart';
 import 'package:cuplex/views/series/series_detail.dart';
 import 'package:cuplex/views/series/view_all_series.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -18,6 +20,7 @@ class SeriesListPage extends StatefulWidget {
 
 class _SeriesListPageState extends State<SeriesListPage> {
   final SeriesController seriesCon = Get.put(SeriesController());
+  final MoviesController movieCon = Get.put(MoviesController());
   ScrollController paginationScrollController = ScrollController();
   bool showScrollToTopButton = false;
 
@@ -28,6 +31,15 @@ class _SeriesListPageState extends State<SeriesListPage> {
   }
 
   void _scrollListener() {
+    if (paginationScrollController.position.userScrollDirection == ScrollDirection.forward) {
+      // Scrolling down
+      movieCon.isScrollUp.value = false;
+    } else if (paginationScrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      // Scrolling up
+      movieCon.isScrollUp.value = true;
+    }
+    
     // Check if the user is near the top of the list
     if (paginationScrollController.position.pixels <= 2500 && showScrollToTopButton) {
       setState(() {

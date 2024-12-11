@@ -12,6 +12,7 @@ class SearchMovieController extends GetxController {
   dynamic movieSearchList = [];
   String searchKeyword = "";
   bool isAdult = false;
+  late RxBool isScrollUp = false.obs;
 
   searchMovie(keyword) async {
     isSearchListLoading(true);

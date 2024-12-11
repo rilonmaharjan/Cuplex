@@ -6,6 +6,7 @@ import 'package:cuplex/views/movies/view_all_movie.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -30,6 +31,15 @@ class _MoviesListPageState extends State<MoviesListPage> {
   }
 
   void _scrollListener() {
+    if (paginationScrollController.position.userScrollDirection == ScrollDirection.forward) {
+      // Scrolling down
+      movieCon.isScrollUp.value = false;
+    } else if (paginationScrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      // Scrolling up
+      movieCon.isScrollUp.value = true;
+    }
+
     // Check if the user is near the top of the list
     if (paginationScrollController.position.pixels <= 2500 && showScrollToTopButton) {
       setState(() {
