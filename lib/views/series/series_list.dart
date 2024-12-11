@@ -81,8 +81,8 @@ class _SeriesListPageState extends State<SeriesListPage> {
         visible: showScrollToTopButton,
         child: FloatingActionButton(
           backgroundColor: const Color(0xffecc877),
-          onPressed: () {
-            paginationScrollController.animateTo(
+          onPressed: () async{
+            await paginationScrollController.animateTo(
               0,
               duration: const Duration(milliseconds: 800),
               curve: Curves.easeOut,
