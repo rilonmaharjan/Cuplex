@@ -7,6 +7,8 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'dart:io';
 import 'dart:developer';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class CustomWebView extends StatefulWidget {
   final String initialUrl;
   final bool showAppBar;
@@ -195,9 +197,22 @@ class _CustomWebViewState extends State<CustomWebView> {
                     ),
                   // Purple loading screen
                   if (isLoading)
-                    CustomShimmer(
-                      height: 300,
-                      width: MediaQuery.of(context).size.width,
+                    Container(
+                      height: 280.h,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.grey.withOpacity(.3),
+                            Colors.transparent,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                      child: CustomShimmer(
+                        height: 280.h,
+                        width: MediaQuery.of(context).size.width,
+                      ),
                     ),
                 ],
               ),

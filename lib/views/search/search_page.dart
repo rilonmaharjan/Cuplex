@@ -34,6 +34,8 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin{
           searchCon.hasSearched.value = false;
           searchCon.movieSearchList.clear();
           searchSeriesCon.seriesSearchList.clear();
+          searchCon.searchKeyword = "";
+          searchSeriesCon.searchKeyword = "";
         });
       },
       child: Scaffold( 
