@@ -392,12 +392,14 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                     var season = seriesCon.seriesDetail.seasons[index];
                                     return GestureDetector(
                                       onTap: () async{
-                                        await seriesCon.getEpisodeList(seriesCon.seriesDetail.id,season.seasonNumber);
-                                        setState(() {
-                                          seasonPoster = season.posterPath;
-                                          selectedSeason = season.seasonNumber;
-                                          selectedEpisode = null; // Reset episode selection
-                                        });
+                                        if(selectedSeason != season.seasonNumber){
+                                          await seriesCon.getEpisodeList(seriesCon.seriesDetail.id,season.seasonNumber);
+                                          setState(() {
+                                            seasonPoster = season.posterPath;
+                                            selectedSeason = season.seasonNumber;
+                                            selectedEpisode = null; // Reset episode selection
+                                          });
+                                        }
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.only(right : 8.0.sp),
