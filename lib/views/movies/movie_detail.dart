@@ -293,9 +293,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                   children: [
                                     Text(
                                       "Genres:",
-                                      style: TextStyle(
+                                        style: TextStyle(
                                         fontSize: 16.sp,
-                                        fontWeight: FontWeight.w300, 
+                                        fontWeight: FontWeight.w300,                                         
                                         letterSpacing: 1,
                                         height: 1.6,
                                         color: const Color.fromARGB(255, 219, 219, 219),
