@@ -99,7 +99,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
       ),
       body: RefreshIndicator(
         backgroundColor: const Color(0xffecc877),
-        color: Colors.black,
+        color: Colors.white,
         onRefresh: () {
           return Future.delayed(const Duration(seconds: 1),()async{
             await seriesCon.getTrendingSeriesList();

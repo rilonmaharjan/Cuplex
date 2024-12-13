@@ -154,7 +154,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 Expanded(
                   child: RefreshIndicator(
                     backgroundColor: const Color(0xffecc877),
-                    color: Colors.black,
+                    color: Colors.white,
                     onRefresh: (){
                       return Future.delayed(const Duration(seconds: 1),()async{
                         await movieCon.getMoviesDetail(widget.id);

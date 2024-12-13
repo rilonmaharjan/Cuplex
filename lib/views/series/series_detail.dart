@@ -228,7 +228,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                 Expanded(
                   child: RefreshIndicator(
                     backgroundColor: const Color(0xffecc877),
-                    color: Colors.black,
+                    color: Colors.white,
                     onRefresh: (){
                       return Future.delayed(const Duration(seconds: 1),()async{
                         await seriesCon.getSeriesDetail(widget.id);
