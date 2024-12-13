@@ -91,6 +91,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
             );
             movieCon.isScrollUp.value = false;
           },
+          shape: const CircleBorder(),
           child: const Icon(Icons.arrow_upward_outlined, color: Colors.black),
         ),
       ),
