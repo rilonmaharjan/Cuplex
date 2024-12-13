@@ -2,6 +2,7 @@ import 'package:cuplex/controller/movies_controller.dart';
 import 'package:cuplex/views/home_tab_page.dart';
 import 'package:cuplex/views/movies/movie_detail.dart';
 import 'package:cuplex/widget/custom_appbar.dart';
+import 'package:cuplex/widget/fade_in.dart';
 import 'package:cuplex/widget/loading_widget.dart';
 import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
@@ -86,18 +87,23 @@ class _BestMoviesState extends State<BestMovies> {
           },
         ),
         backgroundColor: Colors.black,
-        floatingActionButton: Visibility(
-          visible: showScrollToTopButton,
-          child: FloatingActionButton(
-            backgroundColor: const Color(0xffecc877),
-            onPressed: () {
-              paginationScrollController.animateTo(
-                0,
-                duration: const Duration(milliseconds: 800),
-                curve: Curves.easeOut,
-              );
-            },
-            child: const Icon(Icons.arrow_upward_outlined, color: Colors.black),
+        floatingActionButton: FadeInUp(
+          from: -30.sp,
+          child: Visibility(
+            visible: showScrollToTopButton,
+            child: FloatingActionButton(
+              backgroundColor: const Color(0xffecc877),
+              onPressed: () async{
+                await paginationScrollController.animateTo(
+                  0,
+                  duration: const Duration(milliseconds: 800),
+                  curve: Curves.easeOut,
+                );
+                movieCon.isScrollUp.value = false;
+              },
+              shape: const CircleBorder(),
+              child: const Icon(Icons.arrow_upward_outlined, color: Colors.white),
+            ),
           ),
         ),
         body: SingleChildScrollView(

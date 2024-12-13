@@ -4,6 +4,7 @@ import 'package:cuplex/controller/series_controller.dart';
 import 'package:cuplex/views/series/series_detail.dart';
 import 'package:cuplex/views/series/view_all_series.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
+import 'package:cuplex/widget/fade_in.dart';
 import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -77,19 +78,23 @@ class _SeriesListPageState extends State<SeriesListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      floatingActionButton: Visibility(
-        visible: showScrollToTopButton,
-        child: FloatingActionButton(
-          backgroundColor: const Color(0xffecc877),
-          onPressed: () async{
-            await paginationScrollController.animateTo(
-              0,
-              duration: const Duration(milliseconds: 800),
-              curve: Curves.easeOut,
-            );
-            movieCon.isScrollUp.value = false;
-          },
-          child: const Icon(Icons.arrow_upward_outlined, color: Colors.black),
+      floatingActionButton: FadeInUp(
+        from: -30.sp,
+        child: Visibility(
+          visible: showScrollToTopButton,
+          child: FloatingActionButton(
+            backgroundColor: const Color(0xffecc877),
+            onPressed: () async{
+              await paginationScrollController.animateTo(
+                0,
+                duration: const Duration(milliseconds: 800),
+                curve: Curves.easeOut,
+              );
+              movieCon.isScrollUp.value = false;
+            },
+            shape: const CircleBorder(),
+            child: const Icon(Icons.arrow_upward_outlined, color: Colors.white),
+          ),
         ),
       ),
       body: RefreshIndicator(

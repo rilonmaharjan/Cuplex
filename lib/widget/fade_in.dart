@@ -12,7 +12,7 @@ class FadeInUp extends StatefulWidget {
   FadeInUp(
       {key,
       required this.child,
-      this.duration = const Duration(milliseconds: 800),
+      this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,

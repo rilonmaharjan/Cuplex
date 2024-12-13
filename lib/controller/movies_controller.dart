@@ -16,6 +16,7 @@ class MoviesController extends GetxController{
   late RxBool isTopRatedMoviesLoading = true.obs;
   late RxBool isPageLoading = true.obs;
   late RxBool isDetailLoading = true.obs;
+  late RxBool isRecLoading = true.obs;
   int pageNum = 1;
   int prevPageNum = 1;
   int bestPageNum = 1;
@@ -26,6 +27,7 @@ class MoviesController extends GetxController{
   dynamic topRatedMovies = [].obs;
   dynamic bestMoviesList = [].obs;
   late RxBool isScrollUp = false.obs;
+  dynamic recMoviesList = [];
 
   // Get Movies List
   getMoviesList() async {
@@ -149,5 +151,22 @@ class MoviesController extends GetxController{
       log(e.toString());
     }
   }
+
+
+  //reccomended movies
+  getRecomendedMovies(id) async{
+    try {
+      isRecLoading(true);
+      var response = await ApiRepo.apiGet("https://api.themoviedb.org/3/movie/$id/recommendations");
+      if(response != null) {
+        recMoviesList = response['results'];
+      }
+    } catch (e) {
+      log(e.toString());
+    } finally{
+      isRecLoading(false);
+    }
+  }
+
 
 }

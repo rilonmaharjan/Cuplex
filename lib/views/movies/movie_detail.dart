@@ -3,6 +3,7 @@ import 'package:cuplex/controller/movies_controller.dart';
 import 'package:cuplex/widget/custom_cached_network.dart';
 import 'package:cuplex/widget/custom_webview.dart';
 import 'package:cuplex/widget/loading_widget.dart';
+import 'package:cuplex/widget/tile/media_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   initialise() async {
     WidgetsBinding.instance.addPostFrameCallback((_) async{
       await movieCon.getMoviesDetail(widget.id);
+      await movieCon.getRecomendedMovies(widget.id);
     });
   }
 
@@ -100,12 +102,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       children: [
                         DisplayNetworkImage(
                           imageUrl: "$posterUrl${movieCon.moviesDetail.backdropPath}",
-                          height: 280.h,
+                          height: 276.h,
                           width: double.infinity,
                           isFromweb: true,
                         ),
                         Container(
-                          height: 280.h,
+                          height: 278.h,
                           width: double.infinity,
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
@@ -141,7 +143,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       ],
                     )
                     : SizedBox(
-                      height: 280.h,
+                      height: 276.h,
                       child: CustomWebView(
                         initialUrl: "$movieEmbedUrl/${movieCon.moviesDetail.imdbId}",
                         showAppBar: false,
@@ -158,20 +160,21 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         await movieCon.getMoviesDetail(widget.id);
                       });
                     },
-                    child: SingleChildScrollView(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.grey.withOpacity(.3),
-                              Colors.transparent,
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            Colors.grey.withOpacity(.3),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
+                      ),
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(16.0.sp,16.0.sp,16.0.sp,80.sp),
+                          padding: EdgeInsets.fromLTRB(16.0.sp,16.0.sp,16.0.sp, 20.sp),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -179,36 +182,40 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               Text(
                                 movieCon.moviesDetail.title ?? '',
                                 style: TextStyle(
-                                  fontSize: 24.sp,
+                                  fontSize: 19.sp,
                                   fontWeight: FontWeight.w300, 
                                   letterSpacing: 1,
                                   height: 1.6,
                                   color:const Color.fromARGB(255, 219, 219, 219),
                                 ),
                               ),
-                              SizedBox(height: 8.h),
+                              movieCon.moviesDetail.tagline != ""
+                              ? SizedBox(height: 6.h)
+                              : SizedBox(height: 8.h),
                               // Tagline
                               if (movieCon.moviesDetail.tagline != "")
                                 Text(
                                   movieCon.moviesDetail.tagline ?? "",
                                   style: TextStyle(
-                                    fontSize: 16.sp,
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.w300, 
                                     letterSpacing: 1,
                                     height: 1.6,
-                                    color:const Color.fromARGB(255, 219, 219, 219),
+                                    color:const Color(0xffeec877),
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),
-                              SizedBox(height: 16.h),
+                              if (movieCon.moviesDetail.tagline != "")
+                              SizedBox(height: 12.h),
                               // Poster and details
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  SizedBox(width: 8.0.w,),
                                   // Poster Image
                                   if (movieCon.moviesDetail.posterPath != null)
                                     Container(
-                                      height: 150.h,
+                                      height: 140.h,
                                       width: 100.w,
                                       decoration: BoxDecoration(
                                         border: Border.all(
@@ -229,23 +236,25 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                         borderRadius: BorderRadius.circular(4),
                                         child: DisplayNetworkImage(
                                           imageUrl: '$posterUrl${movieCon.moviesDetail.posterPath}',
-                                          height: 150.h,
+                                          height: 140.h,
                                           width: 100.w,
                                         ),
                                       ),
                                     ),
-                                  SizedBox(width: 16.w),
+                                  SizedBox(width: 20.w),
                                   // Other Movie Details
-                                  Expanded(
+                                  SizedBox(
+                                    height: 140.h,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         // Release Date
                                         if (movieCon.moviesDetail.releaseDate != null)
                                           Text(
                                             "Release Date: ${movieCon.moviesDetail.releaseDate}",
                                             style: TextStyle(
-                                              fontSize: 14.sp,
+                                              fontSize: 13.sp,
                                               fontWeight: FontWeight.w300, 
                                               letterSpacing: 1,
                                               height: 1.6,
@@ -256,14 +265,29 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         
                                         // Rating
                                         if (movieCon.moviesDetail.voteAverage != null)
-                                          Text(
-                                            "Rating: ${movieCon.moviesDetail.voteAverage}",
-                                            style: TextStyle(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w300, 
-                                              letterSpacing: 1,
-                                              height: 1.6,
-                                              color: const Color.fromARGB(255, 219, 219, 219),
+                                          RichText(
+                                            text: TextSpan(
+                                              style: TextStyle(
+                                                fontSize: 13.sp,
+                                                fontWeight: FontWeight.w300,
+                                                letterSpacing: 1,
+                                                height: 1.6,
+                                              ),
+                                              children: [
+                                                const TextSpan(
+                                                  text: "Rating:  ",
+                                                  style: TextStyle(
+                                                    color: Color.fromARGB(255, 219, 219, 219),
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: movieCon.moviesDetail.voteAverage.toStringAsFixed(1),
+                                                  style: TextStyle(
+                                                    color: const Color(0xffeec877),
+                                                    fontSize: 13.sp
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         if (movieCon.moviesDetail.voteAverage != null) SizedBox(height: 8.h),
@@ -273,7 +297,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                           Text(
                                             "Runtime: ${movieCon.moviesDetail.runtime} minutes",
                                             style: TextStyle(
-                                              fontSize: 14.sp,
+                                              fontSize: 13.sp,
                                               fontWeight: FontWeight.w300, 
                                               letterSpacing: 1,
                                               height: 1.6,
@@ -285,78 +309,51 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 16.h),
+                              SizedBox(height: 10.h),
                               // Genres
                               if (movieCon.moviesDetail.genres != null && movieCon.moviesDetail.genres.isNotEmpty)
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Genres:",
-                                        style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w300,                                         
-                                        letterSpacing: 1,
-                                        height: 1.6,
-                                        color: const Color.fromARGB(255, 219, 219, 219),
+                                Wrap(
+                                  spacing: 8,
+                                  children: (movieCon.moviesDetail.genres as List)
+                                    .map((genre) => Chip(
+                                      label: Text(genre.name, 
+                                        style:  TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w300, 
+                                          letterSpacing: 1,
+                                          height: 1.6,
+                                          color: const Color.fromARGB(255, 219, 219, 219),
+                                        ),
+                                      ),
+                                      backgroundColor: Colors.black.withOpacity(0.75),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4.0.r),
+                                      ),
+                                      padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 0.0.h),
+                                      side: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 0.0.sp
                                       ),
                                     ),
-                                    SizedBox(height: 8.h),
-                                    Wrap(
-                                      spacing: 8,
-                                      children: (movieCon.moviesDetail.genres as List)
-                                        .map((genre) => Chip(
-                                          label: Text(genre.name, style: const TextStyle(
-                                              fontWeight: FontWeight.w300, 
-                                              letterSpacing: 1,
-                                              height: 1.6,
-                                              color: Color.fromARGB(255, 219, 219, 219),
-                                            ),
-                                          ),
-                                          backgroundColor: Colors.black,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(4.0),
-                                          ),
-                                          padding: EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 6.0.h),
-                                          side: BorderSide(
-                                            color: const Color.fromARGB(255, 122, 122, 122),
-                                            width: 1.0.sp
-                                          ),
-                                        ),
-                                      ).toList(),
-                                    ),
-                                  ],
+                                  ).toList(),
                                 ),
-                              SizedBox(height: 16.h),
+                              if (movieCon.moviesDetail.genres != null && movieCon.moviesDetail.genres.isNotEmpty)                                                                
+                              SizedBox(height: 10.h),
                               // Overview
                               if (movieCon.moviesDetail.overview != null && movieCon.moviesDetail.overview!.isNotEmpty)
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Overview:",
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w300, 
-                                        letterSpacing: 1,
-                                        height: 1.6,
-                                        color: const Color.fromARGB(255, 219, 219, 219),
-                                      ),
-                                    ),
-                                    SizedBox(height: 8.h),
-                                    Text(
-                                      movieCon.moviesDetail.overview ?? 'No description available.',
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w300, 
-                                        letterSpacing: 1,
-                                        height: 1.6,
-                                        color: const Color.fromARGB(255, 219, 219, 219),
-                                      ),
-                                    ),
-                                  ],
+                                Text(
+                                  movieCon.moviesDetail.overview ?? 'No description available.',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w300, 
+                                    letterSpacing: 1,
+                                    height: 1.6,
+                                    color: const Color.fromARGB(255, 219, 219, 219),
+                                  ),
                                 ),
-                              SizedBox(height: 26.h),
+                              SizedBox(height: 14.0.h,),
+                              reccomendedList(),
+                              SizedBox(height: 30.0.h,)
                             ],
                           ),
                         ),
@@ -369,6 +366,90 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           ],
         )
       ),
+    );
+  }
+  
+  reccomendedList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "You May Also Like",
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w300, 
+            letterSpacing: 1,
+            height: 1.6,
+            color: const Color.fromARGB(255, 219, 219, 219),
+          ),
+        ),
+        SizedBox(height: 14.0.h,),
+        SizedBox(
+          height: 176.h,
+          child: Obx(() => movieCon.isRecLoading.isTrue
+            ? ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: 10,
+              itemBuilder: (context,index){
+                return Padding(
+                  padding: EdgeInsets.only(right: 8.sp),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child:  Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.withOpacity(0.5),
+                          width: 0.5,
+                        ),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.grey.withOpacity(.3),
+                            Colors.transparent,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      height: 176.h,
+                      width: 128.w,
+                    ),
+                  ),
+                );
+              }
+            )
+            : ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: movieCon.recMoviesList.length > 10 ? 10 : movieCon.recMoviesList.length,
+              itemBuilder: (context,index){
+                final recommendedList = movieCon.recMoviesList.reversed.toList();
+                return Container(
+                  height: 176.h,
+                  width: 128.w,
+                  padding: EdgeInsets.only(right: 10.w),
+                  child: MediaCardTile(
+                    title: recommendedList[index]["title"] ?? "",
+                    year: recommendedList[index]["release_date"] != null && recommendedList[index]["release_date"] != ""
+                          ? recommendedList[index]["release_date"].split("-")[0]
+                          : "",
+                    rating: recommendedList[index]["vote_average"] != null && recommendedList[index]["vote_average"].toString().isNotEmpty
+                            ? double.parse(
+                                double.tryParse(recommendedList[index]["vote_average"].toString())?.toStringAsFixed(1) ?? "0.0")
+                            : 0.0,
+                    image: recommendedList[index]["poster_path"] ?? "",
+                    onTap: () async{
+                      await movieCon.getMoviesDetail(recommendedList[index]["id"]);
+                      await movieCon.getRecomendedMovies(recommendedList[index]["id"]);
+                    },
+                  ),
+                );
+              }
+            )
+          ),
+        ),
+      ],
     );
   }
 }

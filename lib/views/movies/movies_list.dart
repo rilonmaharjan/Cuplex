@@ -384,16 +384,16 @@ class _MoviesListPageState extends State<MoviesListPage> {
          SizedBox(height: 8.h,),
          Row(
            children: [
-             Text(
-              "Trending Movies",
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w300, 
-                letterSpacing: 1,
-                height: 1.6,
-                color: const Color.fromARGB(255, 219, 219, 219),
+              Text(
+                "Trending Movies",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w300, 
+                  letterSpacing: 1,
+                  height: 1.6,
+                  color: const Color.fromARGB(255, 219, 219, 219),
+                ),
               ),
-            ),
             const Spacer(),
             Obx(() =>
               Visibility(
@@ -668,7 +668,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
                 );
               }
             )
-          :  GridView.builder(
+          : GridView.builder(
             physics:  const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
