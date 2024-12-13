@@ -425,7 +425,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             : ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: movieCon.recMoviesList.length > 10 ? 10 : movieCon.recMoviesList.length,
+              itemCount: movieCon.recMoviesList.length,
               itemBuilder: (context,index){
                 final recommendedList = movieCon.recMoviesList.reversed.toList();
                 return Container(
