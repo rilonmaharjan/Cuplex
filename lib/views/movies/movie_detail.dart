@@ -158,6 +158,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                     onRefresh: (){
                       return Future.delayed(const Duration(seconds: 1),()async{
                         await movieCon.getMoviesDetail(widget.id);
+                        setState(() {
+                          isPlaying = false;
+                        });
                       });
                     },
                     child: Container(

@@ -232,6 +232,12 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                     onRefresh: (){
                       return Future.delayed(const Duration(seconds: 1),()async{
                         await seriesCon.getSeriesDetail(widget.id);
+                        setState((){
+                          selectedSeason =  null;
+                          selectedEpisode = null;
+                          seasonPoster = null;
+                          synopsis = "";
+                        });
                       });
                     },
                     child: Container(
