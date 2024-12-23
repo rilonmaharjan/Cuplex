@@ -3,7 +3,6 @@ import 'package:cuplex/controller/series_controller.dart';
 import 'package:cuplex/views/movies/movies_list.dart';
 import 'package:cuplex/views/series/series_list.dart';
 import 'package:cuplex/widget/custom_appbar.dart';
-import 'package:cuplex/widget/fade_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -55,64 +54,58 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
             child: Column(
               children: [
                 Obx(() => 
-                  Visibility(
-                    visible: movieCon.isScrollUp.isFalse,
-                    child: FadeInUp(
-                      duration: const Duration(milliseconds: 500),
-                      from: -30.sp,
-                      child: Container(
-                        height: 40.0.h,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.grey.withOpacity(0.2),
-                              width: 0.3.w
-                            )
-                          )
-                        ),
-                        child: TabBar(
-                          controller: _tabController,
-                          indicatorColor: const Color(0xffecc877),
-                          labelColor: Colors.white,
-                          indicatorWeight: 3,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          indicatorPadding: EdgeInsets.symmetric(horizontal: 40.sp),
-                          labelStyle: const TextStyle(fontSize: 16),
-                          unselectedLabelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
-                          isScrollable: false,
-                          physics: const NeverScrollableScrollPhysics(),
-                          tabs: [
-                            Tab(
-                              child: Text(
-                                'Movies',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w300, 
-                                  letterSpacing: 1,
-                                  height: 1.6,
-                                ),
-                              ),
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
+                    height: movieCon.isScrollUp.isFalse ? 40.0.h : 0.0.h,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.grey.withOpacity(0.2),
+                          width: 0.3.w
+                        )
+                      )
+                    ),
+                    child: TabBar(
+                      controller: _tabController,
+                      indicatorColor: const Color(0xffecc877),
+                      labelColor: Colors.white,
+                      indicatorWeight: 3,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      indicatorPadding: EdgeInsets.symmetric(horizontal: 40.sp),
+                      labelStyle: const TextStyle(fontSize: 16),
+                      unselectedLabelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+                      isScrollable: false,
+                      physics: const NeverScrollableScrollPhysics(),
+                      tabs: [
+                        Tab(
+                          child: Text(
+                            'Movies',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w300, 
+                              letterSpacing: 1,
+                              height: 1.6,
                             ),
-                            Tab(
-                              child: Text(
-                                'Series', 
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w300, 
-                                  letterSpacing: 1,
-                                  height: 1.6,
-                                ),
-                              ),
-                            ),
-                          ],
-                          onTap: (val){
-                            setState(() {
-                              tabIndex = val;
-                            });
-                          },
+                          ),
                         ),
-                      ),
+                        Tab(
+                          child: Text(
+                            'Series', 
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w300, 
+                              letterSpacing: 1,
+                              height: 1.6,
+                            ),
+                          ),
+                        ),
+                      ],
+                      onTap: (val){
+                        setState(() {
+                          tabIndex = val;
+                        });
+                      },
                     ),
                   )
                 ),
