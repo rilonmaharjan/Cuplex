@@ -79,7 +79,7 @@ class MovieDetailModel {
             : [],
         originalLanguage: json["original_language"] ?? "",
         originalTitle: json["original_title"] ?? "",
-        overview: json["overview"] ?? "No overview available.",
+        overview: json["overview"] ?? "",
         popularity: (json["popularity"] ?? 0).toDouble(),
         posterPath: "$posterUrl${json["poster_path"]}",
         productionCompanies: json["production_companies"] != null
@@ -90,7 +90,7 @@ class MovieDetailModel {
             ? List<ProductionCountry>.from(json["production_countries"]
                 .map((x) => ProductionCountry.fromJson(x)))
             : [],
-        releaseDate: json["release_date"] ?? "",
+        releaseDate: json["release_date"],
         revenue: json["revenue"] ?? 0,
         runtime: json["runtime"] ?? 0,
         spokenLanguages: json["spoken_languages"] != null

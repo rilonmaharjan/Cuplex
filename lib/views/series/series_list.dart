@@ -111,47 +111,51 @@ class _SeriesListPageState extends State<SeriesListPage> {
             });
           });
         },
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          controller: paginationScrollController,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              carousel(),
-              SizedBox(height: 10.h,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    //trendinglist
-                    trendingSeriesList(),
-                    SizedBox(height: 16.h,),
-                    //topRatedseries
-                    topRatedSeriesList(),
-                    SizedBox(height: 16.h),
-                    //all series list
-                    allSeriesList(),
-                    //pagination
-                    Obx(() => 
-                      seriesCon.isPageLoading.isTrue
-                      ? Column(
-                          children: [
-                            SizedBox(
-                              height: 100.h,
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  color: Color(0xffecc877),
-                                )
+        child: FadeInUp(
+          duration: const Duration(milliseconds: 450),
+          from: 100.sp,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            controller: paginationScrollController,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                carousel(),
+                SizedBox(height: 10.h,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      //trendinglist
+                      trendingSeriesList(),
+                      SizedBox(height: 16.h,),
+                      //topRatedseries
+                      topRatedSeriesList(),
+                      SizedBox(height: 16.h),
+                      //all series list
+                      allSeriesList(),
+                      //pagination
+                      Obx(() => 
+                        seriesCon.isPageLoading.isTrue
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                height: 100.h,
+                                child: const Center(
+                                  child: CircularProgressIndicator(
+                                    color: Color(0xffecc877),
+                                  )
+                                ),
                               ),
-                            ),
-                          ],
-                        )
-                      : const SizedBox(),
-                    )
-                  ],
+                            ],
+                          )
+                        : const SizedBox(),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -263,56 +267,97 @@ class _SeriesListPageState extends State<SeriesListPage> {
                 ),
                 Positioned(
                   bottom: 78.h,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                       Text(
-                          seriesCon.trendingSeriesList[carouselIndex]["name"] ?? "",
-                          style: TextStyle(
-                            color: const Color.fromARGB(255, 219, 219, 219),
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w300, 
-                            letterSpacing: 1,
-                            height: 1.6,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: 12.h),
-                        RichText(
-                          text: TextSpan(
+                  child: FadeInUp(
+                    duration: const Duration(milliseconds: 450),
+                    from: 50.sp,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                         Text(
+                            seriesCon.trendingSeriesList[carouselIndex]["name"] ?? "",
                             style: TextStyle(
                               color: const Color.fromARGB(255, 219, 219, 219),
-                              fontSize: 13.sp,
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.w300, 
                               letterSpacing: 1,
                               height: 1.6,
                             ),
-                            children: [
-                              const TextSpan(text: "Rating  •  "),
-                              TextSpan(
-                                text: seriesCon.trendingSeriesList[carouselIndex]["vote_average"] != null &&
-                                        seriesCon.trendingSeriesList[carouselIndex]["vote_average"] != ""
-                                    ? double.parse(seriesCon.trendingSeriesList[carouselIndex]["vote_average"]
-                                            .toStringAsFixed(1))
-                                        .toString()
-                                    : "",
-                                style: const TextStyle(color: Color(0xffecc877)), // Yellow color for vote_average
-                              ),
-                              const TextSpan(text: "  •  "),
-                              TextSpan(
-                                text: seriesCon.trendingSeriesList[carouselIndex]["first_air_date"] != null &&
-                                        seriesCon.trendingSeriesList[carouselIndex]["first_air_date"] != ""
-                                    ? seriesCon.trendingSeriesList[carouselIndex]["first_air_date"].split("-")[0]
-                                    : "",
-                              ),
-                            ],
+                            textAlign: TextAlign.center,
                           ),
-                        ),
-                        SizedBox(height: 16.h),
-                        SizedBox(
-                          width: 280.w,
-                          child: Text(
-                            seriesCon.trendingSeriesList[carouselIndex]["overview"],
+                          SizedBox(height: 12.h),
+                          RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 219, 219, 219),
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                              ),
+                              children: [
+                                const TextSpan(text: "Rating  •  "),
+                                TextSpan(
+                                  text: seriesCon.trendingSeriesList[carouselIndex]["vote_average"] != null &&
+                                          seriesCon.trendingSeriesList[carouselIndex]["vote_average"] != ""
+                                      ? double.parse(seriesCon.trendingSeriesList[carouselIndex]["vote_average"]
+                                              .toStringAsFixed(1))
+                                          .toString()
+                                      : "",
+                                  style: const TextStyle(color: Color(0xffecc877)), // Yellow color for vote_average
+                                ),
+                                const TextSpan(text: "  •  "),
+                                TextSpan(
+                                  text: seriesCon.trendingSeriesList[carouselIndex]["first_air_date"] != null &&
+                                          seriesCon.trendingSeriesList[carouselIndex]["first_air_date"] != ""
+                                      ? seriesCon.trendingSeriesList[carouselIndex]["first_air_date"].split("-")[0]
+                                      : "",
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 16.h),
+                          SizedBox(
+                            width: 280.w,
+                            child: Text(
+                              seriesCon.trendingSeriesList[carouselIndex]["overview"],
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 219, 219, 219),
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          SizedBox(height: 10.h),
+                          ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => SeriesDetailPage(id: seriesCon.trendingSeriesList[carouselIndex]["id"],));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xffecc877).withOpacity(.9),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 55.w),
+                            ),
+                            child: Text(
+                              "WATCH",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w300, 
+                                letterSpacing: 1,
+                                height: 1.6,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 12.h),
+                          Text(
+                            "FREE | UNLIMITED | CUPLEX",
                             style: TextStyle(
                               color: const Color.fromARGB(255, 219, 219, 219),
                               fontSize: 12.sp,
@@ -320,46 +365,9 @@ class _SeriesListPageState extends State<SeriesListPage> {
                               letterSpacing: 1,
                               height: 1.6,
                             ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
                           ),
-                        ),
-                        SizedBox(height: 10.h),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.to(() => SeriesDetailPage(id: seriesCon.trendingSeriesList[carouselIndex]["id"],));
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xffecc877).withOpacity(.9),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            padding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 55.w),
-                          ),
-                          child: Text(
-                            "WATCH",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w300, 
-                              letterSpacing: 1,
-                              height: 1.6,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 12.h),
-                        Text(
-                          "FREE | UNLIMITED | CUPLEX",
-                          style: TextStyle(
-                            color: const Color.fromARGB(255, 219, 219, 219),
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w300, 
-                            letterSpacing: 1,
-                            height: 1.6,
-                          ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 )
               ],

@@ -109,7 +109,7 @@ class _SearchMoviePageState extends State<SearchMoviePage> {
                     crossAxisSpacing: 8,
                     childAspectRatio: 0.7,
                   ),
-                  itemCount: 2,
+                  itemCount: 12,
                   itemBuilder: (context, index) {
                     return Stack(
                       children: [
