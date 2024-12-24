@@ -427,30 +427,32 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                           if (seriesCon.seriesDetail.numberOfEpisodes != null) SizedBox(height: 8.h),
                                           
                                           // Rating
-                                          if (seriesCon.seriesDetail.voteAverage != null)
-                                            RichText(
-                                              text: TextSpan(
-                                                style: TextStyle(
-                                                  fontSize: 13.sp,
-                                                  fontWeight: FontWeight.w300,
-                                                  letterSpacing: 1,
-                                                  height: 1.6,
+                                            Visibility(
+                                              visible: seriesCon.seriesDetail.voteAverage.toStringAsFixed(1) != "0.0",
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  style: TextStyle(
+                                                    fontSize: 13.sp,
+                                                    fontWeight: FontWeight.w300,
+                                                    letterSpacing: 1,
+                                                    height: 1.6,
+                                                  ),
+                                                  children: [
+                                                    const TextSpan(
+                                                      text: "Rating:  ",
+                                                      style: TextStyle(
+                                                        color: Color.fromARGB(255, 219, 219, 219),
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text: seriesCon.seriesDetail.voteAverage.toStringAsFixed(1),
+                                                      style: TextStyle(
+                                                        color: const Color(0xffeec877),
+                                                        fontSize: 13.sp
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                children: [
-                                                  const TextSpan(
-                                                    text: "Rating:  ",
-                                                    style: TextStyle(
-                                                      color: Color.fromARGB(255, 219, 219, 219),
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: seriesCon.seriesDetail.voteAverage.toStringAsFixed(1),
-                                                    style: TextStyle(
-                                                      color: const Color(0xffeec877),
-                                                      fontSize: 13.sp
-                                                    ),
-                                                  ),
-                                                ],
                                               ),
                                             ),
                                         ],
