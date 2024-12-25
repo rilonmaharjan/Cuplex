@@ -594,10 +594,10 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                                         border: Border.all(
                                                           width: selectedEpisode == seriesCon.episodeList[index]["episode_number"]
                                                               ? 1.sp
-                                                              : 0.5.sp,
+                                                              : 1.sp,
                                                           color: selectedEpisode == seriesCon.episodeList[index]["episode_number"]
                                                               ? const Color(0xffecc877)
-                                                              : Colors.grey.withOpacity(0.3),
+                                                              : Colors.grey.withOpacity(0.2),
                                                         ),
                                                         borderRadius: BorderRadius.circular(4),
                                                       ),
@@ -612,7 +612,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
                                                         ),
                                                       ),
                                                     ),
-                                                   const Positioned.fill(
+                                                    const Positioned.fill(
                                                       child: Center(
                                                         child: Icon(
                                                           Icons.play_circle_outline,

@@ -1,3 +1,4 @@
+import 'package:cuplex/constant/styles.dart';
 import 'package:cuplex/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,10 +7,15 @@ import 'package:get/get.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown
-  ]);
+
+  // Optional: Lock orientation for mobile platforms
+  if (GetPlatform.isMobile) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
   runApp(const MyApp());
 }
 
@@ -19,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(375, 813),
+      designSize: const Size(375, 813), // Adjust designSize based on your app's design
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {
@@ -27,18 +33,11 @@ class MyApp extends StatelessWidget {
           title: 'Cuplex',
           debugShowCheckedModeBanner: false,
           defaultTransition: Transition.rightToLeft,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffecc877)),
-            useMaterial3: true,
-            textSelectionTheme: TextSelectionThemeData(
-              cursorColor: const Color.fromARGB(255, 110, 108, 110),
-              selectionColor: const Color(0xffecc877).withOpacity(.7),
-              selectionHandleColor: const Color.fromARGB(255, 228, 191, 106), 
-            ),
-          ),
+          theme: buildAppTheme(),
           home: const SplashScreen(),
         );
-      }
+      },
     );
   }
+
 }
